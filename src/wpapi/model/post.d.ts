@@ -73,7 +73,7 @@ export interface Post {
     /**
      * The ID of the featured media for the object.
      */
-    featuredMedia?: number;
+    featured_media?: number;
     /**
      * Whether or not comments are open on the object.
      */

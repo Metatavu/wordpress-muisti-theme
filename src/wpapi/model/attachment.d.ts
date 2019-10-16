@@ -105,7 +105,7 @@ export interface Attachment {
     /**
      * URL to the original attachment file.
      */
-    sourceUrl?: string;
+    source_url?: string;
 }
 export interface AttachmentOpt {
     /**
