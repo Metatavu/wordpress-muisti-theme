@@ -3,6 +3,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import WelcomePage from "./WelcomePage";
 import Api from "../wpapi";
 import "../styles/styles.scss";
+import { MuiThemeProvider } from "material-ui/styles";
 
 Api.configure("http://localhost:1234/wp-json/");
 
@@ -29,9 +30,11 @@ class App extends React.Component<Props, State> {
   public render() {
     return (
       <BrowserRouter>
+        <MuiThemeProvider>
           <div className="App">
             <Route exact path="/" component={WelcomePage} />
           </div>
+        </MuiThemeProvider>
       </BrowserRouter>
     );
   }

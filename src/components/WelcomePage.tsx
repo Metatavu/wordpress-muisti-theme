@@ -2,7 +2,7 @@ import * as React from "react";
 import Api from "../wpapi";
 import { Post } from "../wpapi";
 import { Attachment } from "../wpapi/model/attachment";
-import { Card } from "material-ui";
+import { Typography } from "@material-ui/core";
 
 /**
  * Interface representing component properties
@@ -93,22 +93,30 @@ class WelcomePage extends React.Component<Props, State> {
    */
   private renderPosts = () => {
     return (
-      <div>
-        {
-          this.state.posts.map((post) => {
-            const featuredMedia = post.featured_media ? this.state.featuredMedias[post.featured_media] : null;
-            const featuredMediaUrl = featuredMedia ? featuredMedia.source_url : null;
-            return (
-              <Card key={ post.id }>
-                <h1> { post.title ? post.title.rendered : "" } </h1>
-                {
-                  this.renderImage(featuredMediaUrl)
-                }
-                <p dangerouslySetInnerHTML={ {__html: post.content ? post.content.rendered || "" : "" }} />
-              </Card>
-            );
-          })
-        }
+      <div className="latest-news">
+        <Typography variant="h2">Ajankohtaista</Typography>
+        <div className="latest-news-container">
+          {
+            this.state.posts.map((post) => {
+              const featuredMedia = post.featured_media ? this.state.featuredMedias[post.featured_media] : null;
+              const featuredMediaUrl = featuredMedia ? featuredMedia.source_url : null;
+              return (
+                <div className="latest-news-item" key={ post.id }>
+                  <div className="latest-news-img-container">
+                    {
+                      this.renderImage(featuredMediaUrl)
+                    }
+                  </div>
+                  {
+                    this.renderTags()
+                  }
+                  <Typography variant="h4"> { post.title ? post.title.rendered : "" } </Typography>
+                  {/* <p dangerouslySetInnerHTML={ {__html: post.content ? post.content.rendered || "" : "" }} /> */}
+                </div>
+              );
+            })
+          }
+        </div>
       </div>
     );
   }
@@ -125,6 +133,14 @@ class WelcomePage extends React.Component<Props, State> {
     return (
       <img src={ url }></img>
     );
+  }
+
+  /**
+   * Renders the tag items
+   */
+  private renderTags() {
+    /** TODO tee ne tagit */
+    return "tagi";
   }
 }
 

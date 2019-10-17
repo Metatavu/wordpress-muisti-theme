@@ -5,6 +5,11 @@
     "max-line-length": {
       "options": [160]
     },
+    "semicolon": [
+      true,
+      "always",
+      "ignore-interfaces"
+    ],
     "import-sources-order": "any",
     "ordered-imports": false,
     "object-literal-sort-keys": false,
@@ -12,7 +17,8 @@
     "interface-name":false,
     "object-literal-shorthand": false,
     "eofline": false,
-    "no-empty-interface": false
+    "no-empty-interface": false,
+    "prefer-for-of": false
   },
   "linterOptions": {
     "exclude": [

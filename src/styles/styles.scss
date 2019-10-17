@@ -1,0 +1,36 @@
+@import "__theme.scss";
+
+body {
+    margin: 0;
+}
+
+.latest-news {
+    align-items: center;
+    background-color: $latest-news-bg-color;
+    display: flex;
+    flex-direction: column;
+    padding: 150px 50px 50px;
+}
+
+.latest-news-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-top: 100px;
+
+    @media screen and (max-width: 600px) {
+        flex-direction: column; 
+    }
+}
+
+.latest-news-item {
+    cursor: pointer;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    max-width: 480px;
+    margin: 0 55px;
+    img {
+        width: 100%;
+    }
+}
