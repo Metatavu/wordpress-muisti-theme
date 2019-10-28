@@ -1,9 +1,7 @@
 import * as React from "react";
 import Api from "muisti-wordpress-client";
 import { Post, Attachment } from "muisti-wordpress-client";
-import BasicLayout from "./BasicLayout";
-import CurrentNews from "./CurrentNews";
-import HeroBanner from "./HeroBanner";
+import { Typography } from "@material-ui/core";
 
 /**
  * Interface representing component properties
@@ -21,9 +19,9 @@ interface State {
 }
 
 /**
- * WelcomePage component
+ * CurrentNews component
  */
-class WelcomePage extends React.Component<Props, State> {
+class CurrentNews extends React.Component<Props, State> {
 
   /**
    * Constructor
@@ -83,12 +81,55 @@ class WelcomePage extends React.Component<Props, State> {
    */
   public render() {
     return (
-      <BasicLayout>
-        <HeroBanner />
-        <CurrentNews />
-      </BasicLayout>
+      <div className="latest-news">
+        <Typography variant="h2">Ajankohtaista</Typography>
+        <div className="latest-news-container">
+          {
+            this.state.posts.map((post) => {
+              const featuredMedia = post.featured_media ? this.state.featuredMedias[post.featured_media] : null;
+              const featuredMediaUrl = featuredMedia ? featuredMedia.source_url : null;
+              return (
+                <div className="latest-news-item" key={ post.id }>
+                  <div className="latest-news-img-container">
+                    {
+                      this.renderImage(featuredMediaUrl)
+                    }
+                  </div>
+                  {
+                    this.renderTags()
+                  }
+                  <Typography variant="h4"> { post.title ? post.title.rendered : "" } </Typography>
+                  {/* <p dangerouslySetInnerHTML={ {__html: post.content ? post.content.rendered || "" : "" }} /> */}
+                </div>
+              );
+            })
+          }
+        </div>
+      </div>
     );
+  }
+
+  /**
+   * Renders post image
+   * @param url
+   */
+  private renderImage(url?: string | null) {
+    if (!url) {
+      return null;
+    }
+
+    return (
+      <img src={ url }></img>
+    );
+  }
+
+  /**
+   * Renders the tag items
+   */
+  private renderTags() {
+    /** TODO tee ne tagit */
+    return "tagi";
   }
 }
 
-export default WelcomePage;
+export default CurrentNews;
