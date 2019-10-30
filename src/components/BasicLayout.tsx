@@ -1,10 +1,10 @@
 import * as React from "react";
 import classNames from "classnames";
 import { AppBar, WithStyles, createStyles, Theme, withStyles, Button, IconButton, Link, Hidden } from "@material-ui/core";
-import Api, { MenuLocationData, MenuItemData } from "muisti-wordpress-client";
 import logo from "../resources/svg/logo.svg";
 import ArrowIcon from "@material-ui/icons/ArrowForwardRounded";
 import SearchIcon from "@material-ui/icons/SearchRounded";
+import { MenuLocationData, DefaultApi, MenuItemData } from "src/generated/client/src";
 
 /**
  * Interface representing component properties
@@ -113,9 +113,9 @@ class BasicLayout extends React.Component<Props, State> {
       loading: true,
     });
 
-    const service = Api.getDefaultService("TOKEN");
+    const api = new DefaultApi();
 
-    const mainMenu = await service.getMenusV1LocationsById({ id: "main" });
+    const mainMenu = await api.getMenusV1LocationsById({ id: "main" });
 
     this.setState({
       loading: false,

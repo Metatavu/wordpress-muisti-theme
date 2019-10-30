@@ -1,8 +1,7 @@
 import * as React from "react";
-import Api from "muisti-wordpress-client";
-import { Post, Attachment } from "muisti-wordpress-client";
 import { Typography, WithStyles, createStyles, Theme, withStyles, Button } from "@material-ui/core";
 import ArrowIcon from "@material-ui/icons/ArrowForwardRounded";
+import { Post, Attachment, DefaultApi } from "src/generated/client/src";
 
 /**
  * Interface representing component properties
@@ -83,10 +82,9 @@ class HeroBanner extends React.Component<Props, State> {
       loading: true
     });
 
-    const service = Api.getDefaultService("TOKEN");
+    const api = new DefaultApi();
+    const posts = await api.getWpV2Posts({});
 
-    const posts = await service.getWpV2Posts();
-    console.log(posts);
     const featureMediaIds: number[] = posts
       .filter((post) => {
         return post.featured_media;
@@ -97,7 +95,7 @@ class HeroBanner extends React.Component<Props, State> {
       .reduce((unique: any, item: any) => unique.includes(item) ? unique : [...unique, item], []);
 
     const featureMedias = await Promise.all(featureMediaIds.map((featureMediaId) => {
-      return service.getWpV2MediaById({ id: featureMediaId.toString() });
+      return api.getWpV2MediaById({ id: featureMediaId.toString() });
     }));
 
     const featuredMediaMap: { [ key: number ]: Attachment } = { };

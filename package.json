@@ -8,17 +8,19 @@
     "@material-ui/icons": "^4.5.1",
     "classnames": "^2.2.6",
     "material-ui": "^0.20.2",
-    "muisti-wordpress-client": "1.0.6",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-router-dom": "^5.1.2",
     "urijs": "^1.19.1"
   },
-  "scripts": {},
+  "scripts": {
+    "build-client": "./node_modules/@openapitools/openapi-generator-cli/bin/openapi-generator generate -i swagger.yaml -o ./src/generated/client -c generator-config.json -g typescript-fetch"
+  },
   "devDependencies": {
     "@babel/core": "^7.6.4",
     "@babel/preset-env": "^7.6.3",
     "@babel/preset-react": "^7.6.3",
+    "@openapitools/openapi-generator-cli": "^1.0.1-4.1.3",
     "@types/classnames": "^2.2.9",
     "@types/material-ui": "^0.21.7",
     "@types/node": "^12.11.1",

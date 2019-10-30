@@ -1,6 +1,6 @@
 import * as React from "react";
-import Api, { MenuLocationData, MenuItemData } from "muisti-wordpress-client";
 import { Link, WithStyles, createStyles, withStyles, Theme } from "@material-ui/core";
+import { MenuLocationData, DefaultApi, MenuItemData } from "src/generated/client/src";
 
 /**
  * Interface representing component properties
@@ -62,9 +62,9 @@ class SiteMenu extends React.Component<Props, State> {
       loading: true
     });
 
-    const service = Api.getDefaultService("TOKEN");
+    const api = new DefaultApi();
 
-    const menu = await service.getMenusV1LocationsById({ id: "site" });
+    const menu = await api.getMenusV1LocationsById({ id: "site" });
 
     this.setState({
       menu: menu,
