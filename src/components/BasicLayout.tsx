@@ -4,7 +4,8 @@ import { AppBar, WithStyles, createStyles, Theme, withStyles, Button, IconButton
 import logo from "../resources/svg/logo.svg";
 import ArrowIcon from "@material-ui/icons/ArrowForwardRounded";
 import SearchIcon from "@material-ui/icons/SearchRounded";
-import { MenuLocationData, DefaultApi, MenuItemData } from "src/generated/client/src";
+import { MenuLocationData, MenuItemData } from "../generated/client/src";
+import ApiUtils from "../utils/ApiUtils";
 
 /**
  * Interface representing component properties
@@ -113,7 +114,7 @@ class BasicLayout extends React.Component<Props, State> {
       loading: true,
     });
 
-    const api = new DefaultApi();
+    const api = ApiUtils.getApi();
 
     const mainMenu = await api.getMenusV1LocationsById({ id: "main" });
 

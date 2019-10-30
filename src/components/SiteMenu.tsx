@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link, WithStyles, createStyles, withStyles, Theme } from "@material-ui/core";
-import { MenuLocationData, DefaultApi, MenuItemData } from "src/generated/client/src";
+import { MenuLocationData, MenuItemData } from "../generated/client/src";
+import ApiUtils from "../utils/ApiUtils";
 
 /**
  * Interface representing component properties
@@ -62,7 +63,7 @@ class SiteMenu extends React.Component<Props, State> {
       loading: true
     });
 
-    const api = new DefaultApi();
+    const api = ApiUtils.getApi();
 
     const menu = await api.getMenusV1LocationsById({ id: "site" });
 

@@ -3,7 +3,8 @@ import BasicLayout from "./BasicLayout";
 import CurrentNews from "./CurrentNews";
 import HeroBanner from "./HeroBanner";
 import SiteMenu from "./SiteMenu";
-import { Post, Attachment, DefaultApi } from "src/generated/client/src";
+import { Post, Attachment } from "../generated/client/src";
+import ApiUtils from "../utils/ApiUtils";
 
 /**
  * Interface representing component properties
@@ -47,7 +48,7 @@ class WelcomePage extends React.Component<Props, State> {
       loading: true
     });
 
-    const api = new DefaultApi();
+    const api = ApiUtils.getApi();
 
     const posts = await api.getWpV2Posts({});
 
