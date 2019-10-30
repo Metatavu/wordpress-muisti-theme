@@ -86,7 +86,7 @@ class HeroBanner extends React.Component<Props, State> {
     const service = Api.getDefaultService("TOKEN");
 
     const posts = await service.getWpV2Posts();
-
+    console.log(posts);
     const featureMediaIds: number[] = posts
       .filter((post) => {
         return post.featured_media;
@@ -97,7 +97,7 @@ class HeroBanner extends React.Component<Props, State> {
       .reduce((unique: any, item: any) => unique.includes(item) ? unique : [...unique, item], []);
 
     const featureMedias = await Promise.all(featureMediaIds.map((featureMediaId) => {
-      return service.getWpV2MediaById(featureMediaId.toString());
+      return service.getWpV2MediaById({ id: featureMediaId.toString() });
     }));
 
     const featuredMediaMap: { [ key: number ]: Attachment } = { };

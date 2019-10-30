@@ -1,6 +1,7 @@
 import * as React from "react";
+import classNames from "classnames";
 import { AppBar, WithStyles, createStyles, Theme, withStyles, Button, IconButton, Link, Hidden } from "@material-ui/core";
-import Api, { MenuLocationData, MenuDataItems } from "muisti-wordpress-client";
+import Api, { MenuLocationData, MenuItemData } from "muisti-wordpress-client";
 import logo from "../resources/svg/logo.svg";
 import ArrowIcon from "@material-ui/icons/ArrowForwardRounded";
 import SearchIcon from "@material-ui/icons/SearchRounded";
@@ -18,9 +19,8 @@ interface Props extends WithStyles<typeof styles> {
 interface State {
   loading: boolean
   mainMenu?: MenuLocationData
+  scrollPosition: number
 }
-
-const headerHeight = "130";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -33,10 +33,15 @@ const styles = (theme: Theme) =>
       flexDirection: "row",
       alignItems: "center",
       justifyContent: "space-between",
-      height: headerHeight,
+      height: 130,
       backgroundColor: "transparent",
       padding: "0 80px",
       borderBottom: "1px solid rgba(255, 255, 255, 0.2)",
+      transition: "height 0.3s ease-out, background-color 0.3s ease-out"
+    },
+    smallAppBar: {
+      height: 60,
+      backgroundColor: "rgba(45, 45, 45, 0.9)"
     },
     headerSection: {
       display: "flex",
@@ -44,7 +49,11 @@ const styles = (theme: Theme) =>
       alignItems: "center",
     },
     logo: {
-      height: 80
+      height: 80,
+      transition: "height 0.3s ease-out"
+    },
+    smallLogo: {
+      height: 40
     },
     nav: {
       display: "flex",
@@ -93,23 +102,29 @@ class BasicLayout extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      loading: false
+      loading: false,
+      scrollPosition: 0
     };
   }
 
   public componentDidMount = async () => {
+    window.addEventListener("scroll", this.handleScroll);
     this.setState({
-      loading: true
+      loading: true,
     });
 
     const service = Api.getDefaultService("TOKEN");
 
-    const mainMenu = await service.getMenusV1LocationsById("main");
+    const mainMenu = await service.getMenusV1LocationsById({ id: "main" });
 
     this.setState({
       loading: false,
-      mainMenu: mainMenu
+      mainMenu: mainMenu,
     });
+  }
+
+  public componentWillUnmount() {
+    window.removeEventListener("scroll", this.handleScroll);
   }
 
   /**
@@ -117,17 +132,24 @@ class BasicLayout extends React.Component<Props, State> {
    */
   public render() {
     const { classes } = this.props;
+    let appBarClasses = classNames( classes.appBar );
+    let logoClasses = classNames( classes.logo );
+    if (this.state.scrollPosition > 170) {
+      appBarClasses = classNames( classes.appBar, classes.smallAppBar );
+      logoClasses = classNames( classes.logo, classes.smallLogo );
+    }
+
     return (
-      <div className={classes.root}>
-        <AppBar elevation={0} className={classes.appBar}>
-          <div className={classes.headerSection}>
-            <img className={classes.logo} src={logo}></img>
+      <div className={ classes.root }>
+        <AppBar elevation={0} className={ appBarClasses }>
+          <div className={ classes.headerSection }>
+            <img className={ logoClasses } src={ logo }></img>
             <Hidden smDown implementation="css">
               { this.renderMenu() }
             </Hidden>
           </div>
           <Hidden smDown implementation="css">
-            <div className={classes.headerSection}>
+            <div className={ classes.headerSection }>
               { this.renderDonateButton() }
               { this.renderSearch() }
             </div>
@@ -161,7 +183,7 @@ class BasicLayout extends React.Component<Props, State> {
   /**
    * Render menu item method
    */
-  private renderMenuItem = (item: MenuDataItems) => {
+  private renderMenuItem = (item: MenuItemData) => {
     const { classes } = this.props;
     return (
       <Link key={ item.db_id } href={ item.url } className={ classes.navLink }>{ item.title }</Link>
@@ -187,6 +209,13 @@ class BasicLayout extends React.Component<Props, State> {
         <SearchIcon color="primary" />
       </IconButton>
     );
+  }
+
+  private handleScroll = () => {
+    const currentScrollPos = window.pageYOffset;
+    this.setState({
+      scrollPosition: currentScrollPos
+    });
   }
 }
 

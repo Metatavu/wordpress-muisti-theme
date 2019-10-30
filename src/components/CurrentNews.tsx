@@ -59,7 +59,7 @@ class CurrentNews extends React.Component<Props, State> {
       .reduce((unique: any, item: any) => unique.includes(item) ? unique : [...unique, item], []);
 
     const featureMedias = await Promise.all(featureMediaIds.map((featureMediaId) => {
-      return service.getWpV2MediaById(featureMediaId.toString());
+      return service.getWpV2MediaById({ id: featureMediaId.toString() });
     }));
 
     const featuredMediaMap: { [ key: number ]: Attachment } = { };
