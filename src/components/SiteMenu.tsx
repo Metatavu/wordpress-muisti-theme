@@ -1,12 +1,18 @@
 import * as React from "react";
-import { Link, WithStyles, createStyles, withStyles, Theme } from "@material-ui/core";
+import { Link, WithStyles, withStyles, Container, Fade, IconButton } from "@material-ui/core";
 import { MenuLocationData, MenuItemData } from "../generated/client/src";
 import ApiUtils from "../utils/ApiUtils";
+import CloseIcon from "@material-ui/icons/CloseSharp";
+import classNames from "classnames";
+import styles from "../styles/dialogue-styles";
 
 /**
  * Interface representing component properties
  */
 interface Props extends WithStyles<typeof styles> {
+  tinyHeader: boolean
+  visible: boolean
+  onClose(): void
 }
 
 /**
@@ -16,27 +22,6 @@ interface State {
   menu?: MenuLocationData
   loading: boolean
 }
-
-const styles = (theme: Theme) =>
-  createStyles({
-    root: {
-      display: "flex",
-      flex: 1,
-      position: "fixed",
-      height: "100vh",
-      backgroundColor: "#2d2d2d"
-    },
-    menuGroup: {
-      display: "flex",
-      flexDirection: "column"
-    },
-    link: {
-      fontSize: theme.typography.h2.fontSize
-    },
-    subLink: {
-      fontSize: theme.typography.subtitle1.fontSize
-    }
-  });
 
 /**
  * SiteMenu component
@@ -82,43 +67,120 @@ class SiteMenu extends React.Component<Props, State> {
       return null;
     }
 
+    /**
+     * Split into two arrays to make the menu
+     *
+     * Lists with menu items with and without children
+     */
+    const itemsWithChildren: MenuItemData[] = [];
+    const itemsWithoutChildren: MenuItemData[] = [];
+
+    this.state.menu.items.forEach((item) => {
+      if (item.child_items && item.child_items.length > 0) {
+        itemsWithChildren.push(item);
+      } else {
+        itemsWithoutChildren.push(item);
+      }
+    });
+
+    let siteMenuRootClasses = classNames( classes.root );
+
+    if (this.props.tinyHeader) {
+      siteMenuRootClasses = classNames( classes.root, classes.tinyHeader );
+    }
+
     return (
-      <div className={ classes.root }>
-        {
-          this.state.menu.items.map((item) => {
-            return this.renderMenuItem(item);
-          })
-        }
-        <pre style={{ backgroundColor: "#fff" }}>{ this.state.menu ? JSON.stringify( this.state.menu, null, 2 ) : "" };</pre>
+      <Fade in={ this.props.visible }>
+        <Container maxWidth={false} className={ siteMenuRootClasses }>
+          <Container maxWidth="xl" className={ classes.controlContainer }>
+            <IconButton
+              className={ classes.close }
+              color="primary"
+              onClick={ () => this.props.onClose() }
+            >
+              <CloseIcon className={ classes.closeIcon } />
+            </IconButton>
+          </Container>
+          <div className={ classes.menuContent }>
+            {
+              itemsWithChildren.map((item) => {
+                return this.renderMenuItem(item);
+              })
+            }
+            {
+              this.renderMenuItemsGroupWithoutChildren(itemsWithoutChildren)
+            }
+          </div>
+        </Container>
+      </Fade>
+    );
+  }
+
+  /**
+   * Menu group without submenu items render method
+   */
+  private renderMenuItemsGroupWithoutChildren = (items: MenuItemData[]) => {
+    const { classes } = this.props;
+    return (
+      <div className={ classes.menuGroup }>
+        {items.map((item) =>
+          <Link
+            className={ classes.link }
+            variant="h3"
+            key={item.db_id}
+            href={ item.url }
+          >
+            {
+              item.title
+            }
+          </Link>)}
       </div>
     );
   }
 
+  /**
+   * Menu item render method
+   */
   private renderMenuItem = (item: MenuItemData) => {
     const { classes } = this.props;
+    if (!item) {
+      return null;
+    }
+
     return (
-      <div>
+      <div className={ classes.menuGroup } key={ item.db_id }>
         <Link
           className={ classes.link }
-          key={ item.db_id }
           href={ item.url }
+          variant="h3"
         >
           {
             item.title
           }
         </Link>
-        { this.renderMenuSubItems(item) }
+        {
+          (item.child_items || [] ).map((childItems) => {
+            return this.renderMenuSubItem(childItems);
+          })
+        }
       </div>
     );
   }
 
-  private renderMenuSubItems = (item: MenuItemData) => {
+  /**
+   * Menu sub item render method
+   */
+  private renderMenuSubItem = (item?: MenuItemData) => {
+    if (!item) {
+      return null;
+    }
     const { classes } = this.props;
     return (
       <Link
         className={ classes.subLink }
         key={ item.db_id }
         href={ item.url }
+        variant="subtitle1"
       >
         {
           item.title

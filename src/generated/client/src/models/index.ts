@@ -33,7 +33,6 @@ export * from './MenuData';
 export * from './MenuItemData';
 export * from './MenuLocation';
 export * from './MenuLocationData';
-export * from './MenuLocationDataItems';
 export * from './Page';
 export * from './PageRevision';
 export * from './Post';

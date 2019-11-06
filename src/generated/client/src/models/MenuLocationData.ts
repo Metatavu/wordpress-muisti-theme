@@ -13,10 +13,10 @@
 
 import { exists, mapValues } from '../runtime';
 import {
-    MenuLocationDataItems,
-    MenuLocationDataItemsFromJSON,
-    MenuLocationDataItemsFromJSONTyped,
-    MenuLocationDataItemsToJSON,
+    MenuItemData,
+    MenuItemDataFromJSON,
+    MenuItemDataFromJSONTyped,
+    MenuItemDataToJSON,
 } from './';
 
 /**
@@ -87,10 +87,10 @@ export interface MenuLocationData {
     filter?: string;
     /**
      * 
-     * @type {Array<MenuLocationDataItems>}
+     * @type {Array<MenuItemData>}
      * @memberof MenuLocationData
      */
-    items?: Array<MenuLocationDataItems>;
+    items?: Array<MenuItemData>;
 }
 
 export function MenuLocationDataFromJSON(json: any): MenuLocationData {
@@ -113,7 +113,7 @@ export function MenuLocationDataFromJSONTyped(json: any, ignoreDiscriminator: bo
         'parent': !exists(json, 'parent') ? undefined : json['parent'],
         'count': !exists(json, 'count') ? undefined : json['count'],
         'filter': !exists(json, 'filter') ? undefined : json['filter'],
-        'items': !exists(json, 'items') ? undefined : (json['items'] as Array<any>).map(MenuLocationDataItemsFromJSON),
+        'items': !exists(json, 'items') ? undefined : (json['items'] as Array<any>).map(MenuItemDataFromJSON),
     };
 }
 
@@ -136,7 +136,7 @@ export function MenuLocationDataToJSON(value?: MenuLocationData | null): any {
         'parent': value.parent,
         'count': value.count,
         'filter': value.filter,
-        'items': value.items == null ? undefined : (value.items as Array<any>).map(MenuLocationDataItemsToJSON),
+        'items': value.items == null ? undefined : (value.items as Array<any>).map(MenuItemDataToJSON),
     };
 }
 

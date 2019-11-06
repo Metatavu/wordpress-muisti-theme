@@ -1,11 +1,16 @@
 import * as React from "react";
 import classNames from "classnames";
-import { AppBar, WithStyles, createStyles, Theme, withStyles, Button, IconButton, Link, Hidden } from "@material-ui/core";
+import { AppBar, WithStyles, withStyles, Button, IconButton, Link, Hidden } from "@material-ui/core";
 import logo from "../resources/svg/logo.svg";
 import ArrowIcon from "@material-ui/icons/ArrowForwardRounded";
 import SearchIcon from "@material-ui/icons/SearchRounded";
+import HamburgerIcon from "@material-ui/icons/MenuSharp";
 import { MenuLocationData, MenuItemData } from "../generated/client/src";
 import ApiUtils from "../utils/ApiUtils";
+import SiteMenu from "./SiteMenu";
+import SiteSearch from "./SiteSearch";
+import styles from "../styles/basic-layout";
+import Footer from "./Footer";
 
 /**
  * Interface representing component properties
@@ -21,75 +26,9 @@ interface State {
   loading: boolean
   mainMenu?: MenuLocationData
   scrollPosition: number
+  siteMenuVisible: boolean
+  siteSearchVisible: boolean
 }
-
-const styles = (theme: Theme) =>
-  createStyles({
-    root: {
-      height: "100vh",
-      backgroundColor: "#2d2d2d"
-    },
-    appBar: {
-      display: "flex",
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "space-between",
-      height: 130,
-      backgroundColor: "transparent",
-      padding: "0 80px",
-      borderBottom: "1px solid rgba(255, 255, 255, 0.2)",
-      transition: "height 0.3s ease-out, background-color 0.3s ease-out"
-    },
-    smallAppBar: {
-      height: 60,
-      backgroundColor: "rgba(45, 45, 45, 0.9)"
-    },
-    headerSection: {
-      display: "flex",
-      flexDirection: "row",
-      alignItems: "center",
-    },
-    logo: {
-      height: 80,
-      transition: "height 0.3s ease-out"
-    },
-    smallLogo: {
-      height: 40
-    },
-    nav: {
-      display: "flex",
-      flexDirection: "row",
-      alignContent: "center"
-    },
-    navLink: {
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      width: 125,
-      height: 80,
-      textDecoration: "none",
-      color: "#fff"
-    },
-    donate: {
-      display: "flex",
-      justifyContent: "space-between",
-      width: 200,
-      borderRadius: 0,
-      boxShadow: "0 0 0 transparent",
-      color: "#fff",
-      textTransform: "initial",
-      backgroundColor: "#C24A49",
-      "&:hover": {
-        backgroundColor: "#b53e3d"
-      },
-      "&:active": {
-        backgroundColor: "#b53e3d",
-      },
-      "&:focus": {
-        boxShadow: "0 0 0 0.2rem rgba(255, 255 ,255 , 0.5)",
-      }
-    }
-  });
 
 /**
  * React component for basic application layout
@@ -104,7 +43,9 @@ class BasicLayout extends React.Component<Props, State> {
     super(props);
     this.state = {
       loading: false,
-      scrollPosition: 0
+      scrollPosition: 0,
+      siteMenuVisible: false,
+      siteSearchVisible: false
     };
   }
 
@@ -141,13 +82,26 @@ class BasicLayout extends React.Component<Props, State> {
     }
 
     return (
-      <div className={ classes.root }>
+      <div
+        className={ classes.root }
+        // disable scrolling when search and menu dialogs are open
+        style={this.state.siteMenuVisible || this.state.siteSearchVisible ? {overflow: "hidden"} : {overflow: "visible"}}
+      >
         <AppBar elevation={0} className={ appBarClasses }>
           <div className={ classes.headerSection }>
-            <img className={ logoClasses } src={ logo }></img>
+            <img className={ logoClasses } src={ logo } />
             <Hidden smDown implementation="css">
-              { this.renderMenu() }
+              <div className={ classes.topNavDesktop }>
+                { this.renderMenu() }
+              </div>
             </Hidden>
+            <IconButton
+              className={ classes.menuButton }
+              color="primary"
+              onClick={ this.showSiteMenu }
+            >
+              <HamburgerIcon fontSize="large" />
+            </IconButton>
           </div>
           <Hidden smDown implementation="css">
             <div className={ classes.headerSection }>
@@ -159,6 +113,17 @@ class BasicLayout extends React.Component<Props, State> {
         <div className="content">
           { this.props.children }
         </div>
+        <SiteMenu
+          tinyHeader={ this.state.scrollPosition > 170 }
+          onClose={ () => this.setState({ siteMenuVisible: false }) }
+          visible={ this.state.siteMenuVisible }
+        />
+        <SiteSearch
+          tinyHeader={ this.state.scrollPosition > 170 }
+          onClose={ () => this.setState({ siteSearchVisible: false }) }
+          visible={ this.state.siteSearchVisible }
+        />
+        <Footer logo={ logo }  />
       </div>
     );
   }
@@ -176,7 +141,10 @@ class BasicLayout extends React.Component<Props, State> {
 
     return (
       <div className={classes.nav}>
-        { mainMenu.items.map(this.renderMenuItem) }
+        {
+          mainMenu.items.map(this.renderMenuItem)
+        }
+        <Link variant="subtitle1" className={ classes.navLink } onClick={ this.showSiteMenu }>Lisää +</Link>
       </div>
     );
   }
@@ -187,10 +155,22 @@ class BasicLayout extends React.Component<Props, State> {
   private renderMenuItem = (item: MenuItemData) => {
     const { classes } = this.props;
     return (
-      <Link key={ item.db_id } href={ item.url } className={ classes.navLink }>{ item.title }</Link>
+      <Link
+        variant="subtitle1"
+        key={ item.db_id }
+        href={ item.url }
+        className={ classes.navLink }
+        >
+          {
+            item.title
+          }
+      </Link>
     );
   }
 
+  /**
+   * Render donate button method
+   */
   private renderDonateButton = () => {
     const { classes } = this.props;
     return (
@@ -204,19 +184,47 @@ class BasicLayout extends React.Component<Props, State> {
     );
   }
 
+  /**
+   * Render search button method
+   */
   private renderSearch = () => {
     return (
-      <IconButton>
+      <IconButton onClick={ this.showSiteSearch }>
         <SearchIcon color="primary" />
       </IconButton>
     );
   }
 
+  /**
+   * Update scrolling position method
+   */
   private handleScroll = () => {
     const currentScrollPos = window.pageYOffset;
     this.setState({
       scrollPosition: currentScrollPos
     });
+  }
+
+  /**
+   * Site menu visibility method
+   */
+  private showSiteMenu = () => {
+    return (
+      this.setState({
+        siteMenuVisible: true
+      })
+    );
+  }
+
+  /**
+   * Site search visibility method
+   */
+  private showSiteSearch = () => {
+    return (
+      this.setState({
+        siteSearchVisible: true
+      })
+    );
   }
 }
 

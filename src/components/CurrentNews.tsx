@@ -1,12 +1,14 @@
 import * as React from "react";
-import { Typography } from "@material-ui/core";
+import { Typography, WithStyles, withStyles } from "@material-ui/core";
 import { Post, Attachment } from "../generated/client/src";
 import ApiUtils from "../utils/ApiUtils";
+import styles from "../styles/current-news";
+import placeholderImg from "../resources/img/muisti-konsepti.png";
 
 /**
  * Interface representing component properties
  */
-interface Props {
+interface Props extends WithStyles<typeof styles> {
 }
 
 /**
@@ -47,7 +49,7 @@ class CurrentNews extends React.Component<Props, State> {
 
     const api = ApiUtils.getApi();
 
-    const posts = await api.getWpV2Posts({});
+    const posts = await api.getWpV2Posts({ per_page: 3, categories: ["4"] });
 
     const featureMediaIds: number[] = posts
       .filter((post) => {
@@ -80,25 +82,26 @@ class CurrentNews extends React.Component<Props, State> {
    * Component render method
    */
   public render() {
+    const { classes } = this.props;
     return (
-      <div className="latest-news">
-        <Typography variant="h2">Ajankohtaista</Typography>
-        <div className="latest-news-container">
+      <div className={ classes.root}>
+        <Typography variant="h2" className={ classes.latestNewsHeading }>Ajankohtaista</Typography>
+        <div className={ classes.latestNewsContainer }>
           {
             this.state.posts.map((post) => {
               const featuredMedia = post.featured_media ? this.state.featuredMedias[post.featured_media] : null;
               const featuredMediaUrl = featuredMedia ? featuredMedia.source_url : null;
               return (
-                <div className="latest-news-item" key={ post.id }>
-                  <div className="latest-news-img-container">
-                    {
-                      this.renderImage(featuredMediaUrl)
-                    }
+                <div className={ classes.latestNewsItem } key={ post.id }>
+                  <div
+                    className={ classes.latestNewsImgContainer }
+                    style={{ backgroundImage: `url('${( featuredMediaUrl != null ? featuredMediaUrl : placeholderImg )}')` }}
+                  >
                   </div>
                   {
                     this.renderTags()
                   }
-                  <Typography variant="h4"> { post.title ? post.title.rendered : "" } </Typography>
+                  <Typography variant="h4" className={ classes.title }> { post.title ? post.title.rendered : "" } </Typography>
                   {/* <p dangerouslySetInnerHTML={ {__html: post.content ? post.content.rendered || "" : "" }} /> */}
                 </div>
               );
@@ -110,26 +113,15 @@ class CurrentNews extends React.Component<Props, State> {
   }
 
   /**
-   * Renders post image
-   * @param url
-   */
-  private renderImage(url?: string | null) {
-    if (!url) {
-      return null;
-    }
-
-    return (
-      <img src={ url }></img>
-    );
-  }
-
-  /**
    * Renders the tag items
    */
   private renderTags() {
+    const { classes } = this.props;
     /** TODO tee ne tagit */
-    return "tagi";
+    return (
+      <Typography variant="subtitle1" color="secondary" className={ classes.tag } >Tagi</Typography>
+    );
   }
 }
 
-export default CurrentNews;
+export default withStyles(styles)(CurrentNews);

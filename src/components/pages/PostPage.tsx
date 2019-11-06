@@ -1,5 +1,5 @@
 import * as React from "react";
-import BasicLayout from "./BasicLayout";
+import BasicLayout from "../BasicLayout";
 // import Api from "muisti-wordpress-client";
 
 /**

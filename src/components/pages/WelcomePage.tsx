@@ -1,10 +1,11 @@
 import * as React from "react";
-import BasicLayout from "./BasicLayout";
-import CurrentNews from "./CurrentNews";
-import HeroBanner from "./HeroBanner";
-import SiteMenu from "./SiteMenu";
-import { Post, Attachment } from "../generated/client/src";
-import ApiUtils from "../utils/ApiUtils";
+import BasicLayout from "../BasicLayout";
+import CurrentNews from "../CurrentNews";
+import HeroBanner from "../HeroBanner";
+import { Post, Attachment } from "../../generated/client/src";
+import ApiUtils from "../../utils/ApiUtils";
+import LinkBar from "../LinkBar";
+import DonateBanner from "../DonateBanner";
 
 /**
  * Interface representing component properties
@@ -86,8 +87,9 @@ class WelcomePage extends React.Component<Props, State> {
     return (
       <BasicLayout>
         <HeroBanner />
+        <LinkBar />
+        <DonateBanner />
         <CurrentNews />
-        <SiteMenu />
       </BasicLayout>
     );
   }
