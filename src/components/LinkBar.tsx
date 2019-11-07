@@ -1,8 +1,10 @@
 import * as React from "react";
-import { WithStyles, withStyles, Hidden, Typography } from "@material-ui/core";
+import { WithStyles, withStyles, Hidden, Typography, Link } from "@material-ui/core";
 import styles from "../styles/link-bar";
 import SwipeableViews from "react-swipeable-views";
 import ArrowIcon from "@material-ui/icons/ArrowForwardSharp";
+import { MenuLocationData, MenuItemData } from "../generated/client/src";
+import ApiUtils from "../utils/ApiUtils";
 
 /**
  * Interface representing component properties
@@ -15,6 +17,7 @@ interface Props extends WithStyles<typeof styles> {
  * Interface representing component state
  */
 interface State {
+  menu?: MenuLocationData
   loading: boolean
 }
 
@@ -43,7 +46,12 @@ class LinkBar extends React.Component<Props, State> {
       loading: true
     });
 
+    const api = ApiUtils.getApi();
+
+    const menu = await api.getMenusV1LocationsById({ id: "quick" });
+
     this.setState({
+      menu: menu,
       loading: false
     });
   }
@@ -52,37 +60,45 @@ class LinkBar extends React.Component<Props, State> {
    * Component render method
    */
   public render() {
+    const menu = this.state.menu;
     const { classes } = this.props;
+
+    if (!menu || !menu.items) {
+      return null;
+    }
+
     return (
       <div>
         <Hidden mdUp implementation="css">
           <SwipeableViews>
-            { this.renderSlide() }
-            { this.renderSlide() }
-            { this.renderSlide() }
+            {
+              menu.items.map(this.renderLinkItem)
+            }
           </SwipeableViews>
         </Hidden>
         <Hidden smDown implementation="css">
           <div className={ classes.linkContainer }>
-            { this.renderSlide() }
-            { this.renderSlide() }
-            { this.renderSlide() }
+            {
+              menu.items.map(this.renderLinkItem)
+            }
           </div>
         </Hidden>
       </div>
     );
   }
 
-  private renderSlide = () => {
+  private renderLinkItem = (item: MenuItemData) => {
     const { classes } = this.props;
     return (
-      <div className={ classes.slide }>
-        <div className={ classes.slideContent }>
-          <div className={ classes.slideText }>
-            <Typography variant="subtitle2">Mikä muisti on?</Typography>
+      <div key={ item.db_id } className={ classes.slide }>
+        <Link className={ classes.link } href={ item.url }>
+          <div className={ classes.slideContent }>
+            <div className={ classes.slideText }>
+              <Typography variant="subtitle2">{ item.title }</Typography>
+            </div>
+            <ArrowIcon fontSize="large" />
           </div>
-          <ArrowIcon fontSize="large" />
-        </div>
+        </Link>
       </div>
     );
   }

@@ -12,6 +12,9 @@ export default createStyles({
     minHeight: 200,
     color: theme.palette.text.secondary,
   },
+  link: {
+    color: theme.palette.primary.dark,
+  },
   linkContainer: {
     display: "flex",
     flexDirection: "row"
@@ -19,7 +22,6 @@ export default createStyles({
   slideContent: {
     cursor: "pointer",
     display: "flex",
-    width: "60%",
     justifyContent: "space-between",
     height: 80,
     borderBottomWidth: 3,
