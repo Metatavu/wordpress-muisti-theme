@@ -56,9 +56,15 @@ class Footer extends React.Component<Props, State> {
     });
 
     const api = ApiUtils.getApi();
-    const posts = await api.getWpV2Posts({ per_page: 2, categories: ["12"] });
-    const footerDatas = await api.getWpV2Posts({ per_page: 1, categories: ["9"] });
-    const menu = await api.getMenusV1LocationsById({ id: "site" });
+    const postCategories = await api.getWpV2Categories({ slug: ["footer-posts"] });
+    const contactsCategories = await api.getWpV2Categories({ slug: ["footer-contacts"] });
+    const posts = await api.getWpV2Posts({ per_page: 2, categories: postCategories.map((category) => {
+      return String(category.id);
+    })});
+    const footerDatas = await api.getWpV2Posts({ per_page: 1, categories: contactsCategories.map((category) => {
+      return String(category.id);
+    })});
+    const menu = await api.getMenusV1LocationsById({ id: "footer" });
 
     const featureMediaIds: number[] = footerDatas
       .filter((footerData) => {

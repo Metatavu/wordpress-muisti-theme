@@ -52,7 +52,10 @@ class DonateBanner extends React.Component<Props, State> {
     });
 
     const api = ApiUtils.getApi();
-    const posts = await api.getWpV2Posts({ categories: ["8"]});
+    const categories = await api.getWpV2Categories({ slug: ["lahjoitus"] });
+    const posts = await api.getWpV2Posts({ categories: categories.map((category) => {
+      return String(category.id);
+    })});
 
     const featureMediaIds: number[] = posts
     .filter((post) => {
