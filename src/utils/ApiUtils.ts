@@ -1,8 +1,9 @@
 import { DefaultApi, Configuration } from "../generated/client/src";
 
-const API_BASE_PATH = `${window.location}wp-json`;
+const path = window.location;
 
-// const API_BASE_PATH = "http://a42becf7.ngrok.io/wp-json"
+const API_BASE_PATH = `${path.protocol}//${path.hostname}:${path.port}/wp-json`;
+
 /**
  * Utility class for loading api with predefined configuration
  */
