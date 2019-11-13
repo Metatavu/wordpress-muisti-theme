@@ -42,6 +42,11 @@ export default createMuiTheme({
       fontSize: 21,
       fontWeight: "normal"
     },
+    h4: {
+      fontFamily: "tt_norms_promedium",
+      fontSize: 18,
+      fontWeight: "normal"
+    },
     body1: {
       fontFamily: "tt_norms_proregular",
       fontSize: 14,
@@ -53,6 +58,11 @@ export default createMuiTheme({
     body2: {
       fontFamily: "tt_norms_proregular",
       fontSize: 12,
+      fontWeight: "normal"
+    },
+    subtitle1: {
+      fontFamily: "tt_norms_proregular",
+      fontSize: 18,
       fontWeight: "normal"
     },
     subtitle2: {

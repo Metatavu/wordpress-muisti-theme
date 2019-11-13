@@ -68,9 +68,9 @@ class SiteMenu extends React.Component<Props, State> {
     }
 
     /**
-     * Split into two arrays to make the menu
+     * Split into two item arrays to render the menu correctly
      *
-     * Lists with menu items with and without children
+     * menu items with and without children
      */
     const itemsWithChildren: MenuItemData[] = [];
     const itemsWithoutChildren: MenuItemData[] = [];

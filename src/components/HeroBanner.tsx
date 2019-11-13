@@ -121,7 +121,7 @@ class HeroBanner extends React.Component<Props, State> {
         const urlParts = this.getLinkHref(childNode).split("/");
         const slug = urlParts.pop() || urlParts.pop();
         return (
-          <Link to={slug || "/"}>
+          <Link style={{ textDecoration: "none" }} to={slug || "/"}>
             <Button className={ classes.button } color="primary" variant="outlined" endIcon={ <ArrowIcon /> }>
               {this.getElementTextContent(childNode)}
             </Button>

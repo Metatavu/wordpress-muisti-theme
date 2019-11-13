@@ -89,7 +89,9 @@ class BasicLayout extends React.Component<Props, State> {
       >
         <AppBar elevation={0} className={ appBarClasses }>
           <div className={ classes.headerSection }>
-            <img className={ logoClasses } src={ logo } />
+            <Link href="/">
+              <img className={ logoClasses } src={ logo } />
+            </Link>
             <Hidden smDown implementation="css">
               <div className={ classes.topNavDesktop }>
                 { this.renderMenu() }

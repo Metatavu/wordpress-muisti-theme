@@ -4,6 +4,9 @@ import { Post, Attachment } from "../generated/client/src";
 import { WithStyles, withStyles, Typography, Button } from "@material-ui/core";
 import styles from "../styles/donate-banner";
 import ArrowIcon from "@material-ui/icons/ArrowForwardSharp";
+import ReactHtmlParser, { convertNodeToElement } from "react-html-parser";
+import { DomElement } from "domhandler";
+import { Link } from "react-router-dom";
 
 /**
  * Interface representing component properties
@@ -92,6 +95,43 @@ class DonateBanner extends React.Component<Props, State> {
     );
   }
 
+  private getElementClasses = (node: DomElement): string[] => {
+    const classString = node.attribs ? node.attribs.class : "";
+    if (node.attribs && node.attribs.class) {
+      return classString.split(" ");
+    }
+
+    return [];
+  }
+
+  private getLinkHref = (node: DomElement) => {
+    return node.attribs && node.attribs.href ? node.attribs.href : "";
+  }
+
+  private getElementTextContent = (node: DomElement) => {
+    return node.children && node.children[0] ? node.children[0].data as string : "";
+  }
+
+  private transformContent = (node: DomElement, index: number) => {
+    const { classes } = this.props;
+    const classNames = this.getElementClasses(node);
+    if (classNames.indexOf("wp-block-button") > -1) {
+      const childNode = node.children && node.children.length ? node.children[0] : null;
+      if (childNode) {
+        const urlParts = this.getLinkHref(childNode).split("/");
+        const slug = urlParts.pop() || urlParts.pop();
+        return (
+          <Link style={{ textDecoration: "none" }} to={slug || "/"}>
+            <Button className={ classes.button } color="primary" variant="outlined" endIcon={ <ArrowIcon /> }>
+              {this.getElementTextContent(childNode)}
+            </Button>
+          </Link>
+        );
+      }
+    }
+    return convertNodeToElement(node, index, this.transformContent);
+  }
+
   private renderPost() {
     const { classes } = this.props;
     if (!this.state.posts.length) {
@@ -107,8 +147,11 @@ class DonateBanner extends React.Component<Props, State> {
         <div className={ classes.donateContent }>
           <div className={ classes.donateContentBlock }>
             <Typography color="primary" variant="h2"> { post.title ? post.title.rendered : "" } </Typography>
-            <div className={ classes.textContainer } dangerouslySetInnerHTML={ {__html: post.content ? post.content.rendered || "" : "" }} />
-            <Button className={ classes.button } color="primary" variant="outlined" endIcon={ <ArrowIcon /> }>Lahjoita?</Button>
+            <div className={ classes.textContainer }>
+              {
+                ReactHtmlParser(post.content ? post.content.rendered || "" : "", { transform: this.transformContent })
+              }
+            </div>
           </div>
           <div className={ classes.imageContainer }>
             {

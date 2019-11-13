@@ -29,7 +29,7 @@ export default createStyles({
       paddingBottom: 100,
     },
     [theme.breakpoints.up("md")]: {
-      paddinbgBottom: 0
+      paddingBottom: 0
     }
   },
   textContainer: {},

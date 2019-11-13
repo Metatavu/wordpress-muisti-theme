@@ -31,22 +31,22 @@ class App extends React.Component<Props, State> {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <BrowserRouter>
-            <div className="App">
-              <Route
-                  path="/"
-                  exact={ true }
-                  component={WelcomePage}
+          <div className="App">
+            <Route
+              path="/"
+              exact={ true }
+              component={WelcomePage}
+            />
+            <Route
+              path="/:slug"
+              exact={ true }
+              render={ (props) => (
+                <PostPage
+                  slug={ props.match.params.slug as string }
                 />
-              <Route
-                  path="/:slug"
-                  exact={ true }
-                  render={(props) => (
-                    <PostPage
-                      slug={props.match.params.slug as string}
-                    />
-                  )}
-                />
-            </div>
+              )}
+            />
+          </div>
         </BrowserRouter>
       </ThemeProvider>
     );

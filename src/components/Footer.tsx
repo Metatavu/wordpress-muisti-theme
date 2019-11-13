@@ -1,8 +1,13 @@
 import * as React from "react";
 import styles from "../styles/footer";
-import { WithStyles, withStyles, Container } from "@material-ui/core";
-import { Post, Attachment } from "../generated/client/src";
+import { WithStyles, withStyles, Container, Typography, Button, Link } from "@material-ui/core";
+import { Post, Attachment, MenuLocationData, MenuItemData } from "../generated/client/src";
 import ApiUtils from "../utils/ApiUtils";
+import { DomElement } from "domhandler";
+import { Link as RouterLink } from "react-router-dom";
+import ReactHtmlParser, { convertNodeToElement } from "react-html-parser";
+import ArrowIcon from "@material-ui/icons/ArrowForwardSharp";
+import theme from "../styles/theme";
 
 /**
  * Interface representing component properties
@@ -16,6 +21,8 @@ interface Props extends WithStyles<typeof styles> {
  */
 interface State {
   posts: Post[],
+  footerDatas: Post[],
+  menu?: MenuLocationData,
   featuredMedias: { [ key: number ]: Attachment },
   loading: boolean
 }
@@ -34,6 +41,7 @@ class Footer extends React.Component<Props, State> {
     super(props);
     this.state = {
       posts: [],
+      footerDatas: [],
       featuredMedias: { },
       loading: false
     };
@@ -48,14 +56,16 @@ class Footer extends React.Component<Props, State> {
     });
 
     const api = ApiUtils.getApi();
-    const posts = await api.getWpV2Posts({ categories: ["9"] });
+    const posts = await api.getWpV2Posts({ per_page: 2, categories: ["12"] });
+    const footerDatas = await api.getWpV2Posts({ per_page: 1, categories: ["9"] });
+    const menu = await api.getMenusV1LocationsById({ id: "site" });
 
-    const featureMediaIds: number[] = posts
-      .filter((post) => {
-        return post.featured_media;
+    const featureMediaIds: number[] = footerDatas
+      .filter((footerData) => {
+        return footerData.featured_media;
       })
-      .map((post) => {
-        return post.featured_media;
+      .map((footerData) => {
+        return footerData.featured_media;
       })
       .reduce((unique: any, item: any) => unique.includes(item) ? unique : [...unique, item], []);
 
@@ -72,6 +82,8 @@ class Footer extends React.Component<Props, State> {
 
     this.setState({
       posts: posts,
+      footerDatas: footerDatas,
+      menu: menu,
       featuredMedias: featuredMediaMap,
       loading: false
     });
@@ -82,45 +94,130 @@ class Footer extends React.Component<Props, State> {
    */
   public render() {
     const { classes } = this.props;
-    if (!this.state.posts.length) {
+    if (!this.state.footerDatas.length) {
       return null;
     }
-    const post = this.state.posts[0];
-    const featuredMedia = post.featured_media ? this.state.featuredMedias[post.featured_media] : null;
+    const footerData = this.state.footerDatas[0];
+    const featuredMedia = footerData.featured_media ? this.state.featuredMedias[footerData.featured_media] : null;
     const featuredMediaUrl = featuredMedia ? featuredMedia.source_url : null;
     return (
       <div className={ classes.root }>
-        <div className={ classes.imageContainer }>
+        <div className={ classes.footerPosts }>
           {
-            this.renderImage(featuredMediaUrl)
+            this.renderPosts()
           }
         </div>
-        <div className={ classes.contentContainer }>
-          <Container maxWidth="xl">
-            <p>somes</p>
-          </Container>
-          <Container maxWidth="xl">
-            <img src={ this.props.logo }></img>
-          </Container>
-          <Container maxWidth="xl">
+        <div style={{ position: "relative" }}>
+          <div className={ classes.imageContainer }>
             {
-              this.renderPost()
+              this.renderImage(featuredMediaUrl)
             }
-          </Container>
+          </div>
+          <div className={ classes.contentContainer }>
+            <Container maxWidth="lg" className={ classes.logoAndSomeContainer }>
+              <img src={ this.props.logo } />
+              <div className={ classes.someLinkContainer }>
+                <p>somes</p>
+              </div>
+            </Container>
+            <Container className={ classes.contactsMenu } maxWidth="xl">
+              <div>
+                {
+                  this.renderContacts()
+                }
+              </div>
+              <div>
+                {
+                  this.renderMenu()
+                }
+              </div>
+            </Container>
+          </div>
         </div>
       </div>
     );
   }
 
-  private renderPost = () => {
+  private getElementClasses = (node: DomElement): string[] => {
+    const classString = node.attribs ? node.attribs.class : "";
+    if (node.attribs && node.attribs.class) {
+      return classString.split(" ");
+    }
+
+    return [];
+  }
+
+  private getLinkHref = (node: DomElement) => {
+    return node.attribs && node.attribs.href ? node.attribs.href : "";
+  }
+
+  private getElementTextContent = (node: DomElement) => {
+    return node.children && node.children[0] ? node.children[0].data as string : "";
+  }
+
+  private transformContent = (node: DomElement, index: number) => {
+    const { classes } = this.props;
+    const classNames = this.getElementClasses(node);
+    if (classNames.indexOf("wp-block-button") > -1) {
+      const childNode = node.children && node.children.length ? node.children[0] : null;
+      if (childNode) {
+        const urlParts = this.getLinkHref(childNode).split("/");
+        const slug = urlParts.pop() || urlParts.pop();
+        return (
+          <RouterLink style={{ textDecoration: "none" }} to={slug || "/"}>
+            <Button
+              className={ classes.button }
+              style={{ marginTop: theme.spacing(5) }}
+              color="primary"
+              variant="outlined"
+              endIcon={ <ArrowIcon /> }
+            >
+              {
+                this.getElementTextContent(childNode)
+              }
+            </Button>
+          </RouterLink>
+        );
+      }
+    }
+    return convertNodeToElement(node, index, this.transformContent);
+  }
+
+  private renderPosts = () => {
     const { classes } = this.props;
     if (!this.state.posts.length) {
       return null;
+    } else {
+      return (
+        this.state.posts.map((post) => {
+          return (
+            <Container key={ post.id } className={ classes.footerPost }>
+              <Typography color="primary" variant="h2"> { post.title ? post.title.rendered : "" } </Typography>
+              <div>
+                {
+                  ReactHtmlParser(post.content ? post.content.rendered || "" : "", { transform: this.transformContent })
+                }
+              </div>
+            </Container>
+          );
+        })
+      );
     }
-    const post = this.state.posts[0];
+  }
+
+  private renderContacts = () => {
+    const { classes } = this.props;
+    if (!this.state.footerDatas.length) {
+      return null;
+    }
+    const footerData = this.state.footerDatas[0];
     return (
-      <Container>
-          <div dangerouslySetInnerHTML={ {__html: post.content ? post.content.rendered || "" : "" }} />
+      <Container key={ footerData.id }>
+        <div>
+          {
+            ReactHtmlParser(footerData.content ? footerData.content.rendered || "" : "", { transform: this.transformContent })
+          }
+        </div>
       </Container>
     );
   }
@@ -136,6 +233,118 @@ class Footer extends React.Component<Props, State> {
 
     return (
       <img src={ url }></img>
+    );
+  }
+
+  /**
+   * Render menu method
+   */
+  private renderMenu() {
+    const { classes } = this.props;
+    if (!this.state.menu || !this.state.menu.items) {
+      return null;
+    }
+
+    /**
+     * Split into two item arrays to render the menu correctly
+     *
+     * menu items with and without children
+     */
+    const itemsWithChildren: MenuItemData[] = [];
+    const itemsWithoutChildren: MenuItemData[] = [];
+
+    this.state.menu.items.forEach((item) => {
+      if (item.child_items && item.child_items.length > 0) {
+        itemsWithChildren.push(item);
+      } else {
+        itemsWithoutChildren.push(item);
+      }
+    });
+
+    return (
+      <div className={ classes.menuContent }>
+      {
+        itemsWithChildren.map((item) => {
+          return this.renderMenuItem(item);
+        })
+      }
+      {
+        this.renderMenuItemsGroupWithoutChildren(itemsWithoutChildren)
+      }
+    </div>
+    );
+  }
+
+  /**
+   * Menu group without submenu items render method
+   */
+  private renderMenuItemsGroupWithoutChildren = (items: MenuItemData[]) => {
+    const { classes } = this.props;
+    return (
+      <div className={ classes.menuGroup }>
+        {items.map((item) =>
+          <Link
+            className={ classes.link }
+            variant="h4"
+            key={item.db_id}
+            href={ item.url }
+          >
+            {
+              item.title
+            }
+          </Link>)}
+      </div>
+    );
+  }
+
+  /**
+   * Menu item render method
+   */
+  private renderMenuItem = (item: MenuItemData) => {
+    const { classes } = this.props;
+    if (!item) {
+      return null;
+    }
+
+    return (
+      <div className={ classes.menuGroup } key={ item.db_id }>
+        <Link
+          className={ classes.link }
+          href={ item.url }
+          variant="h4"
+        >
+          {
+            item.title
+          }
+        </Link>
+        {
+          (item.child_items || [] ).map((childItems) => {
+            return this.renderMenuSubItem(childItems);
+          })
+        }
+      </div>
+    );
+  }
+
+  /**
+   * Menu sub item render method
+   */
+  private renderMenuSubItem = (item?: MenuItemData) => {
+    if (!item) {
+      return null;
+    }
+    const { classes } = this.props;
+    return (
+      <Link
+        className={ classes.subLink }
+        key={ item.db_id }
+        href={ item.url }
+        variant="body1"
+      >
+        {
+          item.title
+        }
+      </Link>
     );
   }
 }

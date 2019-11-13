@@ -1,11 +1,14 @@
 import * as React from "react";
 import BasicLayout from "../BasicLayout";
-// import Api from "muisti-wordpress-client";
+import { Container, WithStyles, withStyles } from "@material-ui/core";
+import styles from "../../styles/page-content";
+// import { Post, Attachment } from "../generated/client/src";
+// import ApiUtils from "../utils/ApiUtils";
 
 /**
  * Interface representing component properties
  */
-interface Props {
+interface Props extends WithStyles<typeof styles> {
   slug: string
 }
 
@@ -36,47 +39,52 @@ class PostPage extends React.Component<Props, State> {
   /**
    * Component did mount life-cycle handler
    */
-  public componentDidMount = async () => {
-    this.setState({
-      loading: true
-    });
+  // public componentDidMount = async () => {
+  //   this.setState({
+  //     loading: true
+  //   });
+  //   const api = ApiUtils.getApi();
+  //   const service = Api.getDefaultService("TOKEN");
 
-    // const service = Api.getDefaultService("TOKEN");
+  //   const posts = await service.getWpV2Posts();
 
-    // const posts = await service.getWpV2Posts();
+  //   const featureMediaIds: number[] = posts
+  //     .filter((post) => {
+  //       return post.featured_media;
+  //     })
+  //     .map((post) => {
+  //       return post.featured_media;
+  //     })
+  //     .reduce((unique: any, item: any) => unique.includes(item) ? unique : [...unique, item], []);
 
-    // const featureMediaIds: number[] = posts
-    //   .filter((post) => {
-    //     return post.featured_media;
-    //   })
-    //   .map((post) => {
-    //     return post.featured_media;
-    //   })
-    //   .reduce((unique: any, item: any) => unique.includes(item) ? unique : [...unique, item], []);
+  //   const featureMedias = await Promise.all(featureMediaIds.map((featureMediaId) => {
+  //     return service.getWpV2MediaById(featureMediaId.toString());
+  //   }));
 
-    // const featureMedias = await Promise.all(featureMediaIds.map((featureMediaId) => {
-    //   return service.getWpV2MediaById(featureMediaId.toString());
-    // }));
+  //   const featuredMediaMap: { [ key: number ]: Attachment } = { };
 
-    // const featuredMediaMap: { [ key: number ]: Attachment } = { };
+  //   for (let i = 0; i < featureMedias.length; i++) {
+  //     const featureMedia = featureMedias[i];
+  //     featuredMediaMap[featureMedia.id!] = featureMedia;
+  //   }
 
-    // for (let i = 0; i < featureMedias.length; i++) {
-    //   const featureMedia = featureMedias[i];
-    //   featuredMediaMap[featureMedia.id!] = featureMedia;
-    // }
-
-    this.setState({
-      loading: false
-    });
-  }
+  //   this.setState({
+  //     loading: false
+  //   });
+  // }
 
   /**
    * Component render method
    */
   public render() {
+    const { classes } = this.props;
     return (
       <BasicLayout>
-        <p>peruna { this.props.slug }</p>
+        <div className={ classes.root }>
+          <Container>
+            <p>peruna { this.props.slug }</p>
+          </Container>
+        </div>
         {/* { this.renderPosts() } */}
       </BasicLayout>
     );
@@ -116,4 +124,4 @@ class PostPage extends React.Component<Props, State> {
   // }
 }
 
-export default PostPage;
+export default withStyles(styles)(PostPage);
