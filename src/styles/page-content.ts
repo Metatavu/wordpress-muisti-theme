@@ -14,7 +14,11 @@ export default createStyles({
     marginTop: theme.spacing(10),
     marginBottom: theme.spacing(10),
     "& h2": {
+      margin: 0,
       fontSize: theme.typography.h1.fontSize,
+      [theme.breakpoints.up("md")]: {
+        fontSize: 55
+      },
       fontFamily: theme.typography.h1.fontFamily,
     },
     "& strong": {
@@ -24,11 +28,14 @@ export default createStyles({
       listStyle: "none",
       padding: 0
     },
+    "& hr": {
+      marginBottom: theme.spacing(5)
+    },
     "& .wp-block-columns": {
       display: "grid",
       gridAutoFlow: "row",
       [theme.breakpoints.up("md")]: {
-        marginTop: theme.spacing(10),
+        marginTop: theme.spacing(5),
         marginBottom: theme.spacing(10),
         gridAutoFlow: "column"
       },
