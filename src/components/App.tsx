@@ -39,10 +39,9 @@ class App extends React.Component<Props, State> {
             />
             <Route
               path="/:slug"
-              exact={ true }
               render={ (props) => (
                 <PostPage
-                  slug={ props.match.params.slug as string }
+                  slug={ props.location.pathname as string }
                 />
               )}
             />

@@ -57,7 +57,7 @@ export default createMuiTheme({
     },
     body2: {
       fontFamily: "tt_norms_proregular",
-      fontSize: 12,
+      fontSize: 14,
       fontWeight: "normal"
     },
     subtitle1: {

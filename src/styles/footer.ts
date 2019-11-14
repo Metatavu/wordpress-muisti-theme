@@ -69,6 +69,10 @@ export default createStyles({
   },
   contactsMenu: {
     display: "flex",
-    flexDirection: "row"
+    flexDirection: "row",
+    "& h3": {
+      margin: 0,
+      marginBottom: "2rem"
+    }
   }
 });

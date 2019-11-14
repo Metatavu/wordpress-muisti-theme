@@ -123,10 +123,10 @@ class Footer extends React.Component<Props, State> {
             <Container maxWidth="lg" className={ classes.logoAndSomeContainer }>
               <img src={ this.props.logo } />
               <div className={ classes.someLinkContainer }>
-                <p>somes</p>
+                {/* TODO: Social media links here */}
               </div>
             </Container>
-            <Container className={ classes.contactsMenu } maxWidth="xl">
+            <Container className={ classes.contactsMenu } maxWidth="lg">
               <div>
                 {
                   this.renderContacts()
@@ -212,19 +212,16 @@ class Footer extends React.Component<Props, State> {
   }
 
   private renderContacts = () => {
-    const { classes } = this.props;
     if (!this.state.footerDatas.length) {
       return null;
     }
     const footerData = this.state.footerDatas[0];
     return (
-      <Container key={ footerData.id }>
-        <div>
-          {
-            ReactHtmlParser(footerData.content ? footerData.content.rendered || "" : "", { transform: this.transformContent })
-          }
-        </div>
-      </Container>
+      <div key={ footerData.id }>
+        {
+          ReactHtmlParser(footerData.content ? footerData.content.rendered || "" : "", { transform: this.transformContent })
+        }
+      </div>
     );
   }
 
@@ -345,7 +342,7 @@ class Footer extends React.Component<Props, State> {
         className={ classes.subLink }
         key={ item.db_id }
         href={ item.url }
-        variant="body1"
+        variant="body2"
       >
         {
           item.title
