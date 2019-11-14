@@ -1,2 +1,2 @@
 # wordpress-muisti-theme
-Wordpress theme for Muisti
+Wordpress Typescript theme for Muisti
