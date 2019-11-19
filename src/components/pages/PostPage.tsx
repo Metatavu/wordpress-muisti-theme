@@ -4,7 +4,8 @@ import { Container, WithStyles, withStyles } from "@material-ui/core";
 import styles from "../../styles/page-content";
 import ApiUtils from "../../../src/utils/ApiUtils";
 import { Page } from "../../../src/generated/client/src";
-import ReactHtmlParser from "react-html-parser";
+import ReactHtmlParser, { convertNodeToElement } from "react-html-parser";
+import { DomElement } from "domhandler";
 import HeroBanner from "../HeroBanner";
 
 /**
@@ -20,6 +21,7 @@ interface Props extends WithStyles<typeof styles> {
 interface State {
   page?: Page
   loading: boolean
+  heroBanner?: React.ReactElement
 }
 
 /**
@@ -63,19 +65,45 @@ class PostPage extends React.Component<Props, State> {
     });
   }
 
+  private getElementClasses = (node: DomElement): string[] => {
+    const classString = node.attribs ? node.attribs.class : "";
+    if (node.attribs && node.attribs.class) {
+      return classString.split(" ");
+    }
+
+    return [];
+  }
+
+  private transformContent = (node: DomElement, index: number) => {
+    const classNames = this.getElementClasses(node);
+    if (classNames.indexOf("hero") > -1) {
+      if (!this.state.heroBanner) {
+        this.setState({
+          heroBanner: convertNodeToElement(node, index, this.transformContent)
+        });
+      }
+      return null;
+    }
+
+    return convertNodeToElement(node, index, this.transformContent);
+  }
+
   /**
    * Component render method
    */
   public render() {
     const { classes } = this.props;
     const pageHtmlSource = this.state.page && this.state.page.content ? this.state.page.content.rendered || "" : "";
+
     return (
       <BasicLayout>
-        <div className={ classes.hero }></div>
+        <div className={ classes.hero }>
+          { this.state.heroBanner }
+        </div>
         <div className={ classes.content }>
           <Container>
             <div className={ classes.htmlContainer }>
-              { ReactHtmlParser(pageHtmlSource) }
+              { ReactHtmlParser(pageHtmlSource, { transform: this.transformContent }) }
             </div>
           </Container>
         </div>
