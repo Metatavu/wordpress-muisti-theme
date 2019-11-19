@@ -6,7 +6,6 @@ import ApiUtils from "../../../src/utils/ApiUtils";
 import { Page } from "../../../src/generated/client/src";
 import ReactHtmlParser, { convertNodeToElement } from "react-html-parser";
 import { DomElement } from "domhandler";
-import classNames from 'classnames';
 
 /**
  * Interface representing component properties
