@@ -5,6 +5,7 @@ import styles from "../../styles/page-content";
 import ApiUtils from "../../../src/utils/ApiUtils";
 import { Page } from "../../../src/generated/client/src";
 import ReactHtmlParser from "react-html-parser";
+import HeroBanner from "../HeroBanner";
 
 /**
  * Interface representing component properties
@@ -70,7 +71,8 @@ class PostPage extends React.Component<Props, State> {
     const pageHtmlSource = this.state.page && this.state.page.content ? this.state.page.content.rendered || "" : "";
     return (
       <BasicLayout>
-        <div className={ classes.root }>
+        <div className={ classes.hero }></div>
+        <div className={ classes.content }>
           <Container>
             <div className={ classes.htmlContainer }>
               { ReactHtmlParser(pageHtmlSource) }
