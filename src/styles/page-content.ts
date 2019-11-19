@@ -19,12 +19,17 @@ export default createStyles({
     "& h2": {
       margin: 0,
       fontSize: theme.typography.h1.fontSize,
+      fontWeight: "normal",
       [theme.breakpoints.up("md")]: {
         fontSize: 55,
         width: "80%",
         alignSelf: "center"
       },
       fontFamily: theme.typography.h1.fontFamily,
+      "&.address-heading": {
+        width: "100%",
+        alignSelf: "start"
+      }
     },
     "& p": {
       width: "80%",
@@ -38,7 +43,8 @@ export default createStyles({
       padding: 0
     },
     "& hr": {
-      marginBottom: theme.spacing(5)
+      marginBottom: theme.spacing(5),
+      width: "100%",
     },
     "& .wp-block-cover.has-background-dim:before": {
       content: "",
@@ -69,10 +75,31 @@ export default createStyles({
         [theme.breakpoints.up("md")]: {
           gridTemplateColumns: "1fr 1fr",
         },
+        "&.address-info": {
+          gridTemplateColumns: "200px 200px",
+          marginTop: theme.spacing(10),
+          marginBottom: theme.spacing(5)
+        }
       }
     },
     "& .wp-block-column": {
       marginRight: theme.spacing(10),
+    },
+    "& .address-info .wp-block-column": {
+      marginRight: 0,
+      "& p": {
+        width: "initial",
+        alignSelf: "start",
+        margin: 0,
+        fontSize: "1.2rem",
+        lineHeight: "1.8rem"
+      }
+    },
+    "& .contact-card": {
+      "& p": {
+        width: "initial",
+        alignSelf: "start"
+      }
     },
     "& .wp-block-media-text": {
       display: "grid",
@@ -98,9 +125,11 @@ export default createStyles({
         marginLeft: theme.spacing(5),
       },
       "& h3": {
-        fontSize: 22,
+        fontSize: "2rem",
         margin: 0,
-        marginBottom: theme.spacing(2),
+        marginBottom: "2rem",
+        fontWeight: "normal",
+        fontFamily: theme.typography.h2.fontFamily,
         [theme.breakpoints.up("md")]: {
           whiteSpace: "nowrap"
         },
