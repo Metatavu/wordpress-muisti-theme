@@ -6,7 +6,7 @@ import ApiUtils from "../../../src/utils/ApiUtils";
 import { Page } from "../../../src/generated/client/src";
 import ReactHtmlParser, { convertNodeToElement } from "react-html-parser";
 import { DomElement } from "domhandler";
-import HeroBanner from "../HeroBanner";
+import classNames from 'classnames';
 
 /**
  * Interface representing component properties
@@ -65,6 +65,30 @@ class PostPage extends React.Component<Props, State> {
     });
   }
 
+  /**
+   * Component render method
+   */
+  public render() {
+    const { classes } = this.props;
+    const pageHtmlSource = this.state.page && this.state.page.content ? this.state.page.content.rendered || "" : "";
+    return (
+      <BasicLayout>
+        { this.state.heroBanner &&
+          <div className={ classes.hero }>
+            { this.state.heroBanner }
+          </div>
+        }
+        <div className={ this.state.heroBanner ? classes.contentWithHero : classes.content }>
+          <Container>
+            <div className={ classes.htmlContainer }>
+              { ReactHtmlParser(pageHtmlSource, { transform: this.transformContent }) }
+            </div>
+          </Container>
+        </div>
+      </BasicLayout>
+    );
+  }
+
   private getElementClasses = (node: DomElement): string[] => {
     const classString = node.attribs ? node.attribs.class : "";
     if (node.attribs && node.attribs.class) {
@@ -86,29 +110,6 @@ class PostPage extends React.Component<Props, State> {
     }
 
     return convertNodeToElement(node, index, this.transformContent);
-  }
-
-  /**
-   * Component render method
-   */
-  public render() {
-    const { classes } = this.props;
-    const pageHtmlSource = this.state.page && this.state.page.content ? this.state.page.content.rendered || "" : "";
-
-    return (
-      <BasicLayout>
-        <div className={ classes.hero }>
-          { this.state.heroBanner }
-        </div>
-        <div className={ classes.content }>
-          <Container>
-            <div className={ classes.htmlContainer }>
-              { ReactHtmlParser(pageHtmlSource, { transform: this.transformContent }) }
-            </div>
-          </Container>
-        </div>
-      </BasicLayout>
-    );
   }
 }
 

@@ -112,7 +112,7 @@ class BasicLayout extends React.Component<Props, State> {
             </div>
           </Hidden>
         </AppBar>
-        <div className="content">
+        <div className={ classes.content }>
           { this.props.children }
         </div>
         <SiteMenu

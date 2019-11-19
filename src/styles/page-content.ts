@@ -2,11 +2,49 @@ import { createStyles } from "@material-ui/core";
 import theme from "./theme";
 
 export default createStyles({
-  hero: {},
+  hero: {
+    height: "100vh",
+    "& .wp-block-cover": {
+      display: "flex",
+      height: "100vh",
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "cover",
+      position: "relative",
+      alignItems: "center",
+      "&.has-background-dim.hero:before": {
+        content: "''",
+        position: "absolute",
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+        backgroundColor: theme.palette.primary.dark,
+        opacity: .5,
+        zIndex: 1,
+      },
+      "& .wp-block-cover__inner-container": {
+        zIndex: 2,
+        margin: theme.spacing(10)
+      },
+      "& p.has-large-font-size": {
+        fontSize: "5rem",
+        margin: 0,
+        fontFamily: theme.typography.h1.fontFamily
+      }
+    }
+  },
   content: {
     backgroundColor: theme.palette.background.paper,
     color: theme.palette.primary.dark,
     marginTop: 130,
+    display: "flex",
+    flex: 1,
+    flexDirection: "column"
+  },
+  contentWithHero: {
+    backgroundColor: theme.palette.background.paper,
+    color: theme.palette.primary.dark,
+    marginTop: 0,
     display: "flex",
     flex: 1,
     flexDirection: "column"
@@ -45,17 +83,6 @@ export default createStyles({
     "& hr": {
       marginBottom: theme.spacing(5),
       width: "100%",
-    },
-    "& .wp-block-cover.has-background-dim:before": {
-      content: "",
-      position: "absolute",
-      top: 0,
-      left: 0,
-      bottom: 0,
-      right: 0,
-      backgroundColor: "inherit",
-      opacity: .5,
-      zIndex: 1,
     },
     "& .wp-block-image": {
       margin: 0,
