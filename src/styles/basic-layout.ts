@@ -5,6 +5,10 @@ export default createStyles({
   root: {
     height: "100vh"
   },
+  content: {
+    display: "flex",
+    flexDirection: "column"
+  },
   appBar: {
     display: "flex",
     flexDirection: "row",
