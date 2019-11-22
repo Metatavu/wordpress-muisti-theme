@@ -3,18 +3,14 @@ import theme from "./theme";
 
 export default createStyles({
   root: {
-    display: "flex",
-    backgroundColor: theme.palette.secondary.main,
-    [theme.breakpoints.up("md")]: {
-      flexDirection: "row"
-    }
+    backgroundColor: theme.palette.secondary.main
   },
-  donateItem: {},
   donateContent: {
     display: "flex",
     flexDirection: "column",
     [theme.breakpoints.up("md")]: {
-      flexDirection: "row"
+      flexDirection: "row",
+      justifyContent: "space-between"
     }
   },
   donateContentBlock: {

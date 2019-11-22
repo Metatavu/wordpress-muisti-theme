@@ -7,6 +7,10 @@ export default createStyles({
     flex: 1,
     flexDirection: "column"
   },
+  footerBackground: {
+    backgroundPosition: "center",
+    backgroundSize: "cover"
+  },
   footerPosts: {
     display: "flex",
     width: "100%",
@@ -27,19 +31,21 @@ export default createStyles({
       backgroundColor: theme.palette.secondary.main
     }
   },
+  footerdata: {
+    marginBottom: theme.spacing(5)
+  },
   contentContainer: {
-    position: "absolute",
-    top: 0,
-    bottom: 0,
-    right: 0,
-    left: 0,
+    height: "calc( 100vh - 60px )",
     backgroundColor: "rgba(45, 45, 45, 0.8)"
   },
   logoAndSomeContainer: {
     display: "flex",
     justifyContent: "space-between",
-    marginTop: theme.spacing(10),
-    marginBottom: theme.spacing(5)
+    paddingTop: theme.spacing(5),
+    marginBottom: theme.spacing(5),
+    [theme.breakpoints.up("md")]: {
+      paddingTop: theme.spacing(10),
+    }
   },
   imageContainer: {
       "& img": {
@@ -54,12 +60,19 @@ export default createStyles({
   },
   menuContent: {
     display: "flex",
-    marginLeft: 150,
+    flexDirection: "column",
+    [theme.breakpoints.up("md")]: {
+      flexDirection: "row",
+      marginLeft: 150,
+    }
   },
   menuGroup: {
     display: "flex",
     flexDirection: "column",
-    marginRight: 100
+    marginBottom: theme.spacing(5),
+    [theme.breakpoints.up("md")]: {
+      marginRight: 100,
+    }
   },
   link: {
     marginBottom: "2rem"
@@ -69,7 +82,10 @@ export default createStyles({
   },
   contactsMenu: {
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "column",
+    [theme.breakpoints.up("md")]: {
+      flexDirection: "row"
+    },
     "& h3": {
       margin: 0,
       marginBottom: "2rem"

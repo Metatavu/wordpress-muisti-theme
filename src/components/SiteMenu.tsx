@@ -91,7 +91,7 @@ class SiteMenu extends React.Component<Props, State> {
 
     return (
       <Fade in={ this.props.visible }>
-        <Container maxWidth={false} className={ siteMenuRootClasses }>
+        <Container maxWidth={ false } className={ siteMenuRootClasses }>
           <Container maxWidth="xl" className={ classes.controlContainer }>
             <IconButton
               className={ classes.close }
@@ -126,7 +126,7 @@ class SiteMenu extends React.Component<Props, State> {
         {items.map((item) =>
           <Link
             className={ classes.link }
-            variant="h3"
+            variant="h5"
             key={item.db_id}
             href={ item.url }
           >
@@ -152,7 +152,7 @@ class SiteMenu extends React.Component<Props, State> {
         <Link
           className={ classes.link }
           href={ item.url }
-          variant="h3"
+          variant="h5"
         >
           {
             item.title
@@ -180,7 +180,7 @@ class SiteMenu extends React.Component<Props, State> {
         className={ classes.subLink }
         key={ item.db_id }
         href={ item.url }
-        variant="subtitle1"
+        variant="subtitle2"
       >
         {
           item.title

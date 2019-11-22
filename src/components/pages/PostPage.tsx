@@ -70,16 +70,21 @@ class PostPage extends React.Component<Props, State> {
   public render() {
     const { classes } = this.props;
     const pageHtmlSource = this.state.page && this.state.page.content ? this.state.page.content.rendered || "" : "";
+    const pageTitle = this.state.page && this.state.page.title ? this.state.page.title.rendered || "" : "";
     return (
       <BasicLayout>
         { this.state.heroBanner &&
           <div className={ classes.hero }>
+            <h1 className={ classes.heroTitle }>{ pageTitle }</h1>
             { this.state.heroBanner }
           </div>
         }
         <div className={ this.state.heroBanner ? classes.contentWithHero : classes.content }>
           <Container>
             <div className={ classes.htmlContainer }>
+              { !this.state.heroBanner &&
+                <h1 className={ classes.title }>{ pageTitle }</h1>
+              }
               { ReactHtmlParser(pageHtmlSource, { transform: this.transformContent }) }
             </div>
           </Container>
