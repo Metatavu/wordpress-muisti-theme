@@ -8,6 +8,7 @@ import { Link as RouterLink } from "react-router-dom";
 import ReactHtmlParser, { convertNodeToElement } from "react-html-parser";
 import ArrowIcon from "@material-ui/icons/ArrowForwardSharp";
 import theme from "../styles/theme";
+import placeholderImg from "../resources/img/muisti-konsepti.png";
 
 /**
  * Interface representing component properties
@@ -113,12 +114,7 @@ class Footer extends React.Component<Props, State> {
             this.renderPosts()
           }
         </div>
-        <div style={{ position: "relative" }}>
-          <div className={ classes.imageContainer }>
-            {
-              this.renderImage(featuredMediaUrl)
-            }
-          </div>
+        <div className={ classes.footerBackground } style={{ backgroundImage: `url('${( featuredMediaUrl != null ? featuredMediaUrl : placeholderImg )}')` }}>
           <div className={ classes.contentContainer }>
             <Container maxWidth="lg" className={ classes.logoAndSomeContainer }>
               <img src={ this.props.logo } />
@@ -198,7 +194,7 @@ class Footer extends React.Component<Props, State> {
         this.state.posts.map((post) => {
           return (
             <Container key={ post.id } className={ classes.footerPost }>
-              <Typography color="primary" variant="h2"> { post.title ? post.title.rendered : "" } </Typography>
+              <Typography color="primary" variant="h3"> { post.title ? post.title.rendered : "" } </Typography>
               <div>
                 {
                   ReactHtmlParser(post.content ? post.content.rendered || "" : "", { transform: this.transformContent })
@@ -212,30 +208,17 @@ class Footer extends React.Component<Props, State> {
   }
 
   private renderContacts = () => {
+    const { classes } = this.props;
     if (!this.state.footerDatas.length) {
       return null;
     }
     const footerData = this.state.footerDatas[0];
     return (
-      <div key={ footerData.id }>
+      <div key={ footerData.id } className={ classes.footerdata }>
         {
           ReactHtmlParser(footerData.content ? footerData.content.rendered || "" : "", { transform: this.transformContent })
         }
       </div>
-    );
-  }
-
-  /**
-   * Renders post image
-   * @param url
-   */
-  private renderImage(url?: string | null) {
-    if (!url) {
-      return null;
-    }
-
-    return (
-      <img src={ url }></img>
     );
   }
 
@@ -288,7 +271,7 @@ class Footer extends React.Component<Props, State> {
         {items.map((item) =>
           <Link
             className={ classes.link }
-            variant="h4"
+            variant="h5"
             key={item.db_id}
             href={ item.url }
           >
@@ -314,7 +297,7 @@ class Footer extends React.Component<Props, State> {
         <Link
           className={ classes.link }
           href={ item.url }
-          variant="h4"
+          variant="h5"
         >
           {
             item.title
@@ -342,7 +325,7 @@ class Footer extends React.Component<Props, State> {
         className={ classes.subLink }
         key={ item.db_id }
         href={ item.url }
-        variant="body2"
+        variant="subtitle2"
       >
         {
           item.title

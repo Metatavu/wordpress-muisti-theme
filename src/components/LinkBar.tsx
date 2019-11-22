@@ -94,7 +94,7 @@ class LinkBar extends React.Component<Props, State> {
         <Link className={ classes.link } href={ item.url }>
           <div className={ classes.slideContent }>
             <div className={ classes.slideText }>
-              <Typography variant="subtitle2">{ item.title }</Typography>
+              <Typography variant="h5">{ item.title }</Typography>
             </div>
             <ArrowIcon fontSize="large" />
           </div>

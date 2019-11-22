@@ -4,6 +4,7 @@ import theme from "./theme";
 export default createStyles({
   hero: {
     height: "100vh",
+    position: "relative",
     "& .wp-block-cover": {
       display: "flex",
       height: "100vh",
@@ -24,19 +25,20 @@ export default createStyles({
       },
       "& .wp-block-cover__inner-container": {
         zIndex: 2,
-        margin: theme.spacing(10)
+        margin: theme.spacing(5),
+        [theme.breakpoints.up("md")]: {
+          margin: theme.spacing(10)
+        }
       },
-      "& p.has-large-font-size": {
-        fontSize: "5rem",
-        margin: 0,
-        fontFamily: theme.typography.h1.fontFamily
-      }
     }
   },
   content: {
     backgroundColor: theme.palette.background.paper,
     color: theme.palette.primary.dark,
-    marginTop: 130,
+    marginTop: 100,
+    [theme.breakpoints.up("md")]: {
+      marginTop: 130,
+    },
     display: "flex",
     flex: 1,
     flexDirection: "column"
@@ -49,6 +51,42 @@ export default createStyles({
     flex: 1,
     flexDirection: "column"
   },
+  title: {
+    fontFamily: theme.typography.h1.fontFamily,
+    fontWeight: "normal",
+    fontSize: theme.typography.h4.fontSize,
+    [theme.breakpoints.up("md")]: {
+      fontSize: theme.typography.h3.fontSize,
+    },
+    [theme.breakpoints.up("lg")]: {
+      fontSize: theme.typography.h2.fontSize,
+    },
+    [theme.breakpoints.up("xl")]: {
+      fontSize: theme.typography.h1.fontSize,
+    }
+  },
+  heroTitle: {
+    position: "absolute",
+    top: "42%",
+    transform: "translateY( -100% )",
+    margin: 0,
+    marginLeft: 38,
+    zIndex: 2,
+    fontFamily: theme.typography.h1.fontFamily,
+    fontWeight: "normal",
+    fontSize: theme.typography.h4.fontSize,
+    [theme.breakpoints.up("md")]: {
+      top: "50%",
+      marginLeft: 70,
+      fontSize: theme.typography.h3.fontSize,
+    },
+    [theme.breakpoints.up("lg")]: {
+      fontSize: theme.typography.h2.fontSize,
+    },
+    [theme.breakpoints.up("xl")]: {
+      fontSize: theme.typography.h1.fontSize,
+    }
+  },
   htmlContainer: {
     marginTop: theme.spacing(10),
     marginBottom: theme.spacing(10),
@@ -56,22 +94,24 @@ export default createStyles({
     flexDirection: "column",
     "& h2": {
       margin: 0,
-      fontSize: theme.typography.h1.fontSize,
+      fontSize: theme.typography.h4.fontSize,
+      fontFamily: theme.typography.h2.fontFamily,
       fontWeight: "normal",
       [theme.breakpoints.up("md")]: {
-        fontSize: 55,
+        fontSize: theme.typography.h2.fontSize,
         width: "80%",
         alignSelf: "center"
       },
-      fontFamily: theme.typography.h1.fontFamily,
       "&.address-heading": {
         width: "100%",
         alignSelf: "start"
       }
     },
     "& p": {
-      width: "80%",
-      alignSelf: "center"
+      alignSelf: "center",
+      [theme.breakpoints.up("md")]: {
+        width: "80%"
+      }
     },
     "& strong": {
       whiteSpace: "nowrap"
@@ -96,11 +136,12 @@ export default createStyles({
       [theme.breakpoints.up("md")]: {
         marginTop: theme.spacing(5),
         marginBottom: theme.spacing(10),
-        gridAutoFlow: "column"
+        gridAutoFlow: "column",
       },
       "&.has-2-columns": {
         [theme.breakpoints.up("md")]: {
           gridTemplateColumns: "1fr 1fr",
+          gridGap: theme.spacing(10)
         },
         "&.address-info": {
           gridTemplateColumns: "200px 200px",
@@ -110,7 +151,14 @@ export default createStyles({
       }
     },
     "& .wp-block-column": {
-      marginRight: theme.spacing(10),
+      display: "flex",
+      marginBottom: theme.spacing(5),
+      [theme.breakpoints.up("md")]: {
+        marginBottom: 0,
+        "& .wp-block-image": {
+          display: "flex",
+        }
+      }
     },
     "& .address-info .wp-block-column": {
       marginRight: 0,
