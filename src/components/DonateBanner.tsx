@@ -135,14 +135,19 @@ class DonateBanner extends React.Component<Props, State> {
     return convertNodeToElement(node, index, this.transformContent);
   }
 
+  /**
+   * Render post method
+   */
   private renderPost() {
     const { classes } = this.props;
     if (!this.state.posts.length) {
       return null;
     }
+
     const post = this.state.posts[0];
     const featuredMedia = post.featured_media ? this.state.featuredMedias[post.featured_media] : null;
     const featuredMediaUrl = featuredMedia ? featuredMedia.source_url : null;
+
     return (
       <div key={ post.id } className={ classes.donateContent }>
         <div className={ classes.donateContentBlock }>

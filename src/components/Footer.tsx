@@ -185,6 +185,9 @@ class Footer extends React.Component<Props, State> {
     return convertNodeToElement(node, index, this.transformContent);
   }
 
+  /**
+   * Render footer posts method
+   */
   private renderPosts = () => {
     const { classes } = this.props;
     if (!this.state.posts.length) {
@@ -207,6 +210,9 @@ class Footer extends React.Component<Props, State> {
     }
   }
 
+  /**
+   * Render footer contact information method
+   */
   private renderContacts = () => {
     const { classes } = this.props;
     if (!this.state.footerDatas.length) {
