@@ -32,6 +32,7 @@ export default createStyles({
     }
   },
   footerdata: {
+    width: 300,
     marginBottom: theme.spacing(5)
   },
   contentContainer: {

@@ -162,6 +162,7 @@ export default createStyles({
     },
     "& .address-info .wp-block-column": {
       marginRight: 0,
+      flexDirection: "column",
       "& p": {
         width: "initial",
         alignSelf: "start",
@@ -209,6 +210,145 @@ export default createStyles({
           whiteSpace: "nowrap"
         },
       }
+    },
+    /**
+     * Flex Posts styles
+     */
+    "& .fp-flex": {
+      display: "flex",
+      justifyContent: "flex-start",
+      flexDirection: "row",
+      flexWrap: "wrap",
+      alignItems: "flex-start",
+    },
+    "& .fp-row": {
+      marginLeft: -15,
+      marginRight: -15,
+    },
+    "& .fp-post": {
+      marginBottom: 20,
+    },
+    "& .fp-col": {
+      minWidth: 200,
+      maxWidth: 400,
+      flex: "1 1 30%",
+      marginLeft: 15,
+      marginRight: 15,
+    },
+    "& .fp-col:empty": {
+      height: 0,
+      visibility: "hidden",
+      margintop: 0,
+      marginBottom: 0,
+    },
+    "& .fp-list-1 .fp-flex, .fp-list-3 .fp-flex": {
+      flexWrap: "nowrap",
+    },
+    "& .fp-list-1 .fp-media, .fp-list-3 .fp-extra .fp-media": {
+      flexShrink: 0,
+    },
+    "& .fp-thumbnail": {
+      display: "block",
+      transition: "opacity 500ms ease",
+    },
+    "& .fp-list-1 .fp-thumbnail, .fp-list-3 .fp-extra .fp-thumbnail": {
+      marginRight: "1em",
+    },
+    "& .fp-thumbnail:hover": {
+      opacity: 0.8,
+    },
+    "& .fp-thumbnail img": {
+      display: "block",
+      width: "100%",
+      objectFit: "cover",
+      overflow: "hidden",
+    },
+    "& .fp-media .fp-thumbnail img": {
+      margin: 0,
+    },
+    "& .fp-thumbnail img.size-thumbnail": {
+      width: 85,
+      height: 85,
+    },
+    "& .fp-list-2 .fp-media + .fp-body, .fp-list-3 .fp-main .fp-media + .fp-body": {
+      marginTop: "0.8em",
+    },
+    "& .fp-title": {
+      fontFamily: theme.typography.h4.fontFamily,
+      fontSize: theme.typography.h4.fontSize,
+      margin: 0,
+    },
+    "& .fp-list-2 .fp-title, .fp-list-3 .fp-main .fp-title, .fp-list-4 .fp-title": {
+      fontWeight: 500,
+    },
+    "& .fp-list-4 .fp-post": {
+      marginLeft: -10,
+      marginRight: -10,
+    },
+    "& .fp-list-4 .fp-media": {
+      flex: "1 0 40%",
+      minWidth: 150,
+      maxWidth: 300,
+      marginLeft: 10,
+      marginRight: 10,
+      marginBottom: "0.8em",
+    },
+    "& .fp-list-4 .fp-body": {
+      flex: "1 0 50%",
+      marginLeft: 10,
+      marginRight: 10,
+    },
+    "& .fp-title a": {
+      color: theme.palette.primary.dark,
+      textDecoration: "none",
+    },
+    "& .fp-excerpt": {
+      margintop: "0.4em",
+      opacity: 0.8,
+    },
+    "& .fp-meta": {
+      marginTop: "0.1em",
+    },
+    "& .fp-meta a": {
+      opacity: 0.5,
+      color: theme.palette.primary.dark,
+      textDecoration: "none",
+    },
+    "& .fp-comments > span": {
+      opacity: 0.5,
+    },
+    "& .fp-meta a:hover": {
+      opacity: 0.8,
+    },
+    "& .fp-meta > span:before": {
+      content: "\a0\b7\a0",
+      opacity: 0.5,
+    },
+    "& .fp-meta > span:first-child:before": {
+      content: "",
+    },
+    "& .fp-categories": {
+      display: "block",
+      fontSize: "0.7em",
+      margin: 0,
+      opacity: 0.7,
+      texttransform: "uppercase",
+      letterspacing: "0.2em",
+    },
+    "& .fp-post .fp-readmore": {
+      marginTop: "0.5em",
+    },
+    "& .fp-post .fp-readmore-link": {
+      textDecoration: "none",
+      fontSize: "0.9em",
+      display: "inline-block",
+      borderWidth: "1px",
+      borderStyle: "solid",
+      padding: "0.2em 0.7em",
+      borderRadius: 3,
+    },
+    "& .fp-post .fp-readmore-link:hover": {
+      textDecoration: "none",
     }
   }
 });
