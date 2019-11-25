@@ -1,9 +1,10 @@
 import * as React from "react";
-import { Typography, WithStyles, withStyles } from "@material-ui/core";
+import { Typography, WithStyles, withStyles, Button, Container } from "@material-ui/core";
 import { Post, Attachment } from "../generated/client/src";
 import ApiUtils from "../utils/ApiUtils";
 import styles from "../styles/current-news";
 import placeholderImg from "../resources/img/muisti-konsepti.png";
+import ArrowIcon from "@material-ui/icons/ArrowForwardRounded";
 
 /**
  * Interface representing component properties
@@ -104,11 +105,15 @@ class CurrentNews extends React.Component<Props, State> {
                     this.renderTags()
                   }
                   <Typography variant="h4" className={ classes.title }> { post.title ? post.title.rendered : "" } </Typography>
-                  {/* <p dangerouslySetInnerHTML={ {__html: post.content ? post.content.rendered || "" : "" }} /> */}
                 </div>
               );
             })
           }
+        </div>
+        <div className={ classes.buttonContainer }>
+          <Button style={{ width: 300, color: "#000", borderColor: "#000" }} color="primary" variant="outlined" endIcon={ <ArrowIcon /> }>
+            Lisää ajankohtaista
+          </Button>
         </div>
       </div>
     );
@@ -119,7 +124,7 @@ class CurrentNews extends React.Component<Props, State> {
    */
   private renderTags() {
     const { classes } = this.props;
-    /** TODO tee ne tagit */
+    /** TODO render tags */
     return (
       <Typography variant="subtitle1" color="secondary" className={ classes.tag } >Tagi</Typography>
     );

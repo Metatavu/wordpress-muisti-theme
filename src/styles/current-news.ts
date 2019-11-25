@@ -7,46 +7,78 @@ export default createStyles({
     backgroundColor: theme.palette.background.paper,
     display: "flex",
     flexDirection: "column",
-    padding: "50px 0",
+    padding: "50px 20px",
+    [theme.breakpoints.up("sm")]: {
+      padding: "150px 40px 50px",
+    },
     [theme.breakpoints.up("md")]: {
-      padding: "150px 50px 50px",
+      padding: "150px 120px 50px",
+    },
+    [theme.breakpoints.up("lg")]: {
+      padding: "150px 180px 50px",
+    }
+  },
+  buttonContainer: {
+    display: "flex",
+    width: "100%",
+    justifyContent: "center",
+    marginBottom: theme.spacing(5),
+    [theme.breakpoints.up("sm")]: {
+      justifyContent: "flex-end",
+    },
+    [theme.breakpoints.up("md")]: {
+      marginBottom: theme.spacing(10)
+    },
+  },
+  latestNewsContainer: {
+    display: "flex",
+    flexDirection: "column",
+    width: "100%",
+    justifyContent: "center",
+    marginTop: theme.spacing(5),
+    marginBottom: theme.spacing(5),
+    [theme.breakpoints.up("sm")]: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+    },
+    [theme.breakpoints.up("md")]: {
+      marginTop: theme.spacing(10),
+      marginBottom: theme.spacing(10)
     }
   },
   latestNewsHeading: {
     color: theme.palette.primary.dark
-  },
-  latestNewsContainer: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    marginTop: 50,
-    [theme.breakpoints.up("md")]: {
-      marginTop: 100,
-    },
-    [theme.breakpoints.down("sm")]: {
-      flexDirection: "column"
-    }
   },
   latestNewsItem: {
     cursor: "pointer",
     display: "flex",
     flex: 1,
     flexDirection: "column",
-    maxWidth: 480,
-    margin: "0 5%",
-    [theme.breakpoints.up("md")]: {
-      margin: "0 30px",
+    alignSelf: "center",
+    width: 300,
+    marginBottom: theme.spacing(5),
+    [theme.breakpoints.up("sm")]: {
+      width: "auto",
+      maxWidth: 400,
+      marginBottom: 0,
     },
-    [theme.breakpoints.up("lg")]: {
-      margin: "0 55px",
+    "&:first-child": {
+      [theme.breakpoints.up("sm")]: {
+        marginRight: theme.spacing(2)
+      }
+    },
+    "&:last-child": {
+      [theme.breakpoints.up("sm")]: {
+        marginLeft: theme.spacing(2)
+      }
     }
   },
   latestNewsImgContainer: {
     backgroundPosition: "center",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
-    height: 150,
-    [theme.breakpoints.only("sm")]: {
+    height: 220,
+    [theme.breakpoints.up("sm")]: {
       height: 200
     },
     [theme.breakpoints.up("md")]: {
