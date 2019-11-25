@@ -3,7 +3,7 @@ import BasicLayout from "../BasicLayout";
 import { Container, WithStyles, withStyles } from "@material-ui/core";
 import styles from "../../styles/page-content";
 import ApiUtils from "../../../src/utils/ApiUtils";
-import { Page } from "../../../src/generated/client/src";
+import { Page, Post } from "../../../src/generated/client/src";
 import ReactHtmlParser from "react-html-parser";
 import HeroBanner from "../HeroBanner";
 
@@ -19,6 +19,7 @@ interface Props extends WithStyles<typeof styles> {
  */
 interface State {
   page?: Page
+  post?: Post
   loading: boolean
 }
 
@@ -55,12 +56,29 @@ class PostPage extends React.Component<Props, State> {
     }
 
     const api = ApiUtils.getApi();
-    const pages = await api.getWpV2Pages({ slug: [ slug ] });
+    const pages = await api.getWpV2Pages({ slug: [slug] });
+    const posts = await api.getWpV2Posts({ slug: [slug] });
     const page = pages[0];
+    const post = posts[0];
+
     this.setState({
       page: page,
+      post: post,
       loading: false
     });
+  }
+
+  private setHtmlSource = () => {
+    const noContentError = "<h2>Hups!</h2><p>Sivua ei löytynyt. Tarkista syöttämäsi osoite.</p>";
+    const undefinedContentError = "<h2>Hups!</h2><p>Jokin meni vikaan. Ota yhteyttä ylläpitoon.</p>";
+
+    if (this.state.page && this.state.page.content) {
+      return this.state.page.content.rendered || undefinedContentError;
+    } else if (this.state.post && this.state.post.content) {
+      return this.state.post.content.rendered || undefinedContentError;
+    } else {
+      return noContentError;
+    }
   }
 
   /**
@@ -68,14 +86,17 @@ class PostPage extends React.Component<Props, State> {
    */
   public render() {
     const { classes } = this.props;
-    const pageHtmlSource = this.state.page && this.state.page.content ? this.state.page.content.rendered || "" : "";
+    const pageHtmlSource = this.state.loading ? "" : this.setHtmlSource();
+
     return (
       <BasicLayout>
         <div className={ classes.hero }></div>
         <div className={ classes.content }>
           <Container>
             <div className={ classes.htmlContainer }>
-              { ReactHtmlParser(pageHtmlSource) }
+              { !this.state.loading &&
+                ReactHtmlParser(pageHtmlSource)
+              }
             </div>
           </Container>
         </div>
