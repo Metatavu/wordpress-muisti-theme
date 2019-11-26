@@ -56,18 +56,18 @@ class PostPage extends React.Component<Props, State> {
 
     const api = ApiUtils.getApi();
 
-    Promise.all([
+    const apiCalls = await Promise.all([
       api.getWpV2Pages({ slug: [slug] }),
       api.getWpV2Posts({ slug: [slug] })
-    ]).then((apiCalls) => {
-      const page = apiCalls[0][0];
-      const post = apiCalls[1][0];
+    ]);
+    
+    const page = apiCalls[0][0];
+    const post = apiCalls[1][0];
 
-      this.setState({
-        page: page,
-        post: post,
-        loading: false
-      });
+    this.setState({
+      page: page,
+      post: post,
+      loading: false
     });
   }
 
