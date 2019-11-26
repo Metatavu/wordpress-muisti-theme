@@ -4,7 +4,8 @@ import { Container, WithStyles, withStyles } from "@material-ui/core";
 import styles from "../../styles/page-content";
 import ApiUtils from "../../../src/utils/ApiUtils";
 import { Page, Post } from "../../../src/generated/client/src";
-import ReactHtmlParser from "react-html-parser";
+import ReactHtmlParser, { convertNodeToElement } from "react-html-parser";
+import { DomElement } from "domhandler";
 
 /**
  * Interface representing component properties
@@ -20,6 +21,7 @@ interface State {
   page?: Page
   post?: Post
   loading: boolean
+  heroBanner?: React.ReactElement
 }
 
 /**
@@ -77,15 +79,24 @@ class PostPage extends React.Component<Props, State> {
   public render() {
     const { classes } = this.props;
     const pageHtmlSource = this.state.loading ? "" : this.setHtmlSource();
+    const pageTitle = this.state.page && this.state.page.title ? this.state.page.title.rendered || "" : "";
 
     return (
       <BasicLayout>
-        <div className={ classes.hero }></div>
-        <div className={ classes.content }>
+        { this.state.heroBanner &&
+          <div className={ classes.hero }>
+            <h1 className={ classes.heroTitle }>{ pageTitle }</h1>
+            { this.state.heroBanner }
+          </div>
+        }
+        <div className={ this.state.heroBanner ? classes.contentWithHero : classes.content }>
           <Container>
             <div className={ classes.htmlContainer }>
+              { !this.state.heroBanner &&
+                <h1 className={ classes.title }>{ pageTitle }</h1>
+              }
               { !this.state.loading &&
-                ReactHtmlParser(pageHtmlSource)
+                ReactHtmlParser(pageHtmlSource, { transform: this.transformContent }) 
               }
             </div>
           </Container>
@@ -95,6 +106,20 @@ class PostPage extends React.Component<Props, State> {
   }
 
   /**
+   * get html element classes
+   *
+   * @param node DomElement
+   */
+  private getElementClasses = (node: DomElement): string[] => {
+    const classString = node.attribs ? node.attribs.class : "";
+    if (node.attribs && node.attribs.class) {
+      return classString.split(" ");
+    }
+
+    return [];
+  }
+
+    /**
    * Set html source for page content
    */
   private setHtmlSource = () => {
@@ -108,6 +133,26 @@ class PostPage extends React.Component<Props, State> {
     } else {
       return noContentError;
     }
+  }
+
+  /**
+   * transform html source content before it is rendered
+   * 
+   * @param node DomElement
+   * @param index DomElement index
+   */
+  private transformContent = (node: DomElement, index: number) => {
+    const classNames = this.getElementClasses(node);
+    if (classNames.indexOf("hero") > -1) {
+      if (!this.state.heroBanner) {
+        this.setState({
+          heroBanner: convertNodeToElement(node, index, this.transformContent)
+        });
+      }
+      return null;
+    }
+
+    return convertNodeToElement(node, index, this.transformContent);
   }
 }
 

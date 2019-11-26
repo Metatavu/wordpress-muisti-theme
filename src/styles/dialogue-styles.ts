@@ -1,14 +1,19 @@
 import { createStyles } from "@material-ui/core";
+import theme from "./theme";
 
 export default createStyles({
   root: {
     display: "flex",
     flexDirection: "column",
     position: "fixed",
-    top: 130,
+    top: 100,
     width: "100vw",
+    height: "calc(100% - 100px)",
     zIndex: 1000,
-    height: "calc(100% - 130px)",
+    [theme.breakpoints.up("md")]: {
+      top: 130,
+      height: "calc(100% - 130px)",
+    },
     backgroundColor: "rgba(45, 45, 45, 0.9)"
   },
   tinyHeader: {

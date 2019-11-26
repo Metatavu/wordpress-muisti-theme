@@ -135,32 +135,33 @@ class DonateBanner extends React.Component<Props, State> {
     return convertNodeToElement(node, index, this.transformContent);
   }
 
+  /**
+   * Render post method
+   */
   private renderPost() {
     const { classes } = this.props;
     if (!this.state.posts.length) {
       return null;
     }
+
     const post = this.state.posts[0];
     const featuredMedia = post.featured_media ? this.state.featuredMedias[post.featured_media] : null;
     const featuredMediaUrl = featuredMedia ? featuredMedia.source_url : null;
+
     return (
-      <div
-        key={ post.id }
-        className={ classes.donateItem }>
-        <div className={ classes.donateContent }>
-          <div className={ classes.donateContentBlock }>
-            <Typography color="primary" variant="h2"> { post.title ? post.title.rendered : "" } </Typography>
-            <div className={ classes.textContainer }>
-              {
-                ReactHtmlParser(post.content ? post.content.rendered || "" : "", { transform: this.transformContent })
-              }
-            </div>
-          </div>
-          <div className={ classes.imageContainer }>
+      <div key={ post.id } className={ classes.donateContent }>
+        <div className={ classes.donateContentBlock }>
+          <Typography color="primary" variant="h3"> { post.title ? post.title.rendered : "" } </Typography>
+          <div className={ classes.textContainer }>
             {
-              this.renderImage(featuredMediaUrl)
+              ReactHtmlParser(post.content ? post.content.rendered || "" : "", { transform: this.transformContent })
             }
           </div>
+        </div>
+        <div className={ classes.imageContainer }>
+          {
+            this.renderImage(featuredMediaUrl)
+          }
         </div>
       </div>
     );

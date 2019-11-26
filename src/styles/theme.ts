@@ -25,49 +25,38 @@ export default createMuiTheme({
     fontFamily: "tt_norms_proregular",
     h1: {
       fontFamily: "tt_norms_promedium",
-      fontSize: "1.8rem",
-      lineHeight: "1.4",
-      [theme.breakpoints.up("md")]: {
-        fontSize: 55,
-      },
       fontWeight: "normal"
     },
     h2: {
       fontFamily: "tt_norms_promedium",
-      fontSize: 34,
       fontWeight: "normal"
     },
     h3: {
       fontFamily: "tt_norms_promedium",
-      fontSize: 21,
       fontWeight: "normal"
     },
     h4: {
       fontFamily: "tt_norms_promedium",
-      fontSize: 18,
+      fontWeight: "normal"
+    },
+    h5: {
+      fontFamily: "tt_norms_promedium",
       fontWeight: "normal"
     },
     body1: {
       fontFamily: "tt_norms_proregular",
-      fontSize: 14,
-      [theme.breakpoints.up("md")]: {
-        fontSize: 16,
-      },
       fontWeight: "normal"
     },
     body2: {
       fontFamily: "tt_norms_proregular",
-      fontSize: 14,
       fontWeight: "normal"
     },
     subtitle1: {
       fontFamily: "tt_norms_proregular",
-      fontSize: 18,
       fontWeight: "normal"
     },
     subtitle2: {
       fontFamily: "tt_norms_promedium",
-      fontSize: 21,
       fontWeight: "normal"
     }
   },
@@ -79,13 +68,17 @@ export default createMuiTheme({
         height: 65,
         borderRadius: 0,
         padding: "5px 15px",
-        borderWidth: 2,
-          "&:hover": {
-            borderWidth: 2,
-          },
-          "&:active": {
-            borderWidth: 2,
-          }
+        borderWidth: 3,
+        "&:hover": {
+          borderWidth: 3,
+        },
+        "&:active": {
+          borderWidth: 3,
+        }
+      },
+      label: {
+        fontFamily: theme.typography.h1.fontFamily,
+        fontSize: theme.typography.h6.fontSize
       }
     },
     MuiInputBase: {

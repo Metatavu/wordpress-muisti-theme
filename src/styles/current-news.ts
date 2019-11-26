@@ -7,58 +7,106 @@ export default createStyles({
     backgroundColor: theme.palette.background.paper,
     display: "flex",
     flexDirection: "column",
-    padding: "50px 0",
+    padding: "50px 20px",
+    [theme.breakpoints.up("sm")]: {
+      padding: "150px 0 50px",
+    },
     [theme.breakpoints.up("md")]: {
-      padding: "150px 50px 50px",
+      padding: "150px 0 50px",
+    },
+    [theme.breakpoints.up("lg")]: {
+      padding: "150px 0 50px",
+    }
+  },
+  buttonContainer: {
+    display: "flex",
+    width: "100%",
+    justifyContent: "center",
+    marginBottom: theme.spacing(5),
+    [theme.breakpoints.up("sm")]: {
+      justifyContent: "flex-end",
+    },
+    [theme.breakpoints.up("md")]: {
+      marginBottom: theme.spacing(10),
+      width: "80%"
+    },
+  },
+  button: {
+    width: 300,
+    color: "#000",
+    borderColor: "#111",
+    "&:hover": {
+      borderColor: "#000",
+      backgroundColor: "rgba(0, 0, 0, 0.2)"
+    },
+  },
+  latestNewsContainer: {
+    display: "flex",
+    flexDirection: "column",
+    width: "100%",
+    justifyContent: "center",
+    marginTop: theme.spacing(5),
+    marginBottom: theme.spacing(5),
+    [theme.breakpoints.up("sm")]: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+    },
+    [theme.breakpoints.up("md")]: {
+      marginTop: theme.spacing(10),
+      marginBottom: theme.spacing(10),
+      width: "80%"
     }
   },
   latestNewsHeading: {
     color: theme.palette.primary.dark
-  },
-  latestNewsContainer: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    marginTop: 50,
-    [theme.breakpoints.up("md")]: {
-      marginTop: 100,
-    },
-    [theme.breakpoints.down("sm")]: {
-      flexDirection: "column"
-    }
   },
   latestNewsItem: {
     cursor: "pointer",
     display: "flex",
     flex: 1,
     flexDirection: "column",
-    maxWidth: 480,
-    margin: "0 5%",
-    [theme.breakpoints.up("md")]: {
-      margin: "0 30px",
+    textDecoration: "none",
+    padding: theme.spacing(2),
+    width: 300,
+    marginBottom: theme.spacing(5),
+    [theme.breakpoints.up("sm")]: {
+      width: "auto",
+      maxWidth: 470,
+      marginBottom: 0,
+      transition: "box-shadow 0.4s ease-out, transform 0.2s ease-out",
+      "&:hover": {
+        transform: "scale(1.01)",
+        boxShadow: "0 0 20px rgba(0, 0, 0, 0.2)"
+      }
     },
-    [theme.breakpoints.up("lg")]: {
-      margin: "0 55px",
+    "&:first-child": {
+      [theme.breakpoints.up("sm")]: {
+        marginRight: theme.spacing(2)
+      }
+    },
+    "&:last-child": {
+      [theme.breakpoints.up("sm")]: {
+        marginLeft: theme.spacing(2)
+      }
     }
   },
   latestNewsImgContainer: {
     backgroundPosition: "center",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
-    height: 150,
-    [theme.breakpoints.only("sm")]: {
+    marginBottom: theme.spacing(2),
+    height: 220,
+    [theme.breakpoints.up("sm")]: {
       height: 200
     },
     [theme.breakpoints.up("md")]: {
       height: 250
     },
     [theme.breakpoints.up("lg")]: {
-      height: 300
+      height: 320
     }
   },
   title: {
-    fontSize: 22,
-    fontFamily: theme.typography.h1.fontFamily,
     color: theme.palette.primary.dark
   },
   tag: {
