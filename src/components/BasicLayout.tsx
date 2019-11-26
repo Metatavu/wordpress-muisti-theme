@@ -11,6 +11,7 @@ import SiteMenu from "./SiteMenu";
 import SiteSearch from "./SiteSearch";
 import styles from "../styles/basic-layout";
 import Footer from "./Footer";
+import strings from "../localization/strings";
 
 /**
  * Interface representing component properties
@@ -146,7 +147,7 @@ class BasicLayout extends React.Component<Props, State> {
         {
           mainMenu.items.map(this.renderMenuItem)
         }
-        <Link variant="h6" className={ classes.navLink } onClick={ this.showSiteMenu }>Lisää +</Link>
+        <Link variant="h6" className={ classes.navLink } onClick={ this.showSiteMenu }>{ strings.morePlus }</Link>
       </div>
     );
   }
@@ -181,7 +182,7 @@ class BasicLayout extends React.Component<Props, State> {
         className={ classes.donate }
         endIcon={ <ArrowIcon /> }
       >
-        Lahjoita
+        { strings.donate }
       </Button>
     );
   }

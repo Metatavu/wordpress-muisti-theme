@@ -1,12 +1,12 @@
 import * as React from "react";
-import { Typography, WithStyles, withStyles, Button, Container } from "@material-ui/core";
+import { Typography, WithStyles, withStyles, Button } from "@material-ui/core";
 import { Post, Attachment } from "../generated/client/src";
 import ApiUtils from "../utils/ApiUtils";
 import styles from "../styles/current-news";
 import placeholderImg from "../resources/img/muisti-konsepti.png";
 import ArrowIcon from "@material-ui/icons/ArrowForwardRounded";
 import { Link } from "react-router-dom";
-import { SocialGroup } from "material-ui/svg-icons";
+import strings from "../localization/strings";
 
 /**
  * Interface representing component properties
@@ -90,14 +90,14 @@ class CurrentNews extends React.Component<Props, State> {
     const { classes } = this.props;
     return (
       <div className={ classes.root}>
-        <Typography variant="h2" className={ classes.latestNewsHeading }>Ajankohtaista</Typography>
+        <Typography variant="h2" className={ classes.latestNewsHeading }>{ strings.currentNews }</Typography>
         <div className={ classes.latestNewsContainer }>
           {
             this.state.posts.map((post) => {
               const featuredMedia = post.featured_media ? this.state.featuredMedias[post.featured_media] : null;
               const featuredMediaUrl = featuredMedia ? featuredMedia.source_url : null;
               return (
-                <Link to={post.slug || "/"} className={ classes.latestNewsItem } key={ post.id }>
+                <Link to={ post.slug || "/" } className={ classes.latestNewsItem } key={ post.id }>
                   <div
                     className={ classes.latestNewsImgContainer }
                     style={{ backgroundImage: `url('${( featuredMediaUrl != null ? featuredMediaUrl : placeholderImg )}')` }}
@@ -112,7 +112,7 @@ class CurrentNews extends React.Component<Props, State> {
         <div className={ classes.buttonContainer }>
           <Link style={{ textDecoration: "none" }} to={"ajankohtaista"}>
             <Button className={ classes.button } color="primary" variant="outlined" endIcon={ <ArrowIcon /> }>
-              Lisää ajankohtaista
+              { strings.moreCurrentNews }
             </Button>
           </Link>
         </div>
