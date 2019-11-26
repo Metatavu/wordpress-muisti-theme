@@ -5,7 +5,6 @@ import styles from "../../styles/page-content";
 import ApiUtils from "../../../src/utils/ApiUtils";
 import { Page, Post } from "../../../src/generated/client/src";
 import ReactHtmlParser from "react-html-parser";
-import HeroBanner from "../HeroBanner";
 
 /**
  * Interface representing component properties
@@ -56,29 +55,20 @@ class PostPage extends React.Component<Props, State> {
     }
 
     const api = ApiUtils.getApi();
-    const pages = await api.getWpV2Pages({ slug: [slug] });
-    const posts = await api.getWpV2Posts({ slug: [slug] });
-    const page = pages[0];
-    const post = posts[0];
 
-    this.setState({
-      page: page,
-      post: post,
-      loading: false
+    Promise.all([
+      await api.getWpV2Pages({ slug: [slug] }),
+      await api.getWpV2Posts({ slug: [slug] })
+    ]).then((apiCalls) => {
+      const page = apiCalls[0][0];
+      const post = apiCalls[1][0];
+
+      this.setState({
+        page: page,
+        post: post,
+        loading: false
+      });
     });
-  }
-
-  private setHtmlSource = () => {
-    const noContentError = "<h2>Hups!</h2><p>Sivua ei löytynyt. Tarkista syöttämäsi osoite.</p>";
-    const undefinedContentError = "<h2>Hups!</h2><p>Jokin meni vikaan. Ota yhteyttä ylläpitoon.</p>";
-
-    if (this.state.page && this.state.page.content) {
-      return this.state.page.content.rendered || undefinedContentError;
-    } else if (this.state.post && this.state.post.content) {
-      return this.state.post.content.rendered || undefinedContentError;
-    } else {
-      return noContentError;
-    }
   }
 
   /**
@@ -102,6 +92,22 @@ class PostPage extends React.Component<Props, State> {
         </div>
       </BasicLayout>
     );
+  }
+
+  /**
+   * Set html source for page content
+   */
+  private setHtmlSource = () => {
+    const noContentError = "<h2>Hups!</h2><p>Sivua ei löytynyt. Tarkista syöttämäsi osoite.</p>";
+    const undefinedContentError = "<h2>Hups!</h2><p>Jokin meni vikaan. Ota yhteyttä ylläpitoon.</p>";
+
+    if (this.state.page && this.state.page.content) {
+      return this.state.page.content.rendered || undefinedContentError;
+    } else if (this.state.post && this.state.post.content) {
+      return this.state.post.content.rendered || undefinedContentError;
+    } else {
+      return noContentError;
+    }
   }
 }
 
