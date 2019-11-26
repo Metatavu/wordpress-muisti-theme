@@ -3,7 +3,7 @@ import BasicLayout from "../BasicLayout";
 import { Container, WithStyles, withStyles } from "@material-ui/core";
 import styles from "../../styles/page-content";
 import ApiUtils from "../../../src/utils/ApiUtils";
-import { Page } from "../../../src/generated/client/src";
+import { Page, Post } from "../../../src/generated/client/src";
 import ReactHtmlParser, { convertNodeToElement } from "react-html-parser";
 import { DomElement } from "domhandler";
 
@@ -19,6 +19,7 @@ interface Props extends WithStyles<typeof styles> {
  */
 interface State {
   page?: Page
+  post?: Post
   loading: boolean
   heroBanner?: React.ReactElement
 }
@@ -56,10 +57,18 @@ class PostPage extends React.Component<Props, State> {
     }
 
     const api = ApiUtils.getApi();
-    const pages = await api.getWpV2Pages({ slug: [ slug ] });
-    const page = pages[0];
+
+    const apiCalls = await Promise.all([
+      api.getWpV2Pages({ slug: [slug] }),
+      api.getWpV2Posts({ slug: [slug] })
+    ]);
+    
+    const page = apiCalls[0][0];
+    const post = apiCalls[1][0];
+
     this.setState({
       page: page,
+      post: post,
       loading: false
     });
   }
@@ -69,8 +78,9 @@ class PostPage extends React.Component<Props, State> {
    */
   public render() {
     const { classes } = this.props;
-    const pageHtmlSource = this.state.page && this.state.page.content ? this.state.page.content.rendered || "" : "";
+    const pageHtmlSource = this.state.loading ? "" : this.setHtmlSource();
     const pageTitle = this.state.page && this.state.page.title ? this.state.page.title.rendered || "" : "";
+
     return (
       <BasicLayout>
         { this.state.heroBanner &&
@@ -85,7 +95,9 @@ class PostPage extends React.Component<Props, State> {
               { !this.state.heroBanner &&
                 <h1 className={ classes.title }>{ pageTitle }</h1>
               }
-              { ReactHtmlParser(pageHtmlSource, { transform: this.transformContent }) }
+              { !this.state.loading &&
+                ReactHtmlParser(pageHtmlSource, { transform: this.transformContent }) 
+              }
             </div>
           </Container>
         </div>
@@ -93,6 +105,11 @@ class PostPage extends React.Component<Props, State> {
     );
   }
 
+  /**
+   * get html element classes
+   *
+   * @param node DomElement
+   */
   private getElementClasses = (node: DomElement): string[] => {
     const classString = node.attribs ? node.attribs.class : "";
     if (node.attribs && node.attribs.class) {
@@ -102,6 +119,28 @@ class PostPage extends React.Component<Props, State> {
     return [];
   }
 
+    /**
+   * Set html source for page content
+   */
+  private setHtmlSource = () => {
+    const noContentError = "<h2>Hups!</h2><p>Sivua ei löytynyt. Tarkista syöttämäsi osoite.</p>";
+    const undefinedContentError = "<h2>Hups!</h2><p>Jokin meni vikaan. Ota yhteyttä ylläpitoon.</p>";
+
+    if (this.state.page && this.state.page.content) {
+      return this.state.page.content.rendered || undefinedContentError;
+    } else if (this.state.post && this.state.post.content) {
+      return this.state.post.content.rendered || undefinedContentError;
+    } else {
+      return noContentError;
+    }
+  }
+
+  /**
+   * transform html source content before it is rendered
+   * 
+   * @param node DomElement
+   * @param index DomElement index
+   */
   private transformContent = (node: DomElement, index: number) => {
     const classNames = this.getElementClasses(node);
     if (classNames.indexOf("hero") > -1) {
