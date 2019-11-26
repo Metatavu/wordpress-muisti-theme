@@ -9,13 +9,13 @@ export default createStyles({
     flexDirection: "column",
     padding: "50px 20px",
     [theme.breakpoints.up("sm")]: {
-      padding: "150px 40px 50px",
+      padding: "150px 0 50px",
     },
     [theme.breakpoints.up("md")]: {
-      padding: "150px 120px 50px",
+      padding: "150px 0 50px",
     },
     [theme.breakpoints.up("lg")]: {
-      padding: "150px 180px 50px",
+      padding: "150px 0 50px",
     }
   },
   buttonContainer: {
@@ -27,7 +27,8 @@ export default createStyles({
       justifyContent: "flex-end",
     },
     [theme.breakpoints.up("md")]: {
-      marginBottom: theme.spacing(10)
+      marginBottom: theme.spacing(10),
+      width: "80%"
     },
   },
   latestNewsContainer: {
@@ -43,7 +44,8 @@ export default createStyles({
     },
     [theme.breakpoints.up("md")]: {
       marginTop: theme.spacing(10),
-      marginBottom: theme.spacing(10)
+      marginBottom: theme.spacing(10),
+      width: "80%"
     }
   },
   latestNewsHeading: {
@@ -54,13 +56,19 @@ export default createStyles({
     display: "flex",
     flex: 1,
     flexDirection: "column",
-    alignSelf: "center",
+    textDecoration: "none",
+    padding: theme.spacing(2),
     width: 300,
     marginBottom: theme.spacing(5),
     [theme.breakpoints.up("sm")]: {
       width: "auto",
-      maxWidth: 400,
+      maxWidth: 470,
       marginBottom: 0,
+      transition: "box-shadow 0.4s ease-out, transform 0.2s ease-out",
+      "&:hover": {
+        transform: "scale(1.01)",
+        boxShadow: "0 0 20px rgba(0, 0, 0, 0.2)"
+      }
     },
     "&:first-child": {
       [theme.breakpoints.up("sm")]: {
@@ -77,6 +85,7 @@ export default createStyles({
     backgroundPosition: "center",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
+    marginBottom: theme.spacing(2),
     height: 220,
     [theme.breakpoints.up("sm")]: {
       height: 200
@@ -85,12 +94,10 @@ export default createStyles({
       height: 250
     },
     [theme.breakpoints.up("lg")]: {
-      height: 300
+      height: 320
     }
   },
   title: {
-    fontSize: 22,
-    fontFamily: theme.typography.h1.fontFamily,
     color: theme.palette.primary.dark
   },
   tag: {
