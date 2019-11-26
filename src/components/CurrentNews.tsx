@@ -1,9 +1,12 @@
 import * as React from "react";
-import { Typography, WithStyles, withStyles } from "@material-ui/core";
+import { Typography, WithStyles, withStyles, Button, Container } from "@material-ui/core";
 import { Post, Attachment } from "../generated/client/src";
 import ApiUtils from "../utils/ApiUtils";
 import styles from "../styles/current-news";
 import placeholderImg from "../resources/img/muisti-konsepti.png";
+import ArrowIcon from "@material-ui/icons/ArrowForwardRounded";
+import { Link } from "react-router-dom";
+import { SocialGroup } from "material-ui/svg-icons";
 
 /**
  * Interface representing component properties
@@ -94,21 +97,24 @@ class CurrentNews extends React.Component<Props, State> {
               const featuredMedia = post.featured_media ? this.state.featuredMedias[post.featured_media] : null;
               const featuredMediaUrl = featuredMedia ? featuredMedia.source_url : null;
               return (
-                <div className={ classes.latestNewsItem } key={ post.id }>
+                <Link to={post.slug || "/"} className={ classes.latestNewsItem } key={ post.id }>
                   <div
                     className={ classes.latestNewsImgContainer }
                     style={{ backgroundImage: `url('${( featuredMediaUrl != null ? featuredMediaUrl : placeholderImg )}')` }}
-                  >
+                    >
                   </div>
-                  {
-                    this.renderTags()
-                  }
                   <Typography variant="h4" className={ classes.title }> { post.title ? post.title.rendered : "" } </Typography>
-                  {/* <p dangerouslySetInnerHTML={ {__html: post.content ? post.content.rendered || "" : "" }} /> */}
-                </div>
+                </Link>
               );
             })
           }
+        </div>
+        <div className={ classes.buttonContainer }>
+          <Link style={{ textDecoration: "none" }} to={"ajankohtaista"}>
+            <Button className={ classes.button } color="primary" variant="outlined" endIcon={ <ArrowIcon /> }>
+              Lisää ajankohtaista
+            </Button>
+          </Link>
         </div>
       </div>
     );
@@ -119,7 +125,7 @@ class CurrentNews extends React.Component<Props, State> {
    */
   private renderTags() {
     const { classes } = this.props;
-    /** TODO tee ne tagit */
+    /** TODO render tags */
     return (
       <Typography variant="subtitle1" color="secondary" className={ classes.tag } >Tagi</Typography>
     );

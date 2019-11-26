@@ -68,13 +68,17 @@ export default createMuiTheme({
         height: 65,
         borderRadius: 0,
         padding: "5px 15px",
-        borderWidth: 2,
-          "&:hover": {
-            borderWidth: 2,
-          },
-          "&:active": {
-            borderWidth: 2,
-          }
+        borderWidth: 3,
+        "&:hover": {
+          borderWidth: 3,
+        },
+        "&:active": {
+          borderWidth: 3,
+        }
+      },
+      label: {
+        fontFamily: theme.typography.h1.fontFamily,
+        fontSize: theme.typography.h6.fontSize
       }
     },
     MuiInputBase: {
