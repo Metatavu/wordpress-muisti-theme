@@ -146,7 +146,7 @@ class BasicLayout extends React.Component<Props, State> {
         {
           mainMenu.items.map(this.renderMenuItem)
         }
-        <Link variant="subtitle1" className={ classes.navLink } onClick={ this.showSiteMenu }>Lisää +</Link>
+        <Link variant="h6" className={ classes.navLink } onClick={ this.showSiteMenu }>Lisää +</Link>
       </div>
     );
   }
@@ -158,7 +158,7 @@ class BasicLayout extends React.Component<Props, State> {
     const { classes } = this.props;
     return (
       <Link
-        variant="subtitle1"
+        variant="h6"
         key={ item.db_id }
         href={ item.url }
         className={ classes.navLink }

@@ -111,7 +111,7 @@ class CurrentNews extends React.Component<Props, State> {
         </div>
         <div className={ classes.buttonContainer }>
           <Link style={{ textDecoration: "none" }} to={"ajankohtaista"}>
-            <Button style={{ width: 300, color: "#000", borderColor: "#000" }} color="primary" variant="outlined" endIcon={ <ArrowIcon /> }>
+            <Button className={ classes.button } color="primary" variant="outlined" endIcon={ <ArrowIcon /> }>
               Lisää ajankohtaista
             </Button>
           </Link>

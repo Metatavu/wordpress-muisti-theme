@@ -31,6 +31,15 @@ export default createStyles({
       width: "80%"
     },
   },
+  button: {
+    width: 300,
+    color: "#000",
+    borderColor: "#111",
+    "&:hover": {
+      borderColor: "#000",
+      backgroundColor: "rgba(0, 0, 0, 0.2)"
+    },
+  },
   latestNewsContainer: {
     display: "flex",
     flexDirection: "column",
