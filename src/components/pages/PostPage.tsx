@@ -6,6 +6,7 @@ import ApiUtils from "../../../src/utils/ApiUtils";
 import { Page, Post } from "../../../src/generated/client/src";
 import ReactHtmlParser, { convertNodeToElement } from "react-html-parser";
 import { DomElement } from "domhandler";
+import strings from "../../localization/strings";
 
 /**
  * Interface representing component properties
@@ -62,7 +63,7 @@ class PostPage extends React.Component<Props, State> {
       api.getWpV2Pages({ slug: [slug] }),
       api.getWpV2Posts({ slug: [slug] })
     ]);
-    
+
     const page = apiCalls[0][0];
     const post = apiCalls[1][0];
 
@@ -78,8 +79,7 @@ class PostPage extends React.Component<Props, State> {
    */
   public render() {
     const { classes } = this.props;
-    const pageHtmlSource = this.state.loading ? "" : this.setHtmlSource();
-    const pageTitle = this.state.page && this.state.page.title ? this.state.page.title.rendered || "" : "";
+    const pageTitle = this.state.loading ? "" : this.setTitleSource();
 
     return (
       <BasicLayout>
@@ -96,7 +96,7 @@ class PostPage extends React.Component<Props, State> {
                 <h1 className={ classes.title }>{ pageTitle }</h1>
               }
               { !this.state.loading &&
-                ReactHtmlParser(pageHtmlSource, { transform: this.transformContent }) 
+                this.getPageOrPostContent()
               }
             </div>
           </Container>
@@ -119,17 +119,38 @@ class PostPage extends React.Component<Props, State> {
     return [];
   }
 
-    /**
+  /**
    * Set html source for page content
    */
-  private setHtmlSource = () => {
-    const noContentError = "<h2>Hups!</h2><p>Sivua ei löytynyt. Tarkista syöttämäsi osoite.</p>";
-    const undefinedContentError = "<h2>Hups!</h2><p>Jokin meni vikaan. Ota yhteyttä ylläpitoon.</p>";
+  private getPageOrPostContent = () => {
+    const { classes } = this.props;
+    const {page, post} = this.state;
 
-    if (this.state.page && this.state.page.content) {
-      return this.state.page.content.rendered || undefinedContentError;
-    } else if (this.state.post && this.state.post.content) {
-      return this.state.post.content.rendered || undefinedContentError;
+    const noContentError = <h2 className="error-text">{ strings.pageNotFound }</h2>;
+    const undefinedContentError = <h2 className="error-text">{ strings.somethingWentWrong }</h2>;
+    if (!page && !post) {
+      return noContentError;
+    }
+
+    const renderedContent = page && page.content ? page.content.rendered : post && post.content ? post.content.rendered : undefined;
+    if (!renderedContent) {
+      return undefinedContentError;
+    }
+
+    return ReactHtmlParser(renderedContent, { transform: this.transformContent });
+  }
+
+  /**
+   * Set html source for page content
+   */
+  private setTitleSource = () => {
+    const noContentError = `${ strings.whoops }`;
+    const undefinedContentError = `${ strings.error }`;
+
+    if (this.state.page && this.state.page.title) {
+      return this.state.page.title.rendered || undefinedContentError;
+    } else if (this.state.post && this.state.post.title) {
+      return this.state.post.title.rendered || undefinedContentError;
     } else {
       return noContentError;
     }
@@ -137,7 +158,7 @@ class PostPage extends React.Component<Props, State> {
 
   /**
    * transform html source content before it is rendered
-   * 
+   *
    * @param node DomElement
    * @param index DomElement index
    */

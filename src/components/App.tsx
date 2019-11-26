@@ -5,6 +5,7 @@ import PostPage from "./pages/PostPage";
 import { CssBaseline, responsiveFontSizes } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/styles";
 import muistiTheme from "../styles/theme";
+import strings from "../localization/strings";
 
 /**
  * Interface representing component properties
@@ -31,6 +32,8 @@ class App extends React.Component<Props, State> {
    * Component render method
    */
   public render() {
+    // Todo: check selected language
+    strings.setLanguage("fi");
     return (
       <ThemeProvider theme={theme}>
         <CssBaseline />

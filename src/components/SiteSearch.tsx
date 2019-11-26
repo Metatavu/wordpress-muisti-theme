@@ -1,9 +1,10 @@
 import * as React from "react";
-import { WithStyles, withStyles, Container, Fade, TextField, IconButton } from '@material-ui/core';
+import { WithStyles, withStyles, Container, Fade, TextField, IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/CloseSharp";
 import classNames from "classnames";
 import styles from "../styles/dialogue-styles";
 import theme from "../styles/theme";
+import strings from "../localization/strings";
 
 /**
  * Interface representing component properties
@@ -76,7 +77,7 @@ class SiteSearch extends React.Component<Props, State> {
             </IconButton>
           </Container>
           <Container maxWidth="sm" className={ classes.searchContainer }>
-            <TextField inputProps={{ style: { color: theme.palette.primary.main } }} fullWidth={ true } label="Hae sivustolta"></TextField>
+            <TextField inputProps={{ style: { color: theme.palette.primary.main } }} fullWidth={ true } label={ strings.searchSite }></TextField>
           </Container>
         </Container>
       </Fade>

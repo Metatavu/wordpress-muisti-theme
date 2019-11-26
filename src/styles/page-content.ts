@@ -54,15 +54,16 @@ export default createStyles({
   title: {
     fontFamily: theme.typography.h1.fontFamily,
     fontWeight: "normal",
-    fontSize: theme.typography.h4.fontSize,
+    fontSize: "3.5rem",
+    lineHeight: 1,
     [theme.breakpoints.up("md")]: {
-      fontSize: theme.typography.h3.fontSize,
+      fontSize: "4.75rem",
     },
     [theme.breakpoints.up("lg")]: {
-      fontSize: theme.typography.h2.fontSize,
+      fontSize: "5.5rem",
     },
     [theme.breakpoints.up("xl")]: {
-      fontSize: theme.typography.h1.fontSize,
+      fontSize: "6rem",
     }
   },
   heroTitle: {
@@ -74,19 +75,21 @@ export default createStyles({
     zIndex: 2,
     fontFamily: theme.typography.h1.fontFamily,
     fontWeight: "normal",
-    fontSize: theme.typography.h4.fontSize,
+    fontSize: "3.5rem",
+    lineHeight: 1,
     [theme.breakpoints.up("md")]: {
       top: "50%",
       marginLeft: 70,
-      fontSize: theme.typography.h3.fontSize,
+      fontSize: "4.75rem",
     },
     [theme.breakpoints.up("lg")]: {
-      fontSize: theme.typography.h2.fontSize,
+      fontSize: "5.5rem",
     },
     [theme.breakpoints.up("xl")]: {
-      fontSize: theme.typography.h1.fontSize,
+      fontSize: "6rem",
     }
   },
+  errorText: {},
   htmlContainer: {
     marginTop: theme.spacing(10),
     marginBottom: theme.spacing(10),
@@ -100,7 +103,12 @@ export default createStyles({
       [theme.breakpoints.up("md")]: {
         fontSize: theme.typography.h2.fontSize,
         width: "80%",
-        alignSelf: "center"
+        alignSelf: "center",
+        "&.error-text": {
+          fontSize: theme.typography.h2.fontSize,
+          width: "100%",
+          alignSelf: "flex-start"
+        }
       },
       "&.address-heading": {
         width: "100%",
