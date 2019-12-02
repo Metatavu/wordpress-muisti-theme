@@ -1,12 +1,15 @@
 import * as React from "react";
 import BasicLayout from "../BasicLayout";
-import { Container, WithStyles, withStyles } from "@material-ui/core";
+import { Container, WithStyles, withStyles, Button } from "@material-ui/core";
 import styles from "../../styles/page-content";
 import ApiUtils from "../../../src/utils/ApiUtils";
 import { Page, Post } from "../../../src/generated/client/src";
 import ReactHtmlParser, { convertNodeToElement } from "react-html-parser";
 import { DomElement } from "domhandler";
 import strings from "../../localization/strings";
+import { Link } from "react-router-dom";
+import ArrowIcon from "@material-ui/icons/ArrowForwardRounded";
+import * as classNames from "classnames";
 
 /**
  * Interface representing component properties
@@ -15,14 +18,18 @@ interface Props extends WithStyles<typeof styles> {
   slug: string
 }
 
+type PageTemplate = "basic" | "fullscreen";
+
 /**
  * Interface representing component state
  */
 interface State {
   page?: Page
+  template: PageTemplate
   post?: Post
   loading: boolean
   heroBanner?: React.ReactElement
+  heroContent?: React.ReactElement
 }
 
 /**
@@ -38,6 +45,7 @@ class PostPage extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
+      template: "basic",
       loading: false
     };
   }
@@ -53,7 +61,7 @@ class PostPage extends React.Component<Props, State> {
     const slugParts = this.props.slug.split("/");
     const slug = slugParts.pop() || slugParts.pop();
     if (!slug) {
-      //TODO: handle error
+      // TODO: handle error
       return;
     }
 
@@ -74,6 +82,12 @@ class PostPage extends React.Component<Props, State> {
     });
   }
 
+  public componentWillMount = async () => {
+    this.setState({
+      template: this.getTemplate()
+    });
+  }
+
   /**
    * Component render method
    */
@@ -85,23 +99,44 @@ class PostPage extends React.Component<Props, State> {
       <BasicLayout>
         { this.state.heroBanner &&
           <div className={ classes.hero }>
-            <h1 className={ classes.heroTitle }>{ pageTitle }</h1>
+            <div className={ classes.heroContentContainer }>
+              <h1 className={ classes.heroTitle }>{ pageTitle }</h1>
+              { this.state.heroContent }
+            </div>
             { this.state.heroBanner }
           </div>
         }
         <div className={ this.state.heroBanner ? classes.contentWithHero : classes.content }>
-          <Container>
-            <div className={ classes.htmlContainer }>
-              { !this.state.heroBanner &&
-                <h1 className={ classes.title }>{ pageTitle }</h1>
-              }
-              { !this.state.loading &&
-                this.getPageOrPostContent()
-              }
-            </div>
-          </Container>
+          { this.renderContent(pageTitle) }
         </div>
       </BasicLayout>
+    );
+  }
+
+  private renderContent = (pageTitle: string) => {
+    if (this.state.template === "fullscreen") {
+      return this.renderPostContent(pageTitle);
+    }
+
+    return (
+      <Container>
+        { this.renderPostContent(pageTitle) }
+      </Container>
+    );
+
+  }
+
+  private renderPostContent = (pageTitle: string) => {
+    const { classes } = this.props;
+    return (
+      <div className={ classNames(classes.htmlContainer, this.state.template === "fullscreen" ? "fullscreen" : "") }>
+      { !this.state.heroBanner &&
+        <h1 className={ classes.title }>{ pageTitle }</h1>
+      }
+      { !this.state.loading &&
+        this.getPageOrPostContent()
+      }
+    </div>
     );
   }
 
@@ -120,10 +155,23 @@ class PostPage extends React.Component<Props, State> {
   }
 
   /**
+   * Get html link href
+   */
+  private getLinkHref = (node: DomElement) => {
+    return node.attribs && node.attribs.href ? node.attribs.href : "";
+  }
+
+  /**
+   * Get html text content
+   */
+  private getElementTextContent = (node: DomElement) => {
+    return node.children && node.children[0] ? node.children[0].data as string : "";
+  }
+
+  /**
    * Set html source for page content
    */
   private getPageOrPostContent = () => {
-    const { classes } = this.props;
     const {page, post} = this.state;
 
     const noContentError = <h2 className="error-text">{ strings.pageNotFound }</h2>;
@@ -163,7 +211,10 @@ class PostPage extends React.Component<Props, State> {
    * @param index DomElement index
    */
   private transformContent = (node: DomElement, index: number) => {
+    const { classes } = this.props;
     const classNames = this.getElementClasses(node);
+
+    // Find hero banner and set it to state
     if (classNames.indexOf("hero") > -1) {
       if (!this.state.heroBanner) {
         this.setState({
@@ -173,7 +224,43 @@ class PostPage extends React.Component<Props, State> {
       return null;
     }
 
+    // Find hero content and set it to state
+    if (classNames.indexOf("hero-content") > -1) {
+      if (!this.state.heroContent) {
+        this.setState({
+          heroContent: convertNodeToElement(node, index, this.transformContent)
+        });
+      }
+      return null;
+    }
+
+    // Find any buttons and replace them with Material UI button
+    if (classNames.indexOf("wp-block-button") > -1) {
+      const childNode = node.children && node.children.length ? node.children[0] : null;
+      if (childNode) {
+        const urlParts = this.getLinkHref(childNode).split("/");
+        const slug = urlParts.pop() || urlParts.pop();
+        return (
+          <Link style={{ textDecoration: "none" }} to={slug || "/"}>
+            <Button className={ classes.button } color="primary" variant="outlined" endIcon={ <ArrowIcon /> }>
+              {this.getElementTextContent(childNode)}
+            </Button>
+          </Link>
+        );
+      }
+    }
+
     return convertNodeToElement(node, index, this.transformContent);
+  }
+
+  /**
+   * Returns current page template from body class
+   *
+   * @returns page template
+   */
+  private getTemplate = (): PageTemplate => {
+    const templateClass = (document.body.className || "").split(" ").find((className) => className.indexOf("template-") === 0);
+    return templateClass ? templateClass.substring(9) as PageTemplate : "basic";
   }
 }
 

@@ -3,15 +3,18 @@ import theme from "./theme";
 
 export default createStyles({
   hero: {
-    height: "100vh",
-    position: "relative",
+    height: "90vh",
+    display: "flex",
+    alignItems: "center",
     "& .wp-block-cover": {
-      display: "flex",
-      height: "100vh",
-      backgroundRepeat: "no-repeat",
+      position: "absolute",
+      zIndex: -1,
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
       backgroundSize: "cover",
-      position: "relative",
-      alignItems: "center",
+      backgroundRepeat: "no-repeat",
       "&.has-background-dim.hero:before": {
         content: "''",
         position: "absolute",
@@ -23,13 +26,12 @@ export default createStyles({
         opacity: .5,
         zIndex: 1,
       },
-      "& .wp-block-cover__inner-container": {
-        zIndex: 2,
-        margin: theme.spacing(5),
-        [theme.breakpoints.up("md")]: {
-          margin: theme.spacing(10)
-        }
-      },
+    }
+  },
+  heroContentContainer: {
+    marginLeft: "5%",
+    [theme.breakpoints.up("md")]: {
+      marginLeft: "5%",
     }
   },
   content: {
@@ -67,19 +69,12 @@ export default createStyles({
     }
   },
   heroTitle: {
-    position: "absolute",
-    top: "42%",
-    transform: "translateY( -100% )",
     margin: 0,
-    marginLeft: 38,
-    zIndex: 2,
     fontFamily: theme.typography.h1.fontFamily,
     fontWeight: "normal",
     fontSize: "3.5rem",
     lineHeight: 1,
     [theme.breakpoints.up("md")]: {
-      top: "50%",
-      marginLeft: 70,
       fontSize: "4.75rem",
     },
     [theme.breakpoints.up("lg")]: {
@@ -89,12 +84,19 @@ export default createStyles({
       fontSize: "6rem",
     }
   },
+  button: {
+    width: 300
+  },
   errorText: {},
   htmlContainer: {
     marginTop: theme.spacing(10),
     marginBottom: theme.spacing(10),
     display: "flex",
     flexDirection: "column",
+    "&.fullscreen": {
+      marginTop: 0,
+      marginBottom: 0,
+    },
     "& h2": {
       margin: 0,
       fontSize: theme.typography.h4.fontSize,
@@ -134,16 +136,24 @@ export default createStyles({
     },
     "& .wp-block-image": {
       margin: 0,
+      marginBottom: theme.spacing(5),
+      marginTop: theme.spacing(5),
       "& img": {
         width: "100%"
       }
+    },
+    "&.fullscreen .wp-block-columns": {
+      [theme.breakpoints.up("md")]: {
+        marginTop: 0,
+        marginBottom: 0,
+      },
     },
     "& .wp-block-columns": {
       display: "grid",
       gridAutoFlow: "row",
       [theme.breakpoints.up("md")]: {
         marginTop: theme.spacing(5),
-        marginBottom: theme.spacing(10),
+        marginBottom: theme.spacing(5),
         gridAutoFlow: "column",
       },
       "&.has-2-columns": {
@@ -157,6 +167,9 @@ export default createStyles({
           marginBottom: theme.spacing(5)
         }
       }
+    },
+    "&.fullscreen .wp-block-column": {
+      margin: 0
     },
     "& .wp-block-column": {
       display: "flex",
@@ -233,6 +246,14 @@ export default createStyles({
       marginLeft: -15,
       marginRight: -15,
     },
+    "&.fullscreen .widget_flex-posts-list": {
+      flex: 1
+    },
+    "&.fullscreen .fp-row": {
+      marginLeft: 0,
+      marginRight: 0,
+      flex: 1,
+    },
     "& .fp-post": {
       marginBottom: 20,
     },
@@ -242,6 +263,15 @@ export default createStyles({
       flex: "1 1 30%",
       marginLeft: 15,
       marginRight: 15,
+    },
+    "&.fullscreen .fp-col": {
+      position: "relative",
+      minWidth: "100%",
+      maxWidth: "100%",
+      flex: 1,
+      margin: 0,
+      height: 500,
+      backgroundColor: theme.palette.background.default
     },
     "& .fp-col:empty": {
       height: 0,
@@ -257,19 +287,44 @@ export default createStyles({
     },
     "& .fp-thumbnail": {
       display: "block",
-      transition: "opacity 500ms ease",
+      transition: "opacity 300ms ease",
+    },
+    "&.fullscreen .fp-thumbnail": {
+      display: "flex",
+      flex: 1
+    },
+    "&.fullscreen fp-media": {
+      display: "flex",
+      height: "100%"
     },
     "& .fp-list-1 .fp-thumbnail, .fp-list-3 .fp-extra .fp-thumbnail": {
       marginRight: "1em",
     },
     "& .fp-thumbnail:hover": {
-      opacity: 0.8,
+      opacity: 0.6,
     },
     "& .fp-thumbnail img": {
       display: "block",
       width: "100%",
       objectFit: "cover",
       overflow: "hidden",
+    },
+    "&.fullscreen .fp-thumbnail img": {
+      height: "100%",
+    },
+    "&.fullscreen .fp-media": {
+      display: "flex",
+      height: "100%",
+      opacity: 0.8
+    },
+    "&.fullscreen .fp-body": {
+      position: "absolute",
+      padding: theme.spacing(8),
+      bottom: 0,
+      color: theme.palette.primary.light,
+      "& .fp-title a": {
+        color: theme.palette.primary.light
+      }
     },
     "& .fp-media .fp-thumbnail img": {
       margin: 0,
@@ -311,8 +366,9 @@ export default createStyles({
       textDecoration: "none",
     },
     "& .fp-excerpt": {
-      margintop: "0.4em",
-      opacity: 0.8,
+      marginTop: "1rem",
+      fontFamily: theme.typography.subtitle2.fontFamily,
+      fontSize: theme.typography.subtitle1.fontSize
     },
     "& .fp-meta": {
       marginTop: "0.1em",
@@ -357,6 +413,19 @@ export default createStyles({
     },
     "& .fp-post .fp-readmore-link:hover": {
       textDecoration: "none",
+    },
+    "& .wp-block-embed": {
+      margin: 0,
+      display: "flex",
+      justifyContent: "center",
+      background: theme.palette.background.default
+    },
+    "& .wp-block-embed__wrapper": {
+      width: "100%",
+      "& iframe": {
+        width: "100%",
+        height: 762
+      }
     }
   }
 });
