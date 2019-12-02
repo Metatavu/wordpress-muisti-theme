@@ -98,6 +98,11 @@ class HeroBanner extends React.Component<Props, State> {
     );
   }
 
+  /**
+   * get html element classes
+   *
+   * @param node DomElement
+   */
   private getElementClasses = (node: DomElement): string[] => {
     const classString = node.attribs ? node.attribs.class : "";
     if (node.attribs && node.attribs.class) {
@@ -107,14 +112,23 @@ class HeroBanner extends React.Component<Props, State> {
     return [];
   }
 
+  /**
+   * Get html link href
+   */
   private getLinkHref = (node: DomElement) => {
     return node.attribs && node.attribs.href ? node.attribs.href : "";
   }
 
+  /**
+   * Get html text content
+   */
   private getElementTextContent = (node: DomElement) => {
     return node.children && node.children[0] ? node.children[0].data as string : "";
   }
 
+  /**
+   * Transform html source link element into Material UI button
+   */
   private transformContent = (node: DomElement, index: number) => {
     const { classes } = this.props;
     const classNames = this.getElementClasses(node);

@@ -32,7 +32,6 @@ export default createStyles({
     },
     display: "flex",
     marginLeft: "5%",
-    marginRight: "5%",
     flexDirection: "column"
   },
   heroText: {
