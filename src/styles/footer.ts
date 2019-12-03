@@ -2,11 +2,7 @@ import { createStyles } from "@material-ui/core";
 import theme from "./theme";
 
 export default createStyles({
-  root: {
-    display: "flex",
-    flex: 1,
-    flexDirection: "column"
-  },
+  root: {},
   footerBackground: {
     backgroundPosition: "center",
     backgroundSize: "cover"
@@ -36,17 +32,16 @@ export default createStyles({
     marginBottom: theme.spacing(5)
   },
   contentContainer: {
-    height: "calc( 100vh - 60px )",
+    [theme.breakpoints.up("md")]: {
+      height: "calc( 100vh - 60px )",
+      padding: theme.spacing(10)
+    },
     backgroundColor: "rgba(45, 45, 45, 0.8)"
   },
   logoAndSomeContainer: {
     display: "flex",
     justifyContent: "space-between",
-    paddingTop: theme.spacing(5),
     marginBottom: theme.spacing(5),
-    [theme.breakpoints.up("md")]: {
-      paddingTop: theme.spacing(10),
-    }
   },
   imageContainer: {
       "& img": {
@@ -73,6 +68,9 @@ export default createStyles({
     marginBottom: theme.spacing(5),
     [theme.breakpoints.up("md")]: {
       marginRight: 100,
+    },
+    "&:last-child": {
+      marginRight: 0
     }
   },
   link: {
@@ -89,7 +87,6 @@ export default createStyles({
     },
     "& h3": {
       margin: 0,
-      marginBottom: "2rem"
     }
   }
 });

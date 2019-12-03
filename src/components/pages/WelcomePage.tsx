@@ -11,6 +11,7 @@ import DonateBanner from "../DonateBanner";
  * Interface representing component properties
  */
 interface Props {
+  lang: string
 }
 
 /**
@@ -51,7 +52,7 @@ class WelcomePage extends React.Component<Props, State> {
 
     const api = ApiUtils.getApi();
 
-    const posts = await api.getWpV2Posts({});
+    const posts = await api.getWpV2Posts({lang: [ this.props.lang ]});
 
     const featureMediaIds: number[] = posts
       .filter((post) => {
@@ -84,12 +85,14 @@ class WelcomePage extends React.Component<Props, State> {
    * Component render method
    */
   public render() {
+    const { lang } = this.props;
+
     return (
-      <BasicLayout>
-        <HeroBanner />
-        <LinkBar />
-        <DonateBanner />
-        <CurrentNews />
+      <BasicLayout lang={ lang }>
+        <HeroBanner lang={ lang } />
+        <LinkBar lang={ lang } />
+        <DonateBanner lang={ lang } />
+        <CurrentNews lang={ lang } />
       </BasicLayout>
     );
   }

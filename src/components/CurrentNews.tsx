@@ -12,6 +12,7 @@ import strings from "../localization/strings";
  * Interface representing component properties
  */
 interface Props extends WithStyles<typeof styles> {
+  lang: string
 }
 
 /**
@@ -51,8 +52,9 @@ class CurrentNews extends React.Component<Props, State> {
     });
 
     const api = ApiUtils.getApi();
+    const lang = this.props.lang;
     const categories = await api.getWpV2Categories({ slug: ["ajankohtaista"] });
-    const posts = await api.getWpV2Posts({ categories: categories.map((category) => {
+    const posts = await api.getWpV2Posts({ lang: [ lang ], categories: categories.map((category) => {
       return String(category.id);
     })});
 

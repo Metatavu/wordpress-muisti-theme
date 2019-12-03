@@ -16,6 +16,7 @@ import * as classNames from "classnames";
  */
 interface Props extends WithStyles<typeof styles> {
   slug: string
+  lang: string
 }
 
 type PageTemplate = "basic" | "fullscreen";
@@ -58,6 +59,7 @@ class PostPage extends React.Component<Props, State> {
       loading: true
     });
 
+    const lang = this.props.lang;
     const slugParts = this.props.slug.split("/");
     const slug = slugParts.pop() || slugParts.pop();
     if (!slug) {
@@ -68,8 +70,8 @@ class PostPage extends React.Component<Props, State> {
     const api = ApiUtils.getApi();
 
     const apiCalls = await Promise.all([
-      api.getWpV2Pages({ slug: [slug] }),
-      api.getWpV2Posts({ slug: [slug] })
+      api.getWpV2Pages({ lang: [ lang ], slug: [slug] }),
+      api.getWpV2Posts({ lang: [ lang ], slug: [slug] })
     ]);
 
     const page = apiCalls[0][0];
@@ -92,11 +94,11 @@ class PostPage extends React.Component<Props, State> {
    * Component render method
    */
   public render() {
-    const { classes } = this.props;
+    const { classes, lang } = this.props;
     const pageTitle = this.state.loading ? "" : this.setTitleSource();
 
     return (
-      <BasicLayout>
+      <BasicLayout lang={lang}>
         { this.state.heroBanner &&
           <div className={ classes.hero }>
             <div className={ classes.heroContentContainer }>

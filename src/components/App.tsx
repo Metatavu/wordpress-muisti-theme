@@ -5,6 +5,7 @@ import PostPage from "./pages/PostPage";
 import { CssBaseline, responsiveFontSizes } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/styles";
 import muistiTheme from "../styles/theme";
+import * as qs from "query-string";
 import strings from "../localization/strings";
 
 /**
@@ -32,8 +33,10 @@ class App extends React.Component<Props, State> {
    * Component render method
    */
   public render() {
+    const queryParams = qs.parse(location.search);
+    const language = (queryParams.lang || "fi") as string;
     // Todo: check selected language
-    strings.setLanguage("fi");
+    strings.setLanguage(language);
     return (
       <ThemeProvider theme={theme}>
         <CssBaseline />
@@ -42,12 +45,17 @@ class App extends React.Component<Props, State> {
             <Route
               path="/"
               exact={ true }
-              component={WelcomePage}
+              render={ (props) => (
+                <WelcomePage
+                  lang={language}
+                />
+              )}
             />
             <Route
               path="/:slug"
               render={ (props) => (
                 <PostPage
+                  lang={language}
                   slug={ props.location.pathname as string }
                 />
               )}

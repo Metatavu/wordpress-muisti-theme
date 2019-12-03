@@ -12,6 +12,7 @@ import styles from "../styles/dialogue-styles";
 interface Props extends WithStyles<typeof styles> {
   tinyHeader: boolean
   visible: boolean
+  lang: string
   onClose(): void
 }
 
@@ -50,7 +51,7 @@ class SiteMenu extends React.Component<Props, State> {
 
     const api = ApiUtils.getApi();
 
-    const menu = await api.getMenusV1LocationsById({ id: "site" });
+    const menu = await api.getMenusV1LocationsById({ lang: this.props.lang, id: "site" });
 
     this.setState({
       menu: menu,

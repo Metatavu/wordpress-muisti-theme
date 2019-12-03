@@ -145,6 +145,7 @@ export interface DeleteWpV2UsersMeRequest {
 
 export interface GetMenusV1LocationsByIdRequest {
     id: string;
+    lang?: string;
 }
 
 export interface GetMenusV1MenusByIdRequest {
@@ -288,6 +289,7 @@ export interface GetWpV2PagesRequest {
     parent?: Array<string>;
     parent_exclude?: Array<string>;
     slug?: Array<string>;
+    lang?: Array<string>;
     status?: string;
 }
 
@@ -346,6 +348,7 @@ export interface GetWpV2PostsRequest {
     order?: GetWpV2PostsOrderEnum;
     orderby?: GetWpV2PostsOrderbyEnum;
     slug?: Array<string>;
+    lang?: Array<string>;
     status?: string;
     categories?: Array<string>;
     categories_exclude?: Array<string>;
@@ -1292,6 +1295,10 @@ export class DefaultApi extends runtime.BaseAPI {
 
         const queryParameters: runtime.HTTPQuery = {};
 
+        if (requestParameters.lang !== undefined) {
+            queryParameters['lang'] = requestParameters.lang;
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.apiKey) {
@@ -2100,6 +2107,10 @@ export class DefaultApi extends runtime.BaseAPI {
             queryParameters['slug'] = requestParameters.slug;
         }
 
+        if (requestParameters.lang) {
+            queryParameters['lang'] = requestParameters.lang;
+        }
+
         if (requestParameters.status !== undefined) {
             queryParameters['status'] = requestParameters.status;
         }
@@ -2426,6 +2437,10 @@ export class DefaultApi extends runtime.BaseAPI {
 
         if (requestParameters.slug) {
             queryParameters['slug'] = requestParameters.slug;
+        }
+
+        if (requestParameters.lang) {
+            queryParameters['lang'] = requestParameters.lang;
         }
 
         if (requestParameters.status !== undefined) {

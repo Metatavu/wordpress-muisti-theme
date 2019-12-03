@@ -10,7 +10,7 @@ import ApiUtils from "../utils/ApiUtils";
  * Interface representing component properties
  */
 interface Props extends WithStyles<typeof styles> {
-
+  lang: string
 }
 
 /**

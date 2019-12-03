@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
  * Interface representing component properties
  */
 interface Props extends WithStyles<typeof styles> {
+  lang: string
 }
 
 /**
@@ -53,7 +54,7 @@ class HeroBanner extends React.Component<Props, State> {
 
     const api = ApiUtils.getApi();
     const categories = await api.getWpV2Categories({ slug: ["hero"] });
-    const posts = await api.getWpV2Posts({ categories: categories.map((category) => {
+    const posts = await api.getWpV2Posts({ lang: [ this.props.lang ], categories: categories.map((category) => {
       return String(category.id);
     })});
 
