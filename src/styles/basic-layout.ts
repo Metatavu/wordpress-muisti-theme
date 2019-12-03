@@ -52,6 +52,12 @@ export default createStyles({
       display: "none",
     }
   },
+  localeMenu: {
+    display: "flex",
+    flexDirection: "row",
+    alignContent: "center",
+    justifyContent: "space-between"
+  },
   nav: {
     display: "flex",
     flexDirection: "row",
@@ -92,6 +98,7 @@ export default createStyles({
     boxShadow: "0 0 0 transparent",
     color: "#fff",
     textTransform: "initial",
+    marginRight: theme.spacing(5),
     backgroundColor: theme.palette.secondary.main,
     "&:hover": {
       backgroundColor: "#b53e3d"

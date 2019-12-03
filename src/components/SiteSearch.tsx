@@ -12,6 +12,7 @@ import strings from "../localization/strings";
 interface Props extends WithStyles<typeof styles> {
   tinyHeader: boolean
   visible: boolean
+  lang: string
   onClose(): void
 }
 
@@ -64,6 +65,7 @@ class SiteSearch extends React.Component<Props, State> {
       siteMenuRootClasses = classNames( classes.root, classes.tinyHeader );
     }
 
+    // TODO: Do the search
     return (
       <Fade in={ this.props.visible }>
         <Container maxWidth={false} className={ siteMenuRootClasses }>
@@ -83,7 +85,6 @@ class SiteSearch extends React.Component<Props, State> {
       </Fade>
     );
   }
-
 }
 
 export default withStyles(styles)(SiteSearch);

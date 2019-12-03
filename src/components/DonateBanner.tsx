@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
  * Interface representing component properties
  */
 interface Props extends WithStyles<typeof styles> {
-
+  lang: string
 }
 
 /**
@@ -50,10 +50,10 @@ class DonateBanner extends React.Component<Props, State> {
     this.setState({
       loading: true
     });
-
+    const lang = this.props.lang;
     const api = ApiUtils.getApi();
     const categories = await api.getWpV2Categories({ slug: ["lahjoitus"] });
-    const posts = await api.getWpV2Posts({ categories: categories.map((category) => {
+    const posts = await api.getWpV2Posts({ lang: [ lang ], categories: categories.map((category) => {
       return String(category.id);
     })});
 
@@ -98,6 +98,9 @@ class DonateBanner extends React.Component<Props, State> {
     );
   }
 
+  /**
+   * Get element css styleclasses
+   */
   private getElementClasses = (node: DomElement): string[] => {
     const classString = node.attribs ? node.attribs.class : "";
     if (node.attribs && node.attribs.class) {
@@ -107,14 +110,23 @@ class DonateBanner extends React.Component<Props, State> {
     return [];
   }
 
+  /**
+   * Get link href
+   */
   private getLinkHref = (node: DomElement) => {
     return node.attribs && node.attribs.href ? node.attribs.href : "";
   }
 
+  /**
+   * Get text content
+   */
   private getElementTextContent = (node: DomElement) => {
     return node.children && node.children[0] ? node.children[0].data as string : "";
   }
 
+  /**
+   * Render identified buttons into Material UI buttons
+   */
   private transformContent = (node: DomElement, index: number) => {
     const { classes } = this.props;
     const classNames = this.getElementClasses(node);

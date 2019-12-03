@@ -10,7 +10,7 @@ import ApiUtils from "../utils/ApiUtils";
  * Interface representing component properties
  */
 interface Props extends WithStyles<typeof styles> {
-
+  lang: string
 }
 
 /**
@@ -87,6 +87,9 @@ class LinkBar extends React.Component<Props, State> {
     );
   }
 
+  /**
+   * Render link item method
+   */
   private renderLinkItem = (item: MenuItemData) => {
     const { classes } = this.props;
     return (

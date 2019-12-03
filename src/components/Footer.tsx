@@ -14,7 +14,8 @@ import placeholderImg from "../resources/img/muisti-konsepti.png";
  * Interface representing component properties
  */
 interface Props extends WithStyles<typeof styles> {
-  logo?: string;
+  logo?: string
+  lang: string
 }
 
 /**
@@ -56,16 +57,17 @@ class Footer extends React.Component<Props, State> {
       loading: true
     });
 
+    const lang = this.props.lang;
     const api = ApiUtils.getApi();
     const postCategories = await api.getWpV2Categories({ slug: ["footer-posts"] });
     const contactsCategories = await api.getWpV2Categories({ slug: ["footer-contacts"] });
-    const posts = await api.getWpV2Posts({ per_page: 2, categories: postCategories.map((category) => {
+    const posts = await api.getWpV2Posts({ lang: [ lang ], per_page: 2, categories: postCategories.map((category) => {
       return String(category.id);
     })});
     const footerDatas = await api.getWpV2Posts({ per_page: 1, categories: contactsCategories.map((category) => {
       return String(category.id);
     })});
-    const menu = await api.getMenusV1LocationsById({ id: "footer" });
+    const menu = await api.getMenusV1LocationsById({ lang: lang, id: "footer" });
 
     const featureMediaIds: number[] = footerDatas
       .filter((footerData) => {
@@ -116,13 +118,13 @@ class Footer extends React.Component<Props, State> {
         </div>
         <div className={ classes.footerBackground } style={{ backgroundImage: `url('${( featuredMediaUrl != null ? featuredMediaUrl : placeholderImg )}')` }}>
           <div className={ classes.contentContainer }>
-            <Container maxWidth="lg" className={ classes.logoAndSomeContainer }>
+            <Container maxWidth="xl" className={ classes.logoAndSomeContainer }>
               <img src={ this.props.logo } />
               <div className={ classes.someLinkContainer }>
                 {/* TODO: Social media links here */}
               </div>
             </Container>
-            <Container className={ classes.contactsMenu } maxWidth="lg">
+            <Container className={ classes.contactsMenu } maxWidth="xl">
               <div>
                 {
                   this.renderContacts()
@@ -140,6 +142,9 @@ class Footer extends React.Component<Props, State> {
     );
   }
 
+  /**
+   * Get source element css classes
+   */
   private getElementClasses = (node: DomElement): string[] => {
     const classString = node.attribs ? node.attribs.class : "";
     if (node.attribs && node.attribs.class) {
@@ -149,14 +154,23 @@ class Footer extends React.Component<Props, State> {
     return [];
   }
 
+  /**
+   * Get link href
+   */
   private getLinkHref = (node: DomElement) => {
     return node.attribs && node.attribs.href ? node.attribs.href : "";
   }
 
+  /**
+   * Get element text content
+   */
   private getElementTextContent = (node: DomElement) => {
     return node.children && node.children[0] ? node.children[0].data as string : "";
   }
 
+  /**
+   * Get element text content
+   */
   private transformContent = (node: DomElement, index: number) => {
     const { classes } = this.props;
     const classNames = this.getElementClasses(node);

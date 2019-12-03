@@ -55,6 +55,11 @@ paths:
           required: true
           schema:
             type: string
+        - name: lang
+          in: query
+          description: Add language to search for
+          schema:
+            type: string
       security:
         - cookieAuth: []
       responses:
@@ -203,6 +208,13 @@ paths:
         - name: slug
           in: query
           description: Limit result set to posts with one or more specific slugs.
+          schema:
+            type: string
+            items:
+              type: string
+        - name: lang
+          in: query
+          description: Add language to search for
           schema:
             type: string
             items:
@@ -1079,6 +1091,13 @@ paths:
         - name: slug
           in: query
           description: Limit result set to posts with one or more specific slugs.
+          schema:
+            type: string
+            items:
+              type: string
+        - name: lang
+          in: query
+          description: Add language to search for
           schema:
             type: string
             items:

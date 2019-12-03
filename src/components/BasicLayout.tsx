@@ -12,12 +12,14 @@ import SiteSearch from "./SiteSearch";
 import styles from "../styles/basic-layout";
 import Footer from "./Footer";
 import strings from "../localization/strings";
+import { DomElement } from "domhandler";
+import ReactHtmlParser, { convertNodeToElement } from "react-html-parser";
 
 /**
  * Interface representing component properties
  */
 interface Props extends WithStyles<typeof styles> {
-
+  lang: string
 }
 
 /**
@@ -26,6 +28,7 @@ interface Props extends WithStyles<typeof styles> {
 interface State {
   loading: boolean
   mainMenu?: MenuLocationData
+  localeMenu?: MenuLocationData
   scrollPosition: number
   siteMenuVisible: boolean
   siteSearchVisible: boolean
@@ -58,11 +61,13 @@ class BasicLayout extends React.Component<Props, State> {
 
     const api = ApiUtils.getApi();
 
-    const mainMenu = await api.getMenusV1LocationsById({ id: "main" });
+    const mainMenu = await api.getMenusV1LocationsById({ lang: this.props.lang, id: "main" });
+    const localeMenu = await api.getMenusV1LocationsById({ lang: this.props.lang, id: "locale" });
 
     this.setState({
       loading: false,
       mainMenu: mainMenu,
+      localeMenu: localeMenu,
     });
   }
 
@@ -86,11 +91,11 @@ class BasicLayout extends React.Component<Props, State> {
       <div
         className={ classes.root }
         // disable scrolling when search and menu dialogs are open
-        style={this.state.siteMenuVisible || this.state.siteSearchVisible ? {overflow: "hidden"} : {overflow: "visible"}}
+        style={ this.state.siteMenuVisible || this.state.siteSearchVisible ? {overflow: "hidden"} : {overflow: "visible"} }
       >
         <AppBar elevation={0} className={ appBarClasses }>
           <div className={ classes.headerSection }>
-            <Link href="/">
+            <Link href={ `/?lang=${ this.props.lang }` }>
               <img className={ logoClasses } src={ logo } />
             </Link>
             <Hidden smDown implementation="css">
@@ -109,7 +114,8 @@ class BasicLayout extends React.Component<Props, State> {
           <Hidden smDown implementation="css">
             <div className={ classes.headerSection }>
               { this.renderDonateButton() }
-              { this.renderSearch() }
+              {/* { this.renderSearch() } */}
+              { this.renderLocaleMenu() }
             </div>
           </Hidden>
         </AppBar>
@@ -117,16 +123,18 @@ class BasicLayout extends React.Component<Props, State> {
           { this.props.children }
         </div>
         <SiteMenu
+          lang={ this.props.lang }
           tinyHeader={ this.state.scrollPosition > 170 }
           onClose={ () => this.setState({ siteMenuVisible: false }) }
           visible={ this.state.siteMenuVisible }
         />
         <SiteSearch
+          lang={ this.props.lang }
           tinyHeader={ this.state.scrollPosition > 170 }
           onClose={ () => this.setState({ siteSearchVisible: false }) }
           visible={ this.state.siteSearchVisible }
         />
-        <Footer logo={ logo }  />
+        <Footer lang={ this.props.lang } logo={ logo }  />
       </div>
     );
   }
@@ -143,7 +151,7 @@ class BasicLayout extends React.Component<Props, State> {
     }
 
     return (
-      <div className={classes.nav}>
+      <div className={ classes.nav }>
         {
           mainMenu.items.map(this.renderMenuItem)
         }
@@ -164,8 +172,90 @@ class BasicLayout extends React.Component<Props, State> {
         href={ item.url }
         className={ classes.navLink }
         >
+        {
+          item.title
+        }
+      </Link>
+    );
+  }
+
+  /**
+   * Render menu method
+   */
+  private renderLocaleMenu = () => {
+    const localeMenu = this.state.localeMenu;
+    const { classes } = this.props;
+
+    if (!localeMenu || !localeMenu.items) {
+      return null;
+    }
+
+    return (
+      <div className={ classes.localeMenu }>
+        {
+          localeMenu.items.map(this.renderLocaleMenuItem)
+        }
+      </div>
+    );
+  }
+
+  /**
+   * get html element classes
+   *
+   * @param node DomElement
+   */
+  private getElementClasses = (node: DomElement): string[] => {
+    const classString = node.attribs ? node.attribs.class : "";
+    if (node.attribs && node.attribs.class) {
+      return classString.split(" ");
+    }
+
+    return [];
+  }
+
+  /**
+   * Get html text content
+   */
+  private getElementTextContent = (node: DomElement) => {
+    return node.children && node.children[0] ? node.children[0].data as string : "";
+  }
+
+  /**
+   * Transform html source span element content into normal text
+   */
+  private transformContent = (node: DomElement, index: number) => {
+    const styleClassNames = this.getElementClasses(node);
+    if (styleClassNames.indexOf("wpml-ls-native") > -1) {
+      const childNode = node.children && node.children.length ? node.children[0] : null;
+      if (childNode) {
+        return this.getElementTextContent(childNode);
+      }
+    }
+    return convertNodeToElement(node, index, this.transformContent);
+  }
+
+  /**
+   * Render locale menu item method
+   */
+  private renderLocaleMenuItem = (item: MenuItemData) => {
+    const { classes } = this.props;
+    if (!this.state.localeMenu) {
+      return null;
+    }
+
+    const urlParts = (item.url || "").split("/");
+    const url = urlParts.pop() || urlParts.pop();
+    const langText = ReactHtmlParser(item.title ? item.title || "" : "", { transform: this.transformContent });
+
+    return (
+      <Link
+        variant="subtitle1"
+        key={ item.db_id }
+        href={ url }
+        className={ classes.navLink }
+        >
           {
-            item.title
+            langText
           }
       </Link>
     );
@@ -177,13 +267,15 @@ class BasicLayout extends React.Component<Props, State> {
   private renderDonateButton = () => {
     const { classes } = this.props;
     return (
-      <Button
-        variant="contained"
-        className={ classes.donate }
-        endIcon={ <ArrowIcon /> }
-      >
-        { strings.donate }
-      </Button>
+      <Link href={ `/lahjoita/?lang=${ this.props.lang }` }>
+        <Button
+          variant="contained"
+          className={ classes.donate }
+          endIcon={ <ArrowIcon /> }
+          >
+          { strings.donate }
+        </Button>
+      </Link>
     );
   }
 
