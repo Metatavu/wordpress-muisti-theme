@@ -84,6 +84,9 @@ class PostPage extends React.Component<Props, State> {
     });
   }
 
+  /**
+   * Component will mount life-cycle handler
+   */
   public componentWillMount = async () => {
     this.setState({
       template: this.getTemplate()
@@ -115,6 +118,9 @@ class PostPage extends React.Component<Props, State> {
     );
   }
 
+  /**
+   * Render content method
+   */
   private renderContent = (pageTitle: string) => {
     if (this.state.template === "fullscreen") {
       return this.renderPostContent(pageTitle);
@@ -128,6 +134,9 @@ class PostPage extends React.Component<Props, State> {
 
   }
 
+  /**
+   * Render post content method
+   */
   private renderPostContent = (pageTitle: string) => {
     const { classes } = this.props;
     return (

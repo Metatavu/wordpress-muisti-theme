@@ -98,6 +98,9 @@ class DonateBanner extends React.Component<Props, State> {
     );
   }
 
+  /**
+   * Get element css styleclasses
+   */
   private getElementClasses = (node: DomElement): string[] => {
     const classString = node.attribs ? node.attribs.class : "";
     if (node.attribs && node.attribs.class) {
@@ -107,14 +110,23 @@ class DonateBanner extends React.Component<Props, State> {
     return [];
   }
 
+  /**
+   * Get link href
+   */
   private getLinkHref = (node: DomElement) => {
     return node.attribs && node.attribs.href ? node.attribs.href : "";
   }
 
+  /**
+   * Get text content
+   */
   private getElementTextContent = (node: DomElement) => {
     return node.children && node.children[0] ? node.children[0].data as string : "";
   }
 
+  /**
+   * Render identified buttons into Material UI buttons
+   */
   private transformContent = (node: DomElement, index: number) => {
     const { classes } = this.props;
     const classNames = this.getElementClasses(node);

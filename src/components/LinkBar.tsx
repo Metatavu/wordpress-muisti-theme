@@ -87,6 +87,9 @@ class LinkBar extends React.Component<Props, State> {
     );
   }
 
+  /**
+   * Render link item method
+   */
   private renderLinkItem = (item: MenuItemData) => {
     const { classes } = this.props;
     return (

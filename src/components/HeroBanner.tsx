@@ -150,6 +150,9 @@ class HeroBanner extends React.Component<Props, State> {
     return convertNodeToElement(node, index, this.transformContent);
   }
 
+  /**
+   * Render post method
+   */
   private renderPost() {
     const { classes } = this.props;
     if (!this.state.posts.length) {

@@ -35,8 +35,8 @@ class App extends React.Component<Props, State> {
   public render() {
     const queryParams = qs.parse(location.search);
     const language = (queryParams.lang || "fi") as string;
-    // Todo: check selected language
     strings.setLanguage(language);
+
     return (
       <ThemeProvider theme={theme}>
         <CssBaseline />
