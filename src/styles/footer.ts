@@ -42,6 +42,10 @@ export default createStyles({
     display: "flex",
     justifyContent: "space-between",
     marginBottom: theme.spacing(5),
+    paddingTop: 20,
+    [theme.breakpoints.up("md")]: {
+      paddintTop: 0
+    }
   },
   imageContainer: {
       "& img": {

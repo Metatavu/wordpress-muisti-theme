@@ -1,10 +1,10 @@
 import * as React from "react";
-import { Link, WithStyles, withStyles, Container, Fade, IconButton } from "@material-ui/core";
+import { Link, WithStyles, withStyles, Fade, IconButton } from "@material-ui/core";
 import { MenuLocationData, MenuItemData } from "../generated/client/src";
 import ApiUtils from "../utils/ApiUtils";
 import CloseIcon from "@material-ui/icons/CloseSharp";
 import classNames from "classnames";
-import styles from "../styles/dialogue-styles";
+import styles from "../styles/site-menu";
 
 /**
  * Interface representing component properties
@@ -92,16 +92,16 @@ class SiteMenu extends React.Component<Props, State> {
 
     return (
       <Fade in={ this.props.visible }>
-        <Container maxWidth={ false } className={ siteMenuRootClasses }>
-          <Container maxWidth="xl" className={ classes.controlContainer }>
+        <div className={ siteMenuRootClasses }>
+          <div className={ classes.controlContainer }>
             <IconButton
               className={ classes.close }
               color="primary"
               onClick={ () => this.props.onClose() }
             >
-              <CloseIcon className={ classes.closeIcon } />
+              <CloseIcon className={ classes.closeIcon } fontSize="large" />
             </IconButton>
-          </Container>
+          </div>
           <div className={ classes.menuContent }>
             {
               itemsWithChildren.map((item) => {
@@ -112,7 +112,7 @@ class SiteMenu extends React.Component<Props, State> {
               this.renderMenuItemsGroupWithoutChildren(itemsWithoutChildren)
             }
           </div>
-        </Container>
+        </div>
       </Fade>
     );
   }
