@@ -20,8 +20,11 @@ export default createStyles({
     borderBottom: "1px solid rgba(255, 255, 255, 0.2)",
     transition: "height 0.3s ease-out, background-color 0.3s ease-out",
     [theme.breakpoints.up("md")]: {
-      padding: "0 80px",
+      padding: "0 40px",
       height: 130,
+    },
+    [theme.breakpoints.up("lg")]: {
+      padding: "0 80px",
     }
   },
   smallAppBar: {
@@ -93,12 +96,12 @@ export default createStyles({
   donate: {
     display: "flex",
     justifyContent: "space-between",
-    width: 200,
+    width: 145,
     borderRadius: 0,
     boxShadow: "0 0 0 transparent",
     color: "#fff",
     textTransform: "initial",
-    marginRight: theme.spacing(5),
+    marginRight: theme.spacing(2),
     backgroundColor: theme.palette.secondary.main,
     "&:hover": {
       backgroundColor: "#b53e3d"
@@ -108,6 +111,10 @@ export default createStyles({
     },
     "&:focus": {
       boxShadow: "0 0 0 0.2rem rgba(255, 255 ,255 , 0.5)",
-    }
+    },
+    [theme.breakpoints.up("lg")]: {
+      width: 200,
+      marginRight: theme.spacing(5),
+    },
   }
 });

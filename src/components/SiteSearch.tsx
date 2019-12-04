@@ -75,7 +75,7 @@ class SiteSearch extends React.Component<Props, State> {
               color="primary"
               onClick={ () => this.props.onClose() }
             >
-              <CloseIcon className={ classes.closeIcon } />
+              <CloseIcon className={ classes.closeIcon } fontSize="large" />
             </IconButton>
           </Container>
           <Container maxWidth="sm" className={ classes.searchContainer }>

@@ -48,10 +48,10 @@ export default createStyles({
     marginTop: theme.spacing(5),
     marginBottom: theme.spacing(5),
     [theme.breakpoints.up("sm")]: {
-      flexDirection: "row",
-      justifyContent: "space-between",
     },
     [theme.breakpoints.up("md")]: {
+      flexDirection: "row",
+      justifyContent: "space-between",
       marginTop: theme.spacing(10),
       marginBottom: theme.spacing(10),
       width: "80%"
