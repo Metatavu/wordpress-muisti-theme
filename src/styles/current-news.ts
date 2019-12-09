@@ -67,12 +67,15 @@ export default createStyles({
     flexDirection: "column",
     textDecoration: "none",
     padding: theme.spacing(2),
-    width: 300,
+    width: "100%",
     marginBottom: theme.spacing(5),
     [theme.breakpoints.up("sm")]: {
       width: "auto",
       maxWidth: 470,
-      marginBottom: 0,
+    },
+    [theme.breakpoints.up("md")]: {
+      alignSelf: "flex-start",
+      marginBottom: theme.spacing(5),
       transition: "box-shadow 0.4s ease-out, transform 0.2s ease-out",
       "&:hover": {
         transform: "scale(1.01)",

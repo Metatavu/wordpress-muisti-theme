@@ -48,7 +48,7 @@ class LinkBar extends React.Component<Props, State> {
 
     const api = ApiUtils.getApi();
 
-    const menu = await api.getMenusV1LocationsById({ id: "quick" });
+    const menu = await api.getMenusV1LocationsById({ lang: this.props.lang, id: "quick" });
 
     this.setState({
       menu: menu,

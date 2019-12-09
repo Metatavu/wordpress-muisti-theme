@@ -94,6 +94,11 @@ class DonateBanner extends React.Component<Props, State> {
         {
           this.renderPost()
         }
+        <div>
+          {
+            this.renderArticles()
+          }
+        </div>
       </div>
     );
   }
@@ -190,6 +195,15 @@ class DonateBanner extends React.Component<Props, State> {
 
     return (
       <img src={ url }></img>
+    );
+  }
+
+  /**
+   * Render post method
+   */
+  private renderArticles() {
+    return (
+      <div></div>
     );
   }
 }

@@ -37,7 +37,8 @@ export default createStyles({
       }
   },
   button: {
-    width: 280,
-    height: 60
+    width: 300,
+    height: 60,
+    marginTop: theme.spacing(5)
   }
 });

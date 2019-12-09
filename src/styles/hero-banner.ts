@@ -36,9 +36,11 @@ export default createStyles({
   },
   heroText: {
     fontSize: theme.typography.body1.fontSize,
-    color: theme.palette.primary.main
+    color: theme.palette.primary.main,
+    marginBottom: 0
   },
   button: {
-    width: 300
+    width: 300,
+    marginTop: theme.spacing(5),
   }
 });

@@ -61,18 +61,26 @@ export default createStyles({
   menuContent: {
     display: "flex",
     flexDirection: "column",
+    flexWrap: "wrap-reverse",
     [theme.breakpoints.up("md")]: {
       flexDirection: "row",
+    },
+    [theme.breakpoints.up("lg")]: {
       marginLeft: 150,
+      flexWrap: "nowrap",
     }
   },
   menuGroup: {
     display: "flex",
     flexDirection: "column",
     marginBottom: theme.spacing(5),
+    [theme.breakpoints.up("sm")]: {
+      marginRight: 60,
+    },
     [theme.breakpoints.up("md")]: {
       marginRight: 100,
     },
+    [theme.breakpoints.up("lg")]: {},
     "&:last-child": {
       marginRight: 0
     }

@@ -56,10 +56,12 @@ export default createStyles({
   title: {
     fontFamily: theme.typography.h1.fontFamily,
     fontWeight: "normal",
-    fontSize: "3.5rem",
+    fontSize: "2rem",
     lineHeight: 1,
+    textAlign: "center",
     [theme.breakpoints.up("md")]: {
       fontSize: "4.75rem",
+      textAlign: "left",
     },
     [theme.breakpoints.up("lg")]: {
       fontSize: "5.5rem",
@@ -85,14 +87,27 @@ export default createStyles({
     }
   },
   button: {
-    width: 300
+    width: 300,
+    marginTop: theme.spacing(5),
   },
   errorText: {},
   htmlContainer: {
-    marginTop: theme.spacing(10),
-    marginBottom: theme.spacing(10),
+    marginTop: theme.spacing(2),
+    marginBottom: 0,
     display: "flex",
     flexDirection: "column",
+    [theme.breakpoints.up("md")]: {
+      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(2),
+    },
+    [theme.breakpoints.up("lg")]: {
+      marginTop: theme.spacing(5),
+      marginBottom: theme.spacing(5),
+    },
+    [theme.breakpoints.up("xl")]: {
+      marginTop: theme.spacing(10),
+      marginBottom: theme.spacing(10),
+    },
     "&.fullscreen": {
       marginTop: 0,
       marginBottom: 0,
@@ -111,6 +126,9 @@ export default createStyles({
           width: "100%",
           alignSelf: "flex-start"
         }
+      },
+      [theme.breakpoints.up("lg")]: {
+        width: "60%"
       },
       "&.address-heading": {
         width: "100%",
@@ -238,9 +256,12 @@ export default createStyles({
     "& .fp-flex": {
       display: "flex",
       justifyContent: "flex-start",
-      flexDirection: "row",
+      flexDirection: "column",
       flexWrap: "wrap",
-      alignItems: "flex-start",
+      [theme.breakpoints.up("md")]: {
+        alignItems: "flex-start",
+        flexDirection: "row",
+      }
     },
     "& .fp-row": {
       marginLeft: -15,
@@ -258,11 +279,23 @@ export default createStyles({
       marginBottom: 20,
     },
     "& .fp-col": {
+      display: "flex",
+      flexDirection: "column",
       minWidth: 200,
-      maxWidth: 400,
-      flex: "1 1 30%",
-      marginLeft: 15,
-      marginRight: 15,
+      maxWidth: "100%",
+      flex: "1",
+      marginLeft: theme.spacing(2),
+      marginRight: theme.spacing(2),
+      padding: theme.spacing(2),
+      [theme.breakpoints.up("md")]: {
+        flex: "1 1 30%",
+        maxWidth: 470,
+      },
+      transition: "box-shadow 0.4s ease-out, transform 0.2s ease-out",
+      "&:hover": {
+        transform: "scale(1.01)",
+        boxShadow: "0 0 20px rgba(0, 0, 0, 0.2)",
+      }
     },
     "&.fullscreen .fp-col": {
       position: "relative",
@@ -301,7 +334,7 @@ export default createStyles({
       marginRight: "1em",
     },
     "& .fp-thumbnail:hover": {
-      opacity: 0.6,
+      opacity: 0.9,
     },
     "& .fp-thumbnail img": {
       display: "block",
@@ -338,11 +371,17 @@ export default createStyles({
     },
     "& .fp-title": {
       fontFamily: theme.typography.h4.fontFamily,
-      fontSize: theme.typography.h4.fontSize,
+      fontSize: theme.typography.h6.fontSize,
       margin: 0,
+      [theme.breakpoints.up("md")]: {
+        fontSize: theme.typography.h5.fontSize,
+      },
+      [theme.breakpoints.up("lg")]: {
+        fontSize: theme.typography.h4.fontSize,
+      }
     },
     "& .fp-list-2 .fp-title, .fp-list-3 .fp-main .fp-title, .fp-list-4 .fp-title": {
-      fontWeight: 500,
+      fontWeight: theme.typography.h4.fontWeight,
     },
     "& .fp-list-4 .fp-post": {
       marginLeft: -10,

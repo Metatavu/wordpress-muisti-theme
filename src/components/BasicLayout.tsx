@@ -244,9 +244,11 @@ class BasicLayout extends React.Component<Props, State> {
     }
 
     const urlParts = (item.url || "").split("/");
-    const url = urlParts.pop() || urlParts.pop();
+    let url = urlParts.pop() || urlParts.pop();
     const langText = ReactHtmlParser(item.title ? item.title || "" : "", { transform: this.transformContent });
-
+    if (!url || !url.startsWith("?")) {
+      url = "?lang=fi";
+    }
     return (
       <Link
         variant="subtitle1"
