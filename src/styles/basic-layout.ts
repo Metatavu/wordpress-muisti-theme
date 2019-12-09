@@ -29,7 +29,8 @@ export default createStyles({
   },
   smallAppBar: {
     height: 60,
-    backgroundColor: "rgba(45, 45, 45, 0.9)"
+    backgroundColor: "rgba(45, 45, 45, 0.9)",
+    "& .MuiTypography-h6": {}
   },
   headerSection: {
     display: "flex",

@@ -161,6 +161,8 @@ export default createStyles({
       }
     },
     "&.fullscreen .wp-block-columns": {
+      overflow: "hidden",
+      backgroundColor: theme.palette.background.default,
       [theme.breakpoints.up("md")]: {
         marginTop: 0,
         marginBottom: 0,
@@ -303,6 +305,7 @@ export default createStyles({
       maxWidth: "100%",
       flex: 1,
       margin: 0,
+      padding: 0,
       height: 500,
       backgroundColor: theme.palette.background.default
     },
