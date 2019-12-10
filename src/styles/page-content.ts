@@ -31,6 +31,7 @@ export default createStyles({
   heroContentContainer: {
     marginLeft: "5%",
     [theme.breakpoints.up("md")]: {
+      width: "70vw",
       marginLeft: "5%",
     }
   },
@@ -76,6 +77,9 @@ export default createStyles({
     fontWeight: "normal",
     fontSize: "3.5rem",
     lineHeight: 1,
+    [theme.breakpoints.up("sm")]: {
+      fontSize: "4.75rem",
+    },
     [theme.breakpoints.up("md")]: {
       fontSize: "4.75rem",
     },
@@ -92,20 +96,19 @@ export default createStyles({
   },
   errorText: {},
   htmlContainer: {
-    marginTop: theme.spacing(2),
-    marginBottom: 0,
     display: "flex",
     flexDirection: "column",
+    [theme.breakpoints.up("sm")]: {
+      marginBottom: theme.spacing(5),
+    },
     [theme.breakpoints.up("md")]: {
-      marginTop: theme.spacing(2),
-      marginBottom: theme.spacing(2),
+      marginBottom: theme.spacing(5),
     },
     [theme.breakpoints.up("lg")]: {
-      marginTop: theme.spacing(5),
       marginBottom: theme.spacing(5),
     },
     [theme.breakpoints.up("xl")]: {
-      marginTop: theme.spacing(10),
+      marginTop: theme.spacing(5),
       marginBottom: theme.spacing(10),
     },
     "&.fullscreen": {
@@ -114,14 +117,19 @@ export default createStyles({
     },
     "& h2": {
       margin: 0,
+      marginTop: theme.spacing(5),
+      marginBottom: theme.spacing(5),
       fontSize: theme.typography.h4.fontSize,
       fontFamily: theme.typography.h2.fontFamily,
       fontWeight: "normal",
-      [theme.breakpoints.up("md")]: {
-        fontSize: theme.typography.h2.fontSize,
+      [theme.breakpoints.up("sm")]: {
         width: "80%",
         alignSelf: "center",
+      },
+      [theme.breakpoints.up("md")]: {
+        fontSize: theme.typography.h2.fontSize,
         "&.error-text": {
+          lineHeight: "4.5rem",
           fontSize: theme.typography.h2.fontSize,
           width: "100%",
           alignSelf: "flex-start"
@@ -137,8 +145,11 @@ export default createStyles({
     },
     "& p": {
       alignSelf: "center",
-      [theme.breakpoints.up("md")]: {
+      [theme.breakpoints.up("sm")]: {
         width: "80%"
+      },
+      [theme.breakpoints.up("lg")]: {
+        width: "60%"
       }
     },
     "& strong": {
@@ -154,11 +165,13 @@ export default createStyles({
     },
     "& .wp-block-image": {
       margin: 0,
-      marginBottom: theme.spacing(5),
       marginTop: theme.spacing(5),
       "& img": {
         width: "100%"
-      }
+      },
+      [theme.breakpoints.up("md")]: {
+        marginTop: theme.spacing(5),
+      },
     },
     "&.fullscreen .wp-block-columns": {
       overflow: "hidden",
@@ -171,8 +184,8 @@ export default createStyles({
     "& .wp-block-columns": {
       display: "grid",
       gridAutoFlow: "row",
+      marginTop: theme.spacing(5),
       [theme.breakpoints.up("md")]: {
-        marginTop: theme.spacing(5),
         marginBottom: theme.spacing(5),
         gridAutoFlow: "column",
       },
@@ -193,7 +206,6 @@ export default createStyles({
     },
     "& .wp-block-column": {
       display: "flex",
-      marginBottom: theme.spacing(5),
       [theme.breakpoints.up("md")]: {
         marginBottom: 0,
         "& .wp-block-image": {

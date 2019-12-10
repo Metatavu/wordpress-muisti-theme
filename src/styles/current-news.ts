@@ -63,7 +63,6 @@ export default createStyles({
   latestNewsItem: {
     cursor: "pointer",
     display: "flex",
-    flex: 1,
     flexDirection: "column",
     textDecoration: "none",
     padding: theme.spacing(2),

@@ -3,7 +3,7 @@ import theme from "./theme";
 
 export default createStyles({
   root: {
-    height: "100vh",
+    height: "90vh",
     overflow: "hidden"
   },
   heroItem: {
@@ -28,7 +28,7 @@ export default createStyles({
   heroContentBlock: {
     maxWidth: "100vw",
     [theme.breakpoints.up("md")]: {
-      maxWidth: "50vw",
+      maxWidth: "70vw",
     },
     display: "flex",
     marginLeft: "5%",

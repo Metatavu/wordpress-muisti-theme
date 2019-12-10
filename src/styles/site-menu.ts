@@ -3,7 +3,6 @@ import theme from "./theme";
 
 export default createStyles({
   root: {
-    display: "flex",
     flexDirection: "column",
     position: "fixed",
     overflow: "auto",

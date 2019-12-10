@@ -15,9 +15,8 @@ export default createStyles({
   },
   donateContentBlock: {
     display: "flex",
-    flex: 1,
     flexDirection: "column",
-    paddingTop: "2.5%",
+    paddingTop: theme.spacing(5),
     paddingLeft: "5%",
     paddingRight: "5%",
     paddingBottom: 50,
@@ -31,9 +30,8 @@ export default createStyles({
   textContainer: {},
   imageContainer: {
     display: "flex",
-    flex: 1,
       "& img": {
-        width: "100%"
+        width: "auto"
       }
   },
   button: {
