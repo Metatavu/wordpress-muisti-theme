@@ -23,16 +23,25 @@ export default createStyles({
     right: 0,
     display: "flex",
     alignItems: "center",
-    backgroundImage: "linear-gradient(to right, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0))"
+    backgroundColor: "rgba(0, 0, 0, 0.2)"
   },
   heroContentBlock: {
     maxWidth: "100vw",
     [theme.breakpoints.up("md")]: {
       maxWidth: "70vw",
     },
+    [theme.breakpoints.up("lg")]: {
+      maxWidth: "50vw",
+    },
     display: "flex",
     marginLeft: "5%",
-    flexDirection: "column"
+    flexDirection: "column",
+    h1: {
+      [theme.breakpoints.up("lg")]: {
+        lineHeight: "6.75rem"
+      },
+      [theme.breakpoints.up("xl")]: {}
+    }
   },
   heroText: {
     fontSize: theme.typography.body1.fontSize,

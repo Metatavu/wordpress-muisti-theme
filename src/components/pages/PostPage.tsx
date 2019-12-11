@@ -29,6 +29,7 @@ interface State {
   template: PageTemplate
   post?: Post
   loading: boolean
+  isArticle: boolean
   heroBanner?: React.ReactElement
   heroContent?: React.ReactElement
 }
@@ -47,6 +48,7 @@ class PostPage extends React.Component<Props, State> {
     super(props);
     this.state = {
       template: "basic",
+      isArticle: false,
       loading: false
     };
   }
@@ -80,6 +82,7 @@ class PostPage extends React.Component<Props, State> {
     this.setState({
       page: page,
       post: post,
+      isArticle: !!post,
       loading: false
     });
   }
@@ -122,12 +125,13 @@ class PostPage extends React.Component<Props, State> {
    * Render content method
    */
   private renderContent = (pageTitle: string) => {
+    const { classes } = this.props;
     if (this.state.template === "fullscreen") {
       return this.renderPostContent(pageTitle);
     }
 
     return (
-      <Container>
+      <Container className={ classNames( classes.root, this.state.isArticle && "article") }>
         { this.renderPostContent(pageTitle) }
       </Container>
     );
@@ -140,9 +144,9 @@ class PostPage extends React.Component<Props, State> {
   private renderPostContent = (pageTitle: string) => {
     const { classes } = this.props;
     return (
-      <div className={ classNames(classes.htmlContainer, this.state.template === "fullscreen" ? "fullscreen" : "") }>
+      <div className={ classNames(classes.htmlContainer, this.state.isArticle && "article", this.state.template === "fullscreen" ? "fullscreen" : "") }>
       { !this.state.heroBanner &&
-        <h1 className={ classes.title }>{ pageTitle }</h1>
+        <h1 className={ classNames(classes.title, this.state.isArticle && "article") }>{ pageTitle }</h1>
       }
       { !this.state.loading &&
         this.getPageOrPostContent()
