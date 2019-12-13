@@ -2,6 +2,14 @@ import { createStyles } from "@material-ui/core";
 import theme from "./theme";
 
 export default createStyles({
+  /**
+   * Page styles
+   */
+  root: {
+    "&.article": {
+      width: "50vw"
+    }
+  },
   hero: {
     height: "90vh",
     display: "flex",
@@ -15,6 +23,7 @@ export default createStyles({
       bottom: 0,
       backgroundSize: "cover",
       backgroundRepeat: "no-repeat",
+      backgroundPosition: "center",
       "&.has-background-dim.hero:before": {
         content: "''",
         position: "absolute",
@@ -22,8 +31,7 @@ export default createStyles({
         left: 0,
         bottom: 0,
         right: 0,
-        backgroundColor: theme.palette.primary.dark,
-        opacity: .5,
+        backgroundColor: "rgba(0, 0, 0, 0.2)",
         zIndex: 1,
       },
     }
@@ -33,6 +41,9 @@ export default createStyles({
     [theme.breakpoints.up("md")]: {
       width: "70vw",
       marginLeft: "5%",
+    },
+    [theme.breakpoints.up("lg")]: {
+      width: "50vw",
     }
   },
   content: {
@@ -69,13 +80,28 @@ export default createStyles({
     },
     [theme.breakpoints.up("xl")]: {
       fontSize: "6rem",
+    },
+    "&.article": {
+      [theme.breakpoints.up("md")]: {
+        fontSize: "2rem",
+        textAlign: "left",
+        lineHeight: "2.5rem",
+      },
+      [theme.breakpoints.up("lg")]: {
+        fontSize: "2.5rem",
+        lineHeight: "3rem",
+      },
+      [theme.breakpoints.up("xl")]: {
+        fontSize: "3rem",
+        lineHeight: "3.5rem",
+      },
     }
   },
   heroTitle: {
     margin: 0,
     fontFamily: theme.typography.h1.fontFamily,
     fontWeight: "normal",
-    fontSize: "3.5rem",
+    fontSize: "2.5rem",
     lineHeight: 1,
     [theme.breakpoints.up("sm")]: {
       fontSize: "4.75rem",
@@ -88,6 +114,7 @@ export default createStyles({
     },
     [theme.breakpoints.up("xl")]: {
       fontSize: "6rem",
+      lineHeight: "6.75rem"
     }
   },
   button: {
@@ -110,6 +137,49 @@ export default createStyles({
     [theme.breakpoints.up("xl")]: {
       marginTop: theme.spacing(5),
       marginBottom: theme.spacing(10),
+    },
+    "& .address-heading": {
+      fontSize: 20,
+      margin: 0
+    },
+    "&.article": {
+      marginTop: theme.spacing(12),
+      "& h2": {
+        width: "100%"
+      },
+      "& p": {
+        width: "100%",
+        fontSize: 14,
+        "&.has-medium-font-size": {
+          fontSize: 20
+        },
+      },
+      "& .wp-block-quote": {
+        marginTop: theme.spacing(5),
+        marginBottom: theme.spacing(5),
+        marginLeft: 0,
+        marginRight: 0,
+        "& p": {
+          fontFamily: theme.typography.h1.fontFamily,
+          fontSize: "2rem",
+          color: theme.palette.secondary.main
+        }
+      },
+      "& .wp-block-media-text": {
+        marginTop: theme.spacing(5),
+        "&.is-vertically-aligned-top": {
+          alignItems: "flex-start",
+        }
+      },
+        "& .wp-block-media-text__media": {
+          width: "initial",
+          height: "initial"
+        },
+        "& .wp-block-media-text__content": {
+          "& p:first-child": {
+            marginTop: 0
+          }
+        }
     },
     "&.fullscreen": {
       marginTop: 0,
@@ -140,7 +210,8 @@ export default createStyles({
       },
       "&.address-heading": {
         width: "100%",
-        alignSelf: "start"
+        alignSelf: "start",
+        margin: 0
       }
     },
     "& p": {
@@ -174,6 +245,7 @@ export default createStyles({
       },
     },
     "&.fullscreen .wp-block-columns": {
+      marginTop: 0,
       overflow: "hidden",
       backgroundColor: theme.palette.background.default,
       [theme.breakpoints.up("md")]: {
@@ -196,7 +268,6 @@ export default createStyles({
         },
         "&.address-info": {
           gridTemplateColumns: "200px 200px",
-          marginTop: theme.spacing(10),
           marginBottom: theme.spacing(5)
         }
       }
@@ -220,8 +291,6 @@ export default createStyles({
         width: "initial",
         alignSelf: "start",
         margin: 0,
-        fontSize: "1.2rem",
-        lineHeight: "1.8rem"
       }
     },
     "& .contact-card": {
@@ -318,8 +387,20 @@ export default createStyles({
       flex: 1,
       margin: 0,
       padding: 0,
-      height: 500,
-      backgroundColor: theme.palette.background.default
+      height: 300,
+      backgroundColor: theme.palette.background.default,
+      [theme.breakpoints.up("lg")]: {
+        height: 400,
+      },
+      [theme.breakpoints.up("xl")]: {
+        height: 500,
+      }
+    },
+    "&.fullscreen .fp-col:empty": {
+      height: 0,
+      visibility: "hidden",
+      margintop: 0,
+      marginBottom: 0,
     },
     "& .fp-col:empty": {
       height: 0,
@@ -474,11 +555,26 @@ export default createStyles({
       justifyContent: "center",
       background: theme.palette.background.default
     },
+    "&.fullscreen .wp-block-embed__wrapper": {
+      marginTop: 0,
+    }, 
     "& .wp-block-embed__wrapper": {
       width: "100%",
+      marginTop: theme.spacing(5),
       "& iframe": {
         width: "100%",
-        height: 762
+        [theme.breakpoints.up("sm")]: {
+          height: 762
+        },
+        [theme.breakpoints.up("md")]: {
+          height: 762
+        },
+        [theme.breakpoints.up("lg")]: {
+          height: 762
+        },
+        [theme.breakpoints.up("xl")]: {
+          height: 762
+        },
       }
     }
   }

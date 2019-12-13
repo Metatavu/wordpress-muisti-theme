@@ -6,6 +6,7 @@ import { Post, Attachment } from "../../generated/client/src";
 import ApiUtils from "../../utils/ApiUtils";
 import LinkBar from "../LinkBar";
 import DonateBanner from "../DonateBanner";
+import SocialFeed from "../SocialFeed";
 
 /**
  * Interface representing component properties
@@ -93,6 +94,7 @@ class WelcomePage extends React.Component<Props, State> {
         <LinkBar lang={ lang } />
         <DonateBanner lang={ lang } />
         <CurrentNews lang={ lang } />
+        {/* <SocialFeed lang={ lang } /> */}
       </BasicLayout>
     );
   }

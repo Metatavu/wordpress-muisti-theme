@@ -45,6 +45,7 @@ export default createStyles({
     flexDirection: "column",
     width: "100%",
     justifyContent: "center",
+    alignItems: "center",
     marginTop: theme.spacing(5),
     marginBottom: theme.spacing(5),
     [theme.breakpoints.up("sm")]: {
