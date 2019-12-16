@@ -191,15 +191,24 @@ export default createStyles({
         },
         "&.is-vertically-aligned-top": {
           alignItems: "flex-start",
+        },
+        "&.is-image-fill .wp-block-media-text__media": {
+          width: "100%",
+          height: "100%",
+          backgroundSize: "cover",
+          backgroundRepeat: "none",
+          "& img": {
+            display: "none"
+          }
         }
       },
-        "& .wp-block-media-text__media": {
-          width: "initial",
-          height: "initial",
-          [theme.breakpoints.down("md")]: {
-            marginBottom: theme.spacing(4)
-          }
-        },
+      "& .wp-block-media-text__media": {
+        width: "initial",
+        height: "initial",
+        [theme.breakpoints.down("md")]: {
+          marginBottom: theme.spacing(4)
+        }
+      },
         "& .wp-block-media-text__content": {
           [theme.breakpoints.up("sm")]: {
             marginLeft: theme.spacing(5),
