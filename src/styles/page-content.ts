@@ -7,7 +7,15 @@ export default createStyles({
    */
   root: {
     "&.article": {
-      width: "50vw"
+      [theme.breakpoints.up("md")]: {
+        width: "70vw",
+      },
+      [theme.breakpoints.up("lg")]: {
+        width: "50vw",
+      },
+      [theme.breakpoints.up("xl")]: {
+        width: "50vw",
+      }
     }
   },
   hero: {
@@ -82,9 +90,9 @@ export default createStyles({
       fontSize: "6rem",
     },
     "&.article": {
+      textAlign: "left",
       [theme.breakpoints.up("md")]: {
         fontSize: "2rem",
-        textAlign: "left",
         lineHeight: "2.5rem",
       },
       [theme.breakpoints.up("lg")]: {
@@ -143,22 +151,33 @@ export default createStyles({
       margin: 0
     },
     "&.article": {
-      marginTop: theme.spacing(12),
+      marginTop: theme.spacing(5),
+      [theme.breakpoints.up("md")]: {
+        marginBottom: theme.spacing(10),
+      },
+      [theme.breakpoints.up("lg")]: {
+        marginBottom: theme.spacing(12),
+      },
       "& h2": {
         width: "100%"
       },
       "& p": {
         width: "100%",
-        fontSize: 14,
+        fontSize: 16,
         "&.has-medium-font-size": {
-          fontSize: 20
+          fontSize: 20,
+          marginBottom: 0,
+          [theme.breakpoints.up("md")]: {
+            marginBottom: theme.spacing(2)
+          }
         },
       },
       "& .wp-block-quote": {
-        marginTop: theme.spacing(5),
-        marginBottom: theme.spacing(5),
         marginLeft: 0,
         marginRight: 0,
+        marginTop: 0,
+        marginBottom: 0,
+        [theme.breakpoints.up("md")]: {},
         "& p": {
           fontFamily: theme.typography.h1.fontFamily,
           fontSize: "2rem",
@@ -167,15 +186,24 @@ export default createStyles({
       },
       "& .wp-block-media-text": {
         marginTop: theme.spacing(5),
+        [theme.breakpoints.up("sm")]: {
+          gridTemplateColumns: "1fr 2fr",
+        },
         "&.is-vertically-aligned-top": {
           alignItems: "flex-start",
         }
       },
         "& .wp-block-media-text__media": {
           width: "initial",
-          height: "initial"
+          height: "initial",
+          [theme.breakpoints.down("md")]: {
+            marginBottom: theme.spacing(4)
+          }
         },
         "& .wp-block-media-text__content": {
+          [theme.breakpoints.up("sm")]: {
+            marginLeft: theme.spacing(5),
+          },
           "& p:first-child": {
             marginTop: 0
           }
