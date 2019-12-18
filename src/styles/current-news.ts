@@ -23,10 +23,8 @@ export default createStyles({
     width: "100%",
     justifyContent: "center",
     marginBottom: theme.spacing(5),
-    [theme.breakpoints.up("sm")]: {
-      justifyContent: "flex-end",
-    },
     [theme.breakpoints.up("md")]: {
+      justifyContent: "flex-end",
       marginBottom: theme.spacing(10),
       width: "80%"
     },
@@ -62,14 +60,14 @@ export default createStyles({
     color: theme.palette.primary.dark
   },
   latestNewsItem: {
-    cursor: "pointer",
     display: "flex",
     flexDirection: "column",
     textDecoration: "none",
-    padding: theme.spacing(2),
     width: "100%",
     marginBottom: theme.spacing(5),
     [theme.breakpoints.up("sm")]: {
+      cursor: "pointer",
+      padding: theme.spacing(2),
       width: "auto",
       maxWidth: 470,
     },

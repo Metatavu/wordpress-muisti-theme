@@ -56,6 +56,9 @@ export default createStyles({
 
   },
   button: {
+    [theme.breakpoints.down(414)]: {
+      width: "100%"
+    },
     width: 300
   },
   menuContent: {

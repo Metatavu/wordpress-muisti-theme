@@ -3,8 +3,11 @@ import theme from "./theme";
 
 export default createStyles({
   root: {
-    height: "90vh",
-    overflow: "hidden"
+    height: "100vh",
+    overflow: "hidden",
+    [theme.breakpoints.up("md")]: {
+      height: "90vh"
+    }
   },
   heroItem: {
     position: "relative",
@@ -23,7 +26,7 @@ export default createStyles({
     right: 0,
     display: "flex",
     alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.2)"
+    backgroundColor: "rgba(0, 0, 0, 0.4)"
   },
   heroContentBlock: {
     maxWidth: "100vw",
@@ -35,21 +38,32 @@ export default createStyles({
     },
     display: "flex",
     marginLeft: "5%",
+    marginRight: "5%",
     flexDirection: "column",
-    h1: {
-      [theme.breakpoints.up("lg")]: {
-        lineHeight: "6.75rem"
+    "& h1": {
+      [theme.breakpoints.down(414)]: {
+        fontSize: "2.5rem"
       },
       [theme.breakpoints.up("xl")]: {}
     }
   },
   heroText: {
-    fontSize: theme.typography.body1.fontSize,
+    [theme.breakpoints.down(414)]: {
+      fontSize: 14
+    },
+    fontFamily: theme.typography.subtitle2.fontFamily,
     color: theme.palette.primary.main,
-    marginBottom: 0
+    marginBottom: 0,
+    [theme.breakpoints.up("lg")]: {
+      marginLeft: theme.spacing(1)
+    }
   },
   button: {
-    width: 300,
+    width: "100%",
     marginTop: theme.spacing(5),
+    [theme.breakpoints.up(413)]: {
+      width: 300
+    },
+    [theme.breakpoints.up("xl")]: {}
   }
 });

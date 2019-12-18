@@ -33,17 +33,21 @@ export default createStyles({
     }
   },
   imageContainer: {
-    display: "flex",
     maxWidth: "100%",
     overflow: "hidden",
     [theme.breakpoints.up("md")]: {
+      display: "flex",
       width: "50%"
     },
       "& img": {
-        width: "auto"
+        width: "auto",
+        maxWidth: "100%"
       }
   },
   button: {
+    [theme.breakpoints.down(414)]: {
+      width: "100%"
+    },
     width: 300,
     height: 60,
     marginTop: theme.spacing(5)
