@@ -82,7 +82,7 @@ class BasicLayout extends React.Component<Props, State> {
     const { classes } = this.props;
     let appBarClasses = classNames( classes.appBar );
     let logoClasses = classNames( classes.logo );
-    if (this.state.scrollPosition > 170) {
+    if (this.state.scrollPosition > 70) {
       appBarClasses = classNames( classes.appBar, classes.smallAppBar );
       logoClasses = classNames( classes.logo, classes.smallLogo );
     }
@@ -124,13 +124,13 @@ class BasicLayout extends React.Component<Props, State> {
         </div>
         <SiteMenu
           lang={ this.props.lang }
-          tinyHeader={ this.state.scrollPosition > 170 }
+          tinyHeader={ this.state.scrollPosition > 70 }
           onClose={ () => this.setState({ siteMenuVisible: false }) }
           visible={ this.state.siteMenuVisible }
         />
         <SiteSearch
           lang={ this.props.lang }
-          tinyHeader={ this.state.scrollPosition > 170 }
+          tinyHeader={ this.state.scrollPosition > 70 }
           onClose={ () => this.setState({ siteSearchVisible: false }) }
           visible={ this.state.siteSearchVisible }
         />

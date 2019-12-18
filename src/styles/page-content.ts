@@ -14,10 +14,11 @@ export default createStyles({
         width: "80vw",
       },
       [theme.breakpoints.up("lg")]: {
-        width: "50vw",
+        width: "60vw",
       },
       [theme.breakpoints.up("xl")]: {
-        width: "45vw",
+        width: "50vw",
+        maxWidth: "960px"
       }
     }
   },
@@ -186,6 +187,7 @@ export default createStyles({
      */
     "&.article": {
       marginTop: theme.spacing(5),
+      marginBottom: theme.spacing(5),
       [theme.breakpoints.up("md")]: {
         marginBottom: theme.spacing(10),
       },
@@ -244,6 +246,9 @@ export default createStyles({
           backgroundRepeat: "no-repeat",
           margin: 0,
           marginBottom: theme.spacing(5),
+          [theme.breakpoints.up(360)]: {
+            height: "320px",
+          },
           [theme.breakpoints.up("sm")]: {
             display: "flex",
             flex: 1,
@@ -582,8 +587,9 @@ export default createStyles({
       }
     },
     "& .wp-block-media-text": {
-      display: "flex",
-      [theme.breakpoints.up("md")]: {},
+      [theme.breakpoints.up("md")]: {
+        display: "flex"
+      }
     },
     /**
      * Flex Posts styles

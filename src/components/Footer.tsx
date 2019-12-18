@@ -23,6 +23,7 @@ interface Props extends WithStyles<typeof styles> {
  */
 interface State {
   posts: Post[],
+  sponsors: Post[],
   footerDatas: Post[],
   menu?: MenuLocationData,
   featuredMedias: { [ key: number ]: Attachment },
@@ -43,6 +44,7 @@ class Footer extends React.Component<Props, State> {
     super(props);
     this.state = {
       posts: [],
+      sponsors: [],
       footerDatas: [],
       featuredMedias: { },
       loading: false
@@ -60,8 +62,12 @@ class Footer extends React.Component<Props, State> {
     const lang = this.props.lang;
     const api = ApiUtils.getApi();
     const postCategories = await api.getWpV2Categories({ slug: ["footer-posts"] });
+    const sponsorCategories = await api.getWpV2Categories({ slug: ["sponsorit"] });
     const contactsCategories = await api.getWpV2Categories({ slug: ["footer-contacts"] });
     const posts = await api.getWpV2Posts({ lang: [ lang ], per_page: 2, categories: postCategories.map((category) => {
+      return String(category.id);
+    })});
+    const sponsors = await api.getWpV2Posts({ lang: [ lang ], categories: sponsorCategories.map((category) => {
       return String(category.id);
     })});
     const footerDatas = await api.getWpV2Posts({ per_page: 1, categories: contactsCategories.map((category) => {
@@ -91,6 +97,7 @@ class Footer extends React.Component<Props, State> {
 
     this.setState({
       posts: posts,
+      sponsors: sponsors,
       footerDatas: footerDatas,
       menu: menu,
       featuredMedias: featuredMediaMap,
