@@ -77,6 +77,7 @@ export default createMuiTheme({
         }
       },
       label: {
+        whiteSpace: "nowrap",
         fontFamily: theme.typography.h1.fontFamily,
         fontSize: theme.typography.h6.fontSize
       }

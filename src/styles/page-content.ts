@@ -64,6 +64,7 @@ export default createStyles({
     "& p": {
       fontFamily: theme.typography.subtitle2.fontFamily,
       [theme.breakpoints.up("lg")]: {
+        fontSize: "1rem",
         marginLeft: theme.spacing(1)
       }
     }
@@ -82,15 +83,8 @@ export default createStyles({
     backgroundColor: theme.palette.background.paper,
     color: theme.palette.primary.dark,
     marginTop: 0,
-    paddingBottom: theme.spacing(4),
     display: "flex",
-    flexDirection: "column",
-    [theme.breakpoints.up("md")]: {
-      paddingBottom: theme.spacing(5),
-    },
-    [theme.breakpoints.up("lg")]: {
-      paddingBottom: theme.spacing(10),
-    }
+    flexDirection: "column"
   },
   title: {
     fontFamily: theme.typography.h1.fontFamily,
@@ -152,8 +146,11 @@ export default createStyles({
     }
   },
   button: {
-    width: 300,
+    width: "100%",
     marginTop: theme.spacing(5),
+    [theme.breakpoints.up("md")]: {
+      width: 300,
+    }
   },
   errorText: {},
   /**
@@ -166,9 +163,11 @@ export default createStyles({
       marginBottom: theme.spacing(5),
     },
     [theme.breakpoints.up("md")]: {
+      paddingBottom: theme.spacing(5),
       marginBottom: theme.spacing(5),
     },
     [theme.breakpoints.up("lg")]: {
+      paddingBottom: theme.spacing(10),
       marginBottom: theme.spacing(5),
     },
     [theme.breakpoints.up("xl")]: {
@@ -286,6 +285,7 @@ export default createStyles({
     "&.fullscreen": {
       marginTop: 0,
       marginBottom: 0,
+      paddingBottom: 0,
       "& .wp-block-columns": {
         marginTop: 0,
         overflow: "hidden",
@@ -293,28 +293,42 @@ export default createStyles({
         [theme.breakpoints.up("md")]: {
           marginTop: 0,
           marginBottom: 0,
+        },
+        "&.highlight-columns": {
+          "& .wp-block-column": {
+            [theme.breakpoints.up("md")]: {
+              cursor: "pointer",
+              flex: 1
+            }
+          }
         }
       },
       "& .wp-block-column": {
         margin: 0
       },
       "& .widget_flex-posts-list": {
-        flex: 1
+        [theme.breakpoints.up("md")]: {
+          flex: 1
+        }
       },
       "& .fp-row": {
         marginLeft: 0,
         marginRight: 0,
-        flex: 1,
+        [theme.breakpoints.up("md")]: {
+          flex: 1
+        }
       },
       "& .fp-col": {
         position: "relative",
         minWidth: "100%",
         maxWidth: "100%",
-        flex: 1,
         margin: 0,
         padding: 0,
         height: 300,
         backgroundColor: theme.palette.background.default,
+        [theme.breakpoints.up("md")]: {
+          flex: 1
+        },
         [theme.breakpoints.up("lg")]: {
           height: 400,
         },
@@ -329,8 +343,10 @@ export default createStyles({
         marginBottom: 0,
       },
       "& .fp-thumbnail": {
-        display: "flex",
-        flex: 1
+        [theme.breakpoints.up("md")]: {
+          display: "flex",
+          flex: 1
+        }
       },
       "& .fp-media": {
         display: "flex",
@@ -425,6 +441,7 @@ export default createStyles({
     "& .wp-block-image": {
       margin: 0,
       marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(2),
       "& img": {
         width: "100%"
       },
@@ -433,10 +450,9 @@ export default createStyles({
       },
     },
     "& .wp-block-columns": {
-      display: "flex",
-      flexDirection: "column",
       marginTop: theme.spacing(5),
       [theme.breakpoints.up("md")]: {
+        display: "flex",
         flexDirection: "row",
         marginBottom: theme.spacing(5),
       },
@@ -450,7 +466,9 @@ export default createStyles({
             width: "50%",
           },
           "& .wp-block-column": {
-            flex: 1
+            [theme.breakpoints.up("md")]: {
+              flex: 1
+            }
           }
         }
       }
@@ -538,9 +556,6 @@ export default createStyles({
         }
       },
       "& .wp-block-media-text__content": {
-        display: "flex",
-        flex: 1,
-        flexDirection: "column",
         marginLeft: theme.spacing(2),
         [theme.breakpoints.up(413)]: {
           marginLeft: theme.spacing(3),
@@ -549,6 +564,9 @@ export default createStyles({
           marginLeft: theme.spacing(5),
         },
         [theme.breakpoints.up("md")]: {
+          display: "flex",
+          flex: 1,
+          flexDirection: "column",
           marginLeft: theme.spacing(4),
         },
         "& h3": {
@@ -612,15 +630,14 @@ export default createStyles({
       marginBottom: 20,
     },
     "& .fp-col": {
-      display: "flex",
-      flexDirection: "column",
       minWidth: 200,
       maxWidth: "100%",
-      flex: "1",
       marginLeft: theme.spacing(2),
       marginRight: theme.spacing(2),
-      padding: theme.spacing(2),
       [theme.breakpoints.up("md")]: {
+        padding: theme.spacing(2),
+        display: "flex",
+        flexDirection: "column",
         flex: "1 1 30%",
         maxWidth: 470,
       },

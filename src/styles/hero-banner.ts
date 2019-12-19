@@ -55,6 +55,7 @@ export default createStyles({
     color: theme.palette.primary.main,
     marginBottom: 0,
     [theme.breakpoints.up("lg")]: {
+      fontSize: "1rem",
       marginLeft: theme.spacing(1)
     }
   },

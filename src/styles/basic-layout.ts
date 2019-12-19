@@ -84,6 +84,9 @@ export default createStyles({
     fontFamily: theme.typography.h3.fontFamily,
     color: theme.palette.primary.main,
     cursor: "pointer",
+    [theme.breakpoints.down("md")]: {
+      fontSize: "1.15rem"
+    },
     [theme.breakpoints.up("lg")]: {
       marginLeft: 30,
     },
@@ -97,7 +100,7 @@ export default createStyles({
   donate: {
     display: "flex",
     justifyContent: "space-between",
-    width: 145,
+    width: "auto",
     borderRadius: 0,
     boxShadow: "0 0 0 transparent",
     color: "#fff",
@@ -113,6 +116,7 @@ export default createStyles({
     "&:focus": {
       boxShadow: "0 0 0 0.2rem rgba(255, 255 ,255 , 0.5)",
     },
+    [theme.breakpoints.up("md")]: {},
     [theme.breakpoints.up("lg")]: {
       width: 200,
       marginRight: theme.spacing(5),
