@@ -156,6 +156,12 @@ export default createStyles({
   /**
    * HTML Content styles
    */
+  date: {
+    fontFamily: theme.typography.h1.fontFamily,
+    "&:first-letter": {
+      textTransform: "uppercase"
+    }
+  },
   htmlContainer: {
     display: "flex",
     flexDirection: "column",
@@ -199,11 +205,18 @@ export default createStyles({
       "& p": {
         width: "100%",
         fontSize: 16,
+        [theme.breakpoints.up("lg")]: {
+          fontSize: 18,
+          lineHeight: 1.6
+        },
         "&.has-medium-font-size": {
           fontSize: 20,
           marginBottom: 0,
           [theme.breakpoints.up("md")]: {
             marginBottom: theme.spacing(2)
+          },
+          [theme.breakpoints.up("lg")]: {
+            fontSize: 22,
           }
         },
       },
@@ -235,6 +248,15 @@ export default createStyles({
         },
         [theme.breakpoints.up("md")]: {
           marginBottom: theme.spacing(5)
+        },
+        "&.has-media-on-the-right": {
+          flexDirection: "row-reverse",
+          "& .wp-block-media-text__content": {
+            marginLeft: 0,
+            [theme.breakpoints.up("sm")]: {
+              marginRight: theme.spacing(5)
+            }
+          }
         },
         "&.is-vertically-aligned-top": {
           alignItems: "flex-start",

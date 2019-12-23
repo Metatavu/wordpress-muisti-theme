@@ -10,6 +10,7 @@ import strings from "../../localization/strings";
 import { Link } from "react-router-dom";
 import ArrowIcon from "@material-ui/icons/ArrowForwardRounded";
 import * as classNames from "classnames";
+import * as moment from "moment";
 
 /**
  * Interface representing component properties
@@ -142,11 +143,15 @@ class PostPage extends React.Component<Props, State> {
    * Render post content method
    */
   private renderPostContent = (pageTitle: string) => {
-    const { classes } = this.props;
+    const { classes, lang } = this.props;
+    moment.locale(lang);
     return (
       <div className={ classNames(classes.htmlContainer, this.state.isArticle && "article", this.state.template === "fullscreen" ? "fullscreen" : "") }>
       { !this.state.heroBanner &&
-        <h1 className={ classNames(classes.title, this.state.isArticle && "article") }>{ pageTitle }</h1>
+        <>
+          { this.state.post ? <p className={ classes.date }>{ moment(this.state.post.date).format("dddd, DD. MMMM YYYY") }</p> : "" }
+          <h1 className={ classNames(classes.title, this.state.isArticle && "article") }>{ pageTitle }</h1>
+        </>
       }
       { !this.state.loading &&
         this.getPageOrPostContent()
