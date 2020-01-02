@@ -3,10 +3,8 @@ import ApiUtils from "../utils/ApiUtils";
 import { Post, Attachment } from "../generated/client/src";
 import { WithStyles, withStyles, Typography, Button } from "@material-ui/core";
 import styles from "../styles/social-feed";
-import ArrowIcon from "@material-ui/icons/ArrowForwardSharp";
 import ReactHtmlParser, { convertNodeToElement } from "react-html-parser";
 import { DomElement } from "domhandler";
-import { Link } from "react-router-dom";
 
 /**
  * Interface representing component properties
@@ -156,7 +154,7 @@ class SocialFeed extends React.Component<Props, State> {
     const featuredMediaUrl = featuredMedia ? featuredMedia.source_url : null;
 
     return (
-      <div key={ post.id }>
+      <div key={ post.id } className={ classes.content }>
           {
             ReactHtmlParser(post.content ? post.content.rendered || "" : "", { transform: this.transformContent })
           }

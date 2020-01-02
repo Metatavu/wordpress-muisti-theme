@@ -187,6 +187,11 @@ export default createStyles({
         fontSize: 28,
       }
     },
+    "& a": {
+      fontFamily: theme.typography.h1.fontFamily,
+      fontWeight: "normal",
+      color: theme.palette.primary.dark
+    },
     /**
      * Article content styles
      */
