@@ -1,3 +1,22 @@
+.masonry-grid {
+  display: -webkit-box; /* Not needed if autoprefixing */
+  display: -ms-flexbox; /* Not needed if autoprefixing */
+  display: flex;
+  margin-left: -30px; /* gutter size offset */
+  width: auto;
+}
+.masonry-grid_column {
+  padding-left: 16px; /* gutter size */
+  padding-right: 16px; /* gutter size */
+  background-clip: padding-box;
+}
+
+/* Style your items */
+.masonry-grid_column > div { /* change div to reference your elements you put in <Masonry> */
+  background: grey;
+  margin-bottom: 30px;
+}
+
 /**************/
 /*** LAYOUT ***/
 /**************/
@@ -30,10 +49,6 @@
   top: 0;
   bottom: 0;
   width: 100%;
-  /* CUSTOM CSS-GRID STYLES */
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
-  grid-gap: 24px;
 }
 /* Individual post item */
 #cff .cff-item{
@@ -41,7 +56,8 @@
   width: 100%;
   clear: both;
   padding: 20px 0 15px 0;
-  margin: 0;
+  margin-bottom: 16px;
+  margin-top: 16px;
   border-bottom: 1px solid #ddd;
 }
 #cff .cff-item:first-child{
@@ -719,6 +735,7 @@
 /* Link to an external video - Contains screenshot of video and play button */
 #cff .cff-html5-video,
 #cff video{
+  cursor: pointer;
   float: left;
   clear: left;
   position: relative;
@@ -754,41 +771,42 @@
 #cff .cff-playbtn{
   position: absolute;
   z-index: 9;
-  background: #000;
-  background: rgba(0,0,0,0.7);
+  background-color: #26201E;
   top: 50%;
   left: 50%;
+  width: 50px;
+  height: 50px;
+  transform: translate3d(-50%, -50%, 0);
+  cursor: pointer;
+  opacity: 0.8;
 
-  margin-top: -28px;
-  margin-left: -28px;
-  padding: 13px 16px;
-  font-size: 30px;
-  color: #fff;
-  font-style: normal !important;
-
-  -moz-border-radius: 8px;
-  -webkit-border-radius: 8px;
-  border-radius: 8px;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
 
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 
-  /* IE7 and under */
-  *width: 47px;
-  *height: 51px;
-  *padding: 0;
-  *background: #000 url('../img/cff-sprite.png') no-repeat -83px -32px;
+  transition: opacity 0.2s ease-out;
 }
+
+.cff-playbtn:after {
+  content: "";
+  display: block;
+  border: 15px solid transparent;
+  border-left-color: #F5EFEA;
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  transform: translate3d(50%, -50%, 0) rotatex(60deg);
+}
+
 /* Play button hover state */
 #cff .cff-html5-play:hover .cff-playbtn,
 #cff .cff-html5-play:focus .cff-playbtn,
 #cff .cff-html5-video .cff-playbtn:hover{
-  background: #000;
-  cursor: pointer;
-
-  /* IE7 and under */
-  *background: #000 url('../img/cff-sprite.png') no-repeat -83px -32px;
+  opacity: 1
 }
 #cff.cff .cff-posts-wrap svg.cff-playbtn{
   font-size: 40px;
