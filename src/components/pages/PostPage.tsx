@@ -205,11 +205,12 @@ class PostPage extends React.Component<Props, State> {
     if (!renderedContent) {
       return undefinedContentError;
     }
+    
     if (this.state.template === "dangerous") {
       return <div dangerouslySetInnerHTML={{__html:renderedContent}} />;
-    } else {
-      return ReactHtmlParser(renderedContent, { transform: this.transformContent });
     }
+    
+    return ReactHtmlParser(renderedContent, { transform: this.transformContent });
     
   }
 
