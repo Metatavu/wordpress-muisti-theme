@@ -141,6 +141,12 @@ class SocialFeed extends React.Component<Props, State> {
     );
   }
 
+  /**
+   * Preprosessor for ReactHtmlParser that flatlists cff-items recursively from DOM tree
+   *
+   * @param nodes original nodes
+   * @returns flatlisted nodes
+   */
   private preprocessNodes = (nodes: DomElement[]) => {
     let result: DomElement[] = [];
 
@@ -151,10 +157,16 @@ class SocialFeed extends React.Component<Props, State> {
     return result;
   }
 
+  /**
+   * Recursively finds all cff-items child nodes within DOM tree
+   *
+   * @param node parent node
+   * @returns flatlisted nodes
+   */
   private getNodeItems = (node: DomElement): DomElement[] => {
     const allChildren = node.children || [];
 
-    const children = allChildren.filter((child) => {
+    const children = allChildren.filter((child: DomElement) => {
       const classNames = this.getElementClasses(child);
       return classNames.indexOf("cff-item") > -1;
     });
