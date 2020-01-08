@@ -21,7 +21,7 @@ interface Props extends WithStyles<typeof styles> {
   lang: string
 }
 
-type PageTemplate = "basic" | "fullscreen";
+type PageTemplate = "basic" | "fullscreen" | "dangerous";
 
 /**
  * Interface representing component state
@@ -205,8 +205,13 @@ class PostPage extends React.Component<Props, State> {
     if (!renderedContent) {
       return undefinedContentError;
     }
-
+    
+    if (this.state.template === "dangerous") {
+      return <div dangerouslySetInnerHTML={{__html:renderedContent}} />;
+    }
+    
     return ReactHtmlParser(renderedContent, { transform: this.transformContent });
+    
   }
 
   /**
