@@ -135,8 +135,8 @@ class Footer extends React.Component<Props, State> {
               </div>
               <div className={ classes.someLinkContainer }>
                 <a className={ classes.someLink } href="https://twitter.com/muistimme"><TwitterIcon className={ classes.iconLink } /></a>
-                <a className={ classes.someLink } href="https://www.instagram.com/mikkelinseudunmuisti/"><InstagramIcon className={ classes.iconLink } /></a>
-                <a className={ classes.someLink } href="https://fi-fi.facebook.com/mikkelinseudunmuisti/"><FacebookIcon className={ classes.iconLink } /></a>
+                {/* <a className={ classes.someLink } href="https://www.instagram.com/mikkelinseudunmuisti/"><InstagramIcon className={ classes.iconLink } /></a> */}
+                <a className={ classes.someLink } href="https://www.facebook.com/muistimme//"><FacebookIcon className={ classes.iconLink } /></a>
                 <a className={ classes.someLink } href="https://www.linkedin.com/company/muisti"><LinkedInIcon className={ classes.iconLink } /></a>
               </div>
             </Container>
