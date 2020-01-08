@@ -61,8 +61,12 @@ class BasicLayout extends React.Component<Props, State> {
 
     const api = ApiUtils.getApi();
 
-    const mainMenu = await api.getMenusV1LocationsById({ lang: this.props.lang, id: "main" });
-    const localeMenu = await api.getMenusV1LocationsById({ lang: this.props.lang, id: "locale" });
+    const [mainMenu, localeMenu] = await Promise.all(
+      [
+        api.getMenusV1LocationsById({ lang: this.props.lang, id: "main" }),
+        api.getMenusV1LocationsById({ lang: this.props.lang, id: "locale" })
+      ]
+    )
 
     this.setState({
       loading: false,

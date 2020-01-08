@@ -40,9 +40,14 @@ export default createStyles({
   },
   logoAndSomeContainer: {
     display: "flex",
+    flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: theme.spacing(5),
     paddingTop: 20,
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "column-reverse",
+      justifyContent: "none",
+    },
     [theme.breakpoints.up("md")]: {
       paddintTop: 0
     }
@@ -53,7 +58,22 @@ export default createStyles({
       }
   },
   someLinkContainer: {
-
+    margin: theme.spacing(2)
+  },
+  someLink: {
+    color: "#ffffff"
+  },
+  iconLink: {
+    fontSize: "2rem",
+    float: "right",
+    marginLeft: theme.spacing(2),
+    [theme.breakpoints.up("md")]: {
+      fontSize: "2.2rem",
+      marginLeft: theme.spacing(3)
+    }
+  },
+  logo: {
+    float: "left"
   },
   button: {
     [theme.breakpoints.down(414)]: {
