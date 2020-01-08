@@ -1,12 +1,12 @@
 import * as React from "react";
 import ApiUtils from "../utils/ApiUtils";
 import { Post, Attachment } from "../generated/client/src";
-import { WithStyles, withStyles, Typography, Button } from "@material-ui/core";
+import { WithStyles, withStyles } from "@material-ui/core";
 import styles from "../styles/social-feed";
-import ArrowIcon from "@material-ui/icons/ArrowForwardSharp";
-import ReactHtmlParser, { convertNodeToElement } from "react-html-parser";
+import ReactHtmlParser from "react-html-parser";
 import { DomElement } from "domhandler";
-import { Link } from "react-router-dom";
+import Masonry from "react-masonry-css";
+import "../styles/feed.css";
 
 /**
  * Interface representing component properties
@@ -111,38 +111,6 @@ class SocialFeed extends React.Component<Props, State> {
   }
 
   /**
-   * Get link href
-   */
-  private getLinkHref = (node: DomElement) => {
-    return node.attribs && node.attribs.href ? node.attribs.href : "";
-  }
-
-  /**
-   * Get text content
-   */
-  private getElementTextContent = (node: DomElement) => {
-    return node.children && node.children[0] ? node.children[0].data as string : "";
-  }
-
-  /**
-   * Render identified buttons into Material UI buttons
-   */
-  private transformContent = (node: DomElement, index: number) => {
-    const { classes } = this.props;
-    const classNames = this.getElementClasses(node);
-    if (classNames.indexOf("cff-media-link") > -1) {
-      const childNode = node.children && node.children.length ? node.children[0] : null;
-      if (childNode) {
-        const url = this.getLinkHref(childNode);
-        return (
-          <img src={ url } />
-        );
-      }
-    }
-    return convertNodeToElement(node, index, this.transformContent);
-  }
-
-  /**
    * Render post method
    */
   private renderPost() {
@@ -152,30 +120,68 @@ class SocialFeed extends React.Component<Props, State> {
     }
 
     const post = this.state.posts[0];
-    const featuredMedia = post.featured_media ? this.state.featuredMedias[post.featured_media] : null;
-    const featuredMediaUrl = featuredMedia ? featuredMedia.source_url : null;
+
+    const items = ReactHtmlParser(post.content ? post.content.rendered || "" : "", { preprocessNodes: this.preprocessNodes });
+
+    // Responsive column amount
+    const breakpointColumnsObj = {
+      default: 5,
+      1600: 4,
+      1440: 3,
+      800: 2,
+      600: 1
+    };
 
     return (
-      <div key={ post.id }>
-          {
-            ReactHtmlParser(post.content ? post.content.rendered || "" : "", { transform: this.transformContent })
-          }
+      <div key={ post.id } className={ classes.content }>
+        <Masonry id="cff" breakpointCols={ breakpointColumnsObj } className="masonry-grid" columnClassName="masonry-grid_column">
+          { items }
+        </Masonry>
       </div>
     );
   }
 
   /**
-   * Renders post image
-   * @param url
+   * Preprosessor for ReactHtmlParser that flatlists cff-items recursively from DOM tree
+   *
+   * @param nodes original nodes
+   * @returns flatlisted nodes
    */
-  private renderImage(url?: string | null) {
-    if (!url) {
-      return null;
+  private preprocessNodes = (nodes: DomElement[]) => {
+    let result: DomElement[] = [];
+
+    for (let i = 0; i < nodes.length; i++) {
+      result = result.concat(this.getNodeItems(nodes[i]));
     }
 
-    return (
-      <img src={ url }></img>
-    );
+    return result;
+  }
+
+  /**
+   * Recursively finds all cff-items child nodes within DOM tree
+   *
+   * @param node parent node
+   * @returns flatlisted nodes
+   */
+  private getNodeItems = (node: DomElement): DomElement[] => {
+    const allChildren = node.children || [];
+
+    const children = allChildren.filter((child: DomElement) => {
+      const classNames = this.getElementClasses(child);
+      return classNames.indexOf("cff-item") > -1;
+    });
+
+    if (children.length > 0) {
+      return children;
+    } else {
+      let result: DomElement[] = [];
+
+      for (let i = 0; i < allChildren.length; i++) {
+        result = result.concat(this.getNodeItems(allChildren[i]));
+      }
+
+      return result;
+    }
   }
 }
 

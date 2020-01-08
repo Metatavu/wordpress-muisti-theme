@@ -94,7 +94,7 @@ class WelcomePage extends React.Component<Props, State> {
         <LinkBar lang={ lang } />
         <DonateBanner lang={ lang } />
         <CurrentNews lang={ lang } />
-        {/* <SocialFeed lang={ lang } /> */}
+        <SocialFeed lang={ lang } />
       </BasicLayout>
     );
   }

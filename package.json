@@ -16,6 +16,7 @@
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-html-parser": "^2.0.2",
+    "react-masonry-css": "^1.0.14",
     "react-router-dom": "^5.1.2",
     "react-swipeable-views": "^0.13.3",
     "urijs": "^1.19.1"
@@ -41,7 +42,7 @@
     "file-loader": "^4.2.0",
     "node-sass": "^4.12.0",
     "sass-loader": "^8.0.0",
-    "style-loader": "^1.0.0",
+    "style-loader": "^1.1.2",
     "ts-loader": "^6.2.0",
     "tslint": "^5.20.0",
     "typescript": "^3.6.4",
