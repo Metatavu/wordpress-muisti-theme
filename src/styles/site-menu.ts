@@ -92,5 +92,28 @@ export default createStyles({
   },
   closeIcon: {
     fontSize: 40
+  },
+  donate: {
+    display: "flex",
+    justifyContent: "space-between",
+    width: "auto",
+    borderRadius: 0,
+    boxShadow: "0 0 0 transparent",
+    color: "#fff",
+    textTransform: "initial",
+    backgroundColor: theme.palette.secondary.main,
+    "&:hover": {
+      backgroundColor: "#b53e3d"
+    },
+    "&:active": {
+      backgroundColor: "#b53e3d",
+    },
+    "&:focus": {
+      boxShadow: "0 0 0 0.2rem rgba(255, 255 ,255 , 0.5)",
+    }
+    
+  },
+  donateLink: {
+    marginBottom: theme.spacing(3)
   }
 });
