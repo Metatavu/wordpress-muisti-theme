@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import ArrowIcon from "@material-ui/icons/ArrowForwardRounded";
 import * as classNames from "classnames";
 import * as moment from "moment";
-import "../../styles/cff-style.css";
+import "../../styles/feed.css";
 
 /**
  * Interface representing component properties
