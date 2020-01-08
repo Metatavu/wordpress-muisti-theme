@@ -62,6 +62,13 @@ export default createMuiTheme({
   },
   overrides: {
     MuiButton: {
+      label: {
+        whiteSpace: "nowrap",
+      },
+      text: {
+        fontFamily: theme.typography.h1.fontFamily,
+        fontSize: theme.typography.h6.fontSize
+      },
       outlinedPrimary: {
         justifyContent: "space-between",
         textTransform: "initial",
@@ -75,11 +82,6 @@ export default createMuiTheme({
         "&:active": {
           borderWidth: 3,
         }
-      },
-      label: {
-        whiteSpace: "nowrap",
-        fontFamily: theme.typography.h1.fontFamily,
-        fontSize: theme.typography.h6.fontSize
       }
     },
     MuiInputBase: {

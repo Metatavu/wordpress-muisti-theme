@@ -197,9 +197,6 @@ class BasicLayout extends React.Component<Props, State> {
     return (
       <div className={ classes.localeMenu }>
         {
-          this.renderDonateButton()
-        }
-        {
           localeMenu.items.map(this.renderLocaleMenuItem)
         }
       </div>
