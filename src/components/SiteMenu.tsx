@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Link, WithStyles, withStyles, Fade, IconButton, Button } from "@material-ui/core";
+import { Link, WithStyles, withStyles, Fade, IconButton, Button, Hidden } from "@material-ui/core";
 import { MenuLocationData, MenuItemData } from "../generated/client/src";
 import ApiUtils from "../utils/ApiUtils";
 import CloseIcon from "@material-ui/icons/CloseSharp";
@@ -105,7 +105,9 @@ class SiteMenu extends React.Component<Props, State> {
             </IconButton>
           </div>
           <div className={ classes.menuContent }>
+          <Hidden mdUp implementation="css">
             { this.renderDonateButton() }
+          </Hidden>
             {
               itemsWithChildren.map((item) => {
                 return this.renderMenuItem(item);

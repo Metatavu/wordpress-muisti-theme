@@ -111,6 +111,7 @@ export default createStyles({
     "&:focus": {
       boxShadow: "0 0 0 0.2rem rgba(255, 255 ,255 , 0.5)",
     }
+    
   },
   donateLink: {
     marginBottom: theme.spacing(3)
