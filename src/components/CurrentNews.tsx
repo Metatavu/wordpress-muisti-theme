@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Typography, WithStyles, withStyles, Button, Fade } from "@material-ui/core";
+import { Typography, WithStyles, withStyles, Button } from "@material-ui/core";
 import { Post, Attachment } from "../generated/client/src";
 import ApiUtils from "../utils/ApiUtils";
 import styles from "../styles/current-news";
@@ -107,16 +107,14 @@ class CurrentNews extends React.Component<Props, State> {
               const featuredMedia = post.featured_media ? this.state.featuredMedias[post.featured_media] : null;
               const featuredMediaUrl = featuredMedia ? featuredMedia.source_url : null;
               return (
-                <Fade in={ !loading }>
-                  <Link to={ post.slug || "/" } className={ classes.latestNewsItem } key={ post.id }>
-                    <div
-                      className={ classes.latestNewsImgContainer }
-                      style={{ backgroundImage: `url('${( featuredMediaUrl != null ? featuredMediaUrl : placeholderImg )}')` }}
-                      >
-                    </div>
-                    <Typography variant="h4" className={ classes.title }> { post.title ? post.title.rendered : "" } </Typography>
-                  </Link>
-                </Fade>
+                <Link to={ post.slug || "/" } className={ classes.latestNewsItem } key={ post.id }>
+                  <div
+                    className={ classes.latestNewsImgContainer }
+                    style={{ backgroundImage: `url('${( featuredMediaUrl != null ? featuredMediaUrl : placeholderImg )}')` }}
+                    >
+                  </div>
+                  <Typography variant="h4" className={ classes.title }> { post.title ? post.title.rendered : "" } </Typography>
+                </Link>
               );
             })
           }

@@ -48,6 +48,7 @@ export default createStyles({
     [theme.breakpoints.down(414)]: {
       width: "100%"
     },
+    fontSize: "1rem",
     width: 300,
     height: 60,
     marginTop: theme.spacing(5)
