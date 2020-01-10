@@ -1,7 +1,8 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
-  mode: "development",
+  mode: "production",
   entry: './src/index.tsx',
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx']
@@ -25,8 +26,8 @@ module.exports = {
         use: [ "style-loader", "css-loader", "sass-loader"]
       },
       {
-        test: /\.png$/,
-        loader: "url-loader?mimetype=image/png" 
+        test: /\.png$/,    
+        use: 'file-loader?name=[name].[ext]?[hash]'
       },
       {
         test: /\.jpe?g$|\.gif$/,
@@ -53,5 +54,8 @@ module.exports = {
         loader: "url-loader?limit=10000&mimetype=image/svg+xml&name=/dist/[name].[ext]"
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en|fi/)
+  ]
 }
