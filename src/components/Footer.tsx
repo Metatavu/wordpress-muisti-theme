@@ -1,6 +1,6 @@
 import * as React from "react";
 import styles from "../styles/footer";
-import { WithStyles, withStyles, Container, Typography, Button, Link } from "@material-ui/core";
+import { WithStyles, withStyles, Container, Typography, Button, Link} from "@material-ui/core";
 import { Post, Attachment, MenuLocationData, MenuItemData } from "../generated/client/src";
 import ApiUtils from "../utils/ApiUtils";
 import { DomElement } from "domhandler";
@@ -11,8 +11,10 @@ import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import TwitterIcon from '@material-ui/icons/Twitter';
+import Fade from '@material-ui/core/Fade';
 import theme from "../styles/theme";
 import placeholderImg from "../resources/img/muisti-konsepti.png";
+import strings from "../localization/strings";
 
 /**
  * Interface representing component properties
@@ -30,6 +32,11 @@ interface State {
   sponsors: Post[],
   footerDatas: Post[],
   menu?: MenuLocationData,
+  sponsorImages: string[],
+  carouselImage1: string,
+  carouselImage2: string,
+  carouselFade1: boolean,
+  carouselFade2: boolean,
   featuredMedias: { [ key: number ]: Attachment },
   loading: boolean
 }
@@ -50,6 +57,11 @@ class Footer extends React.Component<Props, State> {
       posts: [],
       sponsors: [],
       footerDatas: [],
+      sponsorImages: [],
+      carouselImage1: "",
+      carouselImage2: "",
+      carouselFade1: true,
+      carouselFade2: false,
       featuredMedias: { },
       loading: false
     };
@@ -99,6 +111,8 @@ class Footer extends React.Component<Props, State> {
       featuredMediaMap[featureMedia.id!] = featureMedia;
     }
 
+    setInterval(() => { this.carouselLoop() }, 10000);
+
     this.setState({
       posts: posts,
       sponsors: sponsors,
@@ -125,6 +139,9 @@ class Footer extends React.Component<Props, State> {
         <div className={ classes.footerPosts }>
           {
             this.renderPosts()
+          }
+          {
+            this.renderSponsors()
           }
         </div>
         <div className={ classes.footerBackground } style={{ backgroundImage: `url('${( featuredMediaUrl != null ? featuredMediaUrl : placeholderImg )}')` }}>
@@ -212,6 +229,20 @@ class Footer extends React.Component<Props, State> {
         );
       }
     }
+    if (classNames.indexOf("sponsori-item") > -1) {
+      const childNode = node.children && node.children.length ? node.children[0] : null;
+      if (childNode && childNode.children && childNode.children.length && childNode.children[0].attribs) {
+        if (!(this.state.sponsorImages.indexOf(childNode.children[0].attribs.src) > -1)) {
+          this.setState({ sponsorImages: [...this.state.sponsorImages, childNode.children[0].attribs.src] });
+        }
+        if (this.state.carouselImage1 === "") {
+          this.setState({ carouselImage1: childNode.children[0].attribs.src});
+        } else if (this.state.carouselImage2 === "") {
+          this.setState({ carouselImage2: childNode.children[0].attribs.src});
+        }
+        return <></>
+      }
+    }
     return convertNodeToElement(node, index, this.transformContent);
   }
 
@@ -238,6 +269,38 @@ class Footer extends React.Component<Props, State> {
         })
       );
     }
+  }
+
+  /**
+   * Render footer sponsors method
+   */
+  private renderSponsors = () => {
+    const { classes } = this.props;
+    if (!this.state.sponsors.length) {
+      return null;
+    }
+    return (
+      <Container className={ classes.footerPost }>
+        <div className={ classes.carouselWrapper }>
+          <div className={ classes.carouselItem }>
+            <Fade in={ this.state.carouselFade1 } timeout={ { enter: 2000, exit: 2000 } }>
+              <img className={ classes.carouselImg } src={ this.state.carouselImage1 } />
+            </Fade>
+          </div>
+          <div className={ classes.carouselItem }>
+            <Fade in={ this.state.carouselFade2 } timeout={ { enter: 2000, exit: 2000 } }>
+              <img className={ classes.carouselImg } src={ this.state.carouselImage2 } />
+            </Fade>
+          </div>
+        </div>
+        <div className={ classes.carouselTitle }>
+          <Typography color="primary" variant="h3"> { strings.sponsors } </Typography>
+        </div>
+        {
+          ReactHtmlParser(this.state.sponsors[0].content ? this.state.sponsors[0].content.rendered || "" : "", { transform: this.transformContent })
+        }
+      </Container>
+    );
   }
 
   /**
@@ -368,6 +431,40 @@ class Footer extends React.Component<Props, State> {
         }
       </Link>
     );
+  }
+
+  /**
+   * Carousel image fading method
+   */
+  private carouselLoop = () => {
+    if (this.state.sponsorImages.length > 1) {
+      let image1 = "";
+      let image2 = "";
+      if (this.state.carouselImage1 === "" && this.state.carouselImage2 === "") {
+        image1 = this.state.sponsorImages[0];
+        image2 = this.state.sponsorImages[1];
+      } else if (this.state.carouselFade1) {
+        let index = this.state.sponsorImages.indexOf(this.state.carouselImage1) + 1;
+        if (index > this.state.sponsorImages.length - 1) {
+          index = 0;
+        }
+        image1 = this.state.carouselImage1;
+        image2 = this.state.sponsorImages[index];
+      } else {
+        let index = this.state.sponsorImages.indexOf(this.state.carouselImage2) + 1;
+        if (index > this.state.sponsorImages.length - 1) {
+          index = 0;
+        }
+        image1 = this.state.sponsorImages[index];
+        image2 = this.state.carouselImage2;
+      }
+      this.setState({
+        carouselImage1: image1,
+        carouselImage2: image2,
+        carouselFade1: !this.state.carouselFade1,
+        carouselFade2: !this.state.carouselFade2
+      })
+    }
   }
 }
 

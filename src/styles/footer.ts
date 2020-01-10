@@ -12,6 +12,7 @@ export default createStyles({
     width: "100%",
     backgroundColor: "#000",
     flexDirection: "column",
+    overflow: "hidden",
     [theme.breakpoints.up("md")]: {
       flexDirection: "row"
     }
@@ -25,11 +26,32 @@ export default createStyles({
     },
     "&:nth-child(2)": {
       backgroundColor: theme.palette.secondary.main
+    },
+    "&:nth-child(3)": {
+      backgroundColor: "#2E2E50",
+      paddingTop: 0,
+      paddingLeft: 0
     }
   },
   footerdata: {
     width: 300,
     marginBottom: theme.spacing(5)
+  },
+  carouselWrapper: {
+    position: "relative"
+  },
+  carouselItem: {
+    position: "absolute",
+    top: 0,
+    maxWidth: "50%"
+  },
+  carouselImg: {
+    maxWidth: "100%"
+  },
+  carouselTitle: {
+    paddingTop: theme.spacing(5),
+    paddingLeft: theme.spacing(1),
+    marginLeft: "55%"
   },
   contentContainer: {
     [theme.breakpoints.up("md")]: {
