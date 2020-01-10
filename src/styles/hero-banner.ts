@@ -45,6 +45,12 @@ export default createStyles({
         fontSize: "2.5rem"
       },
       [theme.breakpoints.up("xl")]: {}
+    },
+    "@media only screen and (max-width:1280px) and (min-width:960px) and (max-height:750px)": {
+      marginTop: "130px",
+      "& h1": {
+        fontSize: "3.5rem"
+      }
     }
   },
   heroText: {
@@ -57,7 +63,7 @@ export default createStyles({
     [theme.breakpoints.up("lg")]: {
       fontSize: "1rem",
       marginLeft: theme.spacing(1)
-    }
+    },
   },
   button: {
     width: "100%",
