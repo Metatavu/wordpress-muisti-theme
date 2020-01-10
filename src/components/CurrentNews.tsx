@@ -120,7 +120,7 @@ class CurrentNews extends React.Component<Props, State> {
           }
         </div>
         <div className={ classes.buttonContainer }>
-          <Link style={{ textDecoration: "none" }} to={ `/ajankohtaista/?lang=${ this.props.lang }` }>
+          <Link style={{ textDecoration: "none" }} to={ `/${ strings.currentNewsSlug }/?lang=${ this.props.lang }` }>
             <Button className={ classes.button } color="primary" variant="outlined" endIcon={ <ArrowIcon /> }>
               { strings.moreCurrentNews }
             </Button>

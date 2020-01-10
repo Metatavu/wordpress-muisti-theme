@@ -139,7 +139,10 @@ class DonateBanner extends React.Component<Props, State> {
       const childNode = node.children && node.children.length ? node.children[0] : null;
       if (childNode) {
         const urlParts = this.getLinkHref(childNode).split("/");
-        const slug = urlParts.pop() || urlParts.pop();
+        let slug = urlParts.pop() || urlParts.pop();
+        if (slug && slug.startsWith("?")) {
+          slug = urlParts.pop();
+        }
         return (
           <Link style={{ textDecoration: "none" }} to={slug || "/"}>
             <Button className={ classes.button } color="primary" variant="outlined" endIcon={ <ArrowIcon /> }>
