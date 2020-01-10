@@ -63,7 +63,7 @@ export default createStyles({
     [theme.breakpoints.up("lg")]: {
       fontSize: "1rem",
       marginLeft: theme.spacing(1)
-    },
+    }
   },
   button: {
     width: "100%",
