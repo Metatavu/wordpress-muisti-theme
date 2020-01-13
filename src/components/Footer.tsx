@@ -280,6 +280,7 @@ class Footer extends React.Component<Props, State> {
     }
     return (
       <RouterLink style={{ textDecoration: "none" }} to={(this.state.sponsors.length > 0 && this.state.sponsors[0].link) ? this.state.sponsors[0].link.split("/")[this.state.sponsors[0].link.split("/").length - 2] : ""|| "/"}>
+        <Typography color="textSecondary" variant="h3"> { strings.sponsors } </Typography>
         <div className={ classes.carouselWrapper }>
           <div className={ classes.carouselItem }>
             <Fade in={ this.state.carouselFade1 } timeout={ { enter: 2000, exit: 2000 } }>
@@ -291,9 +292,6 @@ class Footer extends React.Component<Props, State> {
               <img className={ classes.carouselImg } src={ this.state.carouselImage2 } />
             </Fade>
           </div>
-        </div>
-        <div className={ classes.carouselTitle }>
-          <Typography color="primary" variant="h3"> { strings.sponsors } </Typography>
         </div>
         {
           ReactHtmlParser(this.state.sponsors[0].content ? this.state.sponsors[0].content.rendered || "" : "", { transform: this.transformContent })

@@ -29,10 +29,7 @@ export default createStyles({
     },
     "&:nth-child(3)": {
       textAlign: "center",
-      backgroundColor: "#2E2E50",
-      paddingTop: 0,
-      paddingLeft: 0,
-      paddingRight: 0
+      backgroundColor: "#ffffff",
     }
   },
   footerdata: {
@@ -40,22 +37,20 @@ export default createStyles({
     marginBottom: theme.spacing(5)
   },
   carouselWrapper: {
+    minHeight: "120px",
     position: "relative"
   },
   carouselItem: {
+    width: "100%",
     position: "absolute",
-    top: 0,
-    left: "-50%",
-    transform: "translate(50%)",
-    width: "100%"
+    left: "50%",
+    transform: "translate(-50%)"
   },
   carouselImg: {
-    width: "100%"
-  },
-  carouselTitle: {
-    transform: "translate(0%)",
-    paddingTop: theme.spacing(5),
-    paddingLeft: theme.spacing(1),
+    width: "100%",
+    [theme.breakpoints.up("xl")]: {
+      width: "75%"
+    }
   },
   contentContainer: {
     [theme.breakpoints.up("md")]: {
@@ -105,6 +100,7 @@ export default createStyles({
     [theme.breakpoints.down(414)]: {
       width: "100%"
     },
+    fontSize: "1rem",
     width: 300
   },
   menuContent: {
