@@ -1,7 +1,7 @@
 import * as React from "react";
 import styles from "../styles/footer";
 import { WithStyles, withStyles, Container, Typography, Button, Link} from "@material-ui/core";
-import { Post, Attachment, MenuLocationData, MenuItemData } from "../generated/client/src";
+import { Post, Attachment, MenuLocationData, MenuItemData, Page } from "../generated/client/src";
 import ApiUtils from "../utils/ApiUtils";
 import { DomElement } from "domhandler";
 import { Link as RouterLink } from "react-router-dom";
@@ -29,11 +29,10 @@ interface Props extends WithStyles<typeof styles> {
  */
 interface State {
   posts: Post[],
-  sponsors: Post[],
+  sponsors: Page[],
   footerDatas: Post[],
   menu?: MenuLocationData,
   sponsorImages: string[],
-  carouselSlug: string,
   carouselImage1: string,
   carouselImage2: string,
   carouselFade1: boolean,
@@ -59,7 +58,6 @@ class Footer extends React.Component<Props, State> {
       sponsors: [],
       footerDatas: [],
       sponsorImages: [],
-      carouselSlug: "",
       carouselImage1: "",
       carouselImage2: "",
       carouselFade1: true,
@@ -80,12 +78,9 @@ class Footer extends React.Component<Props, State> {
     const lang = this.props.lang;
     const api = ApiUtils.getApi();
     const postCategories = await api.getWpV2Categories({ slug: ["footer-posts"] });
-    const sponsorCategories = await api.getWpV2Categories({ slug: ["sponsorit"] });
+    const sponsors = await api.getWpV2Pages({ slug: ["sponsorit"] });
     const contactsCategories = await api.getWpV2Categories({ slug: ["footer-contacts"] });
     const posts = await api.getWpV2Posts({ lang: [ lang ], per_page: 2, categories: postCategories.map((category) => {
-      return String(category.id);
-    })});
-    const sponsors = await api.getWpV2Posts({ lang: [ lang ], categories: sponsorCategories.map((category) => {
       return String(category.id);
     })});
     const footerDatas = await api.getWpV2Posts({ per_page: 1, categories: contactsCategories.map((category) => {
@@ -142,9 +137,11 @@ class Footer extends React.Component<Props, State> {
           {
             this.renderPosts()
           }
-          {
-            this.renderSponsors()
-          }
+          <Container  className={ classes.footerPost }>
+            {
+              this.renderSponsors()
+            }
+          </Container>
         </div>
         <div className={ classes.footerBackground } style={{ backgroundImage: `url('${( featuredMediaUrl != null ? featuredMediaUrl : placeholderImg )}')` }}>
           <div className={ classes.contentContainer }>
@@ -282,7 +279,7 @@ class Footer extends React.Component<Props, State> {
       return null;
     }
     return (
-      <Container className={ classes.footerPost }>
+      <RouterLink style={{ textDecoration: "none" }} to={(this.state.sponsors.length > 0 && this.state.sponsors[0].link) ? this.state.sponsors[0].link.split("/")[this.state.sponsors[0].link.split("/").length - 2] : ""|| "/"}>
         <div className={ classes.carouselWrapper }>
           <div className={ classes.carouselItem }>
             <Fade in={ this.state.carouselFade1 } timeout={ { enter: 2000, exit: 2000 } }>
@@ -301,7 +298,7 @@ class Footer extends React.Component<Props, State> {
         {
           ReactHtmlParser(this.state.sponsors[0].content ? this.state.sponsors[0].content.rendered || "" : "", { transform: this.transformContent })
         }
-      </Container>
+      </RouterLink>
     );
   }
 
