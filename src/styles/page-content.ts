@@ -180,6 +180,14 @@ export default createStyles({
       marginTop: theme.spacing(5),
       marginBottom: theme.spacing(10),
     },
+    "& .wp-block-group": {
+      width: "60%",
+      alignSelf: "center",
+      "& .MuiButton-outlinedPrimary": {
+        borderColor: theme.palette.primary.dark,
+        color: theme.palette.primary.dark
+      }
+    },
     "& .address-heading": {
       fontSize: 20,
       margin: 0,
@@ -467,14 +475,9 @@ export default createStyles({
     },
     "& .wp-block-image": {
       margin: 0,
-      marginTop: theme.spacing(2),
-      marginBottom: theme.spacing(2),
       "& img": {
         width: "100%"
-      },
-      [theme.breakpoints.up("md")]: {
-        marginTop: theme.spacing(5)
-      },
+      }
     },
     "& .wp-block-columns": {
       marginTop: theme.spacing(5),
@@ -503,7 +506,37 @@ export default createStyles({
     "& .wp-block-column": {
       display: "flex",
       [theme.breakpoints.up("md")]: {
-        marginBottom: 0
+        marginLeft: theme.spacing(2),
+        marginRight: theme.spacing(2),
+      },
+      "&:first-child": {
+        [theme.breakpoints.up("md")]: {
+          marginLeft: 0,
+          marginRight: theme.spacing(2)
+        }
+      },
+      "&:last-child": {
+        [theme.breakpoints.up("md")]: {
+          marginLeft: theme.spacing(2),
+          marginRight: 0
+        }
+      },
+      "& .wp-block-image": {
+        "& a": {
+          "& img": {
+            [theme.breakpoints.up("md")]: {
+              opacity: 0.9,
+              transition: "transform 300ms ease-out, opacity 300ms ease-out, box-shadow 0.4s ease-out"
+            },
+            "&:hover": {
+              [theme.breakpoints.up("md")]: {
+                opacity: 1,
+                transform: "scale(1.01)",
+                boxShadow: "0 0 20px rgba(0, 0, 0, 0.2)"
+              }
+            }
+          }
+        }
       }
     },
     "& .address-info":{

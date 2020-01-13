@@ -25,9 +25,6 @@ export default createStyles({
     display: "flex",
     flexDirection: "column",
     marginTop: 100,
-    [theme.breakpoints.up("sm")]: {
-      marginLeft: 100,
-    },
     [theme.breakpoints.up("md")]: {
       marginLeft: 50,
       marginTop: 110,
@@ -60,7 +57,10 @@ export default createStyles({
     marginBottom: "2rem"
   },
   subLink: {
-    marginBottom: "1rem"
+    marginBottom: "1rem",
+    fontFamily: theme.typography.body1.fontFamily,
+    lineHeight: 1.2,
+    marginLeft: "0.8rem"
   },
   controlContainer: {
     display: "flex",
@@ -92,5 +92,29 @@ export default createStyles({
   },
   closeIcon: {
     fontSize: 40
+  },
+  donate: {
+    display: "flex",
+    justifyContent: "space-between",
+    width: "100%",
+    borderRadius: 0,
+    boxShadow: "0 0 0 transparent",
+    color: "#fff",
+    padding: "10px 16px",
+    textTransform: "initial",
+    backgroundColor: theme.palette.secondary.main,
+    "&:hover": {
+      backgroundColor: "#b53e3d"
+    },
+    "&:active": {
+      backgroundColor: "#b53e3d",
+    },
+    "&:focus": {
+      boxShadow: "0 0 0 0.2rem rgba(255, 255 ,255 , 0.5)",
+    }
+  },
+  donateLink: {
+    marginBottom: theme.spacing(3),
+    display: "block"
   }
 });

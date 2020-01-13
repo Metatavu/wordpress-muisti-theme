@@ -1,6 +1,6 @@
 import * as React from "react";
 import ApiUtils from "../utils/ApiUtils";
-import { Post, Attachment } from "../generated/client/src";
+import { Post } from "../generated/client/src";
 import { WithStyles, withStyles } from "@material-ui/core";
 import styles from "../styles/social-feed";
 import ReactHtmlParser from "react-html-parser";
@@ -20,7 +20,6 @@ interface Props extends WithStyles<typeof styles> {
  */
 interface State {
   posts: Post[],
-  featuredMedias: { [ key: number ]: Attachment },
   loading: boolean
 }
 
@@ -38,7 +37,6 @@ class SocialFeed extends React.Component<Props, State> {
     super(props);
     this.state = {
       posts: [],
-      featuredMedias: { },
       loading: false
     };
   }
@@ -57,29 +55,8 @@ class SocialFeed extends React.Component<Props, State> {
       return String(category.id);
     })});
 
-    const featureMediaIds: number[] = posts
-    .filter((post) => {
-      return post.featured_media;
-    })
-    .map((post) => {
-      return post.featured_media;
-    })
-    .reduce((unique: any, item: any) => unique.includes(item) ? unique : [...unique, item], []);
-
-    const featureMedias = await Promise.all(featureMediaIds.map((featureMediaId) => {
-      return api.getWpV2MediaById({ id: featureMediaId.toString() });
-    }));
-
-    const featuredMediaMap: { [ key: number ]: Attachment } = { };
-
-    for (let i = 0; i < featureMedias.length; i++) {
-      const featureMedia = featureMedias[i];
-      featuredMediaMap[featureMedia.id!] = featureMedia;
-    }
-
     this.setState({
       posts: posts,
-      featuredMedias: featuredMediaMap,
       loading: false
     });
   }

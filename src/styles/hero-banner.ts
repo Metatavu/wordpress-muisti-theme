@@ -62,6 +62,7 @@ export default createStyles({
   button: {
     width: "100%",
     marginTop: theme.spacing(5),
+    fontSize: "1rem",
     [theme.breakpoints.up(413)]: {
       width: 300
     },

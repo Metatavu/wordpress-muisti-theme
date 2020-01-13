@@ -30,6 +30,7 @@ export default createStyles({
     },
   },
   button: {
+    fontSize: "1rem",
     width: 300,
     color: "#000",
     borderColor: "#111",

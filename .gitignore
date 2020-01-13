@@ -1,5 +1,4 @@
 node_modules
-dist
 test/vendor
 test/composer.lock
 test/*.sql
