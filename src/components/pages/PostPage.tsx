@@ -21,7 +21,7 @@ interface Props extends WithStyles<typeof styles> {
   lang: string
 }
 
-type PageTemplate = "basic" | "fullscreen" | "dangerous";
+type PageTemplate = "basic" | "fullscreen" | "dangerous" | "smallgutter";
 
 /**
  * Interface representing component state
@@ -158,6 +158,8 @@ class PostPage extends React.Component<Props, State> {
       isArticle: !!post,
       loading: false
     });
+
+    this.hidePageLoader();
   }
 
   /**
@@ -167,7 +169,13 @@ class PostPage extends React.Component<Props, State> {
     const { classes, lang } = this.props;
     moment.locale(lang);
     return (
-      <div className={ classNames(classes.htmlContainer, this.state.isArticle && "article", this.state.template === "fullscreen" ? "fullscreen" : "") }>
+      <div className={
+        classNames(classes.htmlContainer,
+        this.state.isArticle && "article",
+        this.state.template === "fullscreen" ? "fullscreen" : "",
+        this.state.template === "smallgutter" ? "smallgutter" : "")
+        }
+      >
       { !this.state.heroBanner &&
         <>
           { this.state.post ? <p className={ classes.date }>{ moment(this.state.post.date).format("dddd, DD. MMMM YYYY") }</p> : "" }
@@ -234,6 +242,16 @@ class PostPage extends React.Component<Props, State> {
 
   }
 
+  private hidePageLoader() {
+    const loaderElement = document.getElementById("pageLoader");
+    if (loaderElement) {
+      loaderElement.style.opacity = "0";
+      setTimeout(() => {
+        loaderElement.style.display = "none";
+      }, 500);
+    }
+  }
+
   /**
    * Set html source for page content
    */
@@ -257,7 +275,6 @@ class PostPage extends React.Component<Props, State> {
    * @param index DomElement index
    */
   private transformContent = (node: DomElement, index: number) => {
-    console.log(node.name);
     const { classes } = this.props;
     const classNames = this.getElementClasses(node);
 

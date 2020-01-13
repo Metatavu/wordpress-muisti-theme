@@ -29,6 +29,7 @@ const theme = responsiveFontSizes(muistiTheme);
  * App component
  */
 class App extends React.Component<Props, State> {
+
   /**
    * Component render method
    */
