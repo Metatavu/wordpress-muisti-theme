@@ -28,9 +28,11 @@ export default createStyles({
       backgroundColor: theme.palette.secondary.main
     },
     "&:nth-child(3)": {
+      textAlign: "center",
       backgroundColor: "#2E2E50",
       paddingTop: 0,
-      paddingLeft: 0
+      paddingLeft: 0,
+      paddingRight: 0
     }
   },
   footerdata: {
@@ -43,15 +45,17 @@ export default createStyles({
   carouselItem: {
     position: "absolute",
     top: 0,
-    maxWidth: "50%"
+    left: "-50%",
+    transform: "translate(50%)",
+    width: "100%"
   },
   carouselImg: {
-    maxWidth: "100%"
+    width: "100%"
   },
   carouselTitle: {
+    transform: "translate(0%)",
     paddingTop: theme.spacing(5),
     paddingLeft: theme.spacing(1),
-    marginLeft: "55%"
   },
   contentContainer: {
     [theme.breakpoints.up("md")]: {
