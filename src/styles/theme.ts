@@ -72,7 +72,7 @@ export default createMuiTheme({
       outlinedPrimary: {
         justifyContent: "space-between",
         textTransform: "initial",
-        height: 65,
+        height: 55,
         borderRadius: 0,
         padding: "5px 15px",
         border: "1px solid rgba(245, 239, 234, 0.8)",
