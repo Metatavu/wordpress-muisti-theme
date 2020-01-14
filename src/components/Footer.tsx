@@ -108,6 +108,7 @@ class Footer extends React.Component<Props, State> {
       featuredMediaMap[featureMedia.id!] = featureMedia;
     }
 
+    ReactHtmlParser(sponsors[0].content ? sponsors[0].content.rendered || "" : "", { transform: this.extractSponsorImages });
     setInterval(() => { this.carouselLoop() }, 10000);
 
     this.setState({
@@ -231,6 +232,15 @@ class Footer extends React.Component<Props, State> {
         );
       }
     }
+    return convertNodeToElement(node, index, this.transformContent);
+  }
+
+  /**
+   * Get element text content
+   */
+  private extractSponsorImages = (node: DomElement, index: number) => {
+    const { classes } = this.props;
+    const classNames = this.getElementClasses(node);
     if (classNames.indexOf("sponsori-item") > -1) {
       const childNode = node.children && node.children.length ? node.children[0] : null;
       if (childNode && childNode.children && childNode.children.length && childNode.children[0].attribs) {
@@ -242,10 +252,9 @@ class Footer extends React.Component<Props, State> {
         } else if (this.state.carouselImage2 === "") {
           this.setState({ carouselImage2: childNode.children[0].attribs.src});
         }
-        return <></>
       }
     }
-    return convertNodeToElement(node, index, this.transformContent);
+    return null;
   }
 
   /**
@@ -281,6 +290,7 @@ class Footer extends React.Component<Props, State> {
     if (!this.state.sponsors.length) {
       return null;
     }
+
     return (
       <a style={{ textDecoration: "none" }} href={(this.state.sponsors.length > 0 && this.state.sponsors[0].link) ? this.state.sponsors[0].link : "/"}>
         <Typography color="textSecondary" variant="h3"> { strings.sponsors } </Typography>
@@ -295,11 +305,6 @@ class Footer extends React.Component<Props, State> {
               <img className={ classes.carouselImg } src={ this.state.carouselImage2 } />
             </Fade>
           </div>
-        </div>
-        <div style={{ display: "none" }}>
-          {
-            ReactHtmlParser(this.state.sponsors[0].content ? this.state.sponsors[0].content.rendered || "" : "", { transform: this.transformContent })
-          }
         </div>
       </a>
     );
