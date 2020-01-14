@@ -354,9 +354,37 @@ export default createStyles({
         },
         "&.highlight-columns": {
           "& .wp-block-column": {
+            position: "relative",
             [theme.breakpoints.up("md")]: {
               cursor: "pointer",
               flex: 1
+            },
+            "& .highlight-content": {
+              position: "absolute",
+              padding: 64,
+              bottom: 0,
+              right: 0,
+              left: 0,
+              zIndex: 1,
+              width: "100%",
+              "& h3": {
+                margin: 0,
+                color: "#fff",
+                fontSize: "2.125rem",
+                fontFamily: "tt_norms_promedium",
+                fontWeight: "normal",
+                textShadow: "1px 1px 1px rgba(0,0,0,0.5)",
+              },
+              "& .MuiButton-outlinedPrimary": {
+                borderColor: "rgba(245, 239, 234, 0.8)",
+                color: "#F5EFEA",
+                "&:hover": {
+                  borderColor: "rgba(245, 239, 234, 1)",
+                }
+              },
+              "& ~ figure.wp-block-image": {
+                opacity: 0.6
+              }
             }
           }
         }
