@@ -7,7 +7,6 @@ import placeholderImg from "../resources/img/muisti-konsepti.png";
 import styles from "../styles/hero-banner";
 import ReactHtmlParser, { convertNodeToElement } from "react-html-parser";
 import { DomElement } from "domhandler";
-import { Link } from "react-router-dom";
 
 /**
  * Interface representing component properties
@@ -136,17 +135,12 @@ class HeroBanner extends React.Component<Props, State> {
     if (classNames.indexOf("wp-block-button") > -1) {
       const childNode = node.children && node.children.length ? node.children[0] : null;
       if (childNode) {
-        const urlParts = this.getLinkHref(childNode).split("/");
-        let slug = urlParts.pop() || urlParts.pop();
-        if (slug && slug.startsWith("?")) {
-          slug = urlParts.pop();
-        }
         return (
-          <Link style={{ textDecoration: "none" }} to={slug || "/"}>
+          <a style={{ textDecoration: "none" }} href={this.getLinkHref(childNode)}>
             <Button className={ classes.button } color="primary" variant="outlined" endIcon={ <ArrowIcon /> }>
               {this.getElementTextContent(childNode)}
             </Button>
-          </Link>
+          </a>
         );
       }
     }

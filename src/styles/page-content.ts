@@ -20,6 +20,21 @@ export default createStyles({
         width: "50vw",
         maxWidth: "960px"
       }
+    },
+    "&.smallgutter": {
+      [theme.breakpoints.up("sm")]: {
+        width: "90vw",
+      },
+      [theme.breakpoints.up("md")]: {
+        width: "80vw",
+      },
+      [theme.breakpoints.up("lg")]: {
+        width: "60vw",
+      },
+      [theme.breakpoints.up("xl")]: {
+        width: "50vw",
+        maxWidth: "960px"
+      }
     }
   },
   hero: {
@@ -199,6 +214,14 @@ export default createStyles({
       fontFamily: theme.typography.h1.fontFamily,
       fontWeight: "normal",
       color: theme.palette.primary.dark
+    },
+    /**
+     * Small gutter content styles
+     */
+    "&.smallgutter": {
+      "& h2": {
+        width: "100%"
+      }
     },
     /**
      * Article content styles
