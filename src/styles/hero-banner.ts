@@ -53,6 +53,83 @@ export default createStyles({
       }
     }
   },
+  hero: {
+    height: "100vh",
+    display: "flex",
+    alignItems: "center",
+    [theme.breakpoints.up("md")]: {
+      height: "90vh",
+    },
+    "& .wp-block-cover": {
+      position: "absolute",
+      zIndex: -1,
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundSize: "cover",
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "center",
+      "&.has-background-dim.hero:before": {
+        content: "''",
+        position: "absolute",
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+        backgroundColor: "rgba(0, 0, 0, 0.4)",
+        zIndex: 1,
+      },
+      "& .wp-block-cover__video-background": {
+        minWidth: "100%",
+        minHeight: "100%"
+      }
+    }
+  },
+  heroContentContainer: {
+    marginLeft: "5%",
+    marginRight: "5%",
+    [theme.breakpoints.up("md")]: {
+      width: "70vw",
+      marginRight: 0,
+    },
+    [theme.breakpoints.up("lg")]: {
+      width: "50vw",
+    },
+    "& p": {
+      fontFamily: theme.typography.subtitle2.fontFamily,
+      [theme.breakpoints.up("lg")]: {
+        fontSize: "1rem",
+        marginLeft: theme.spacing(1)
+      }
+    }
+  },
+  heroTitle: {
+    margin: 0,
+    fontFamily: theme.typography.h1.fontFamily,
+    fontWeight: "normal",
+    fontSize: "2.5rem",
+    lineHeight: 1,
+    [theme.breakpoints.up(360)]: {
+      fontSize: "2.75rem",
+    },
+    [theme.breakpoints.up(413)]: {
+      fontSize: "3rem",
+    },
+    [theme.breakpoints.up("sm")]: {
+      fontSize: "4.75rem",
+    },
+    [theme.breakpoints.up("md")]: {
+      fontSize: "4.75rem",
+    },
+    [theme.breakpoints.up("lg")]: {
+      fontSize: "5.5rem",
+    },
+    [theme.breakpoints.up("xl")]: {
+      fontSize: "6rem",
+      lineHeight: "6.75rem"
+    }
+  },
   heroText: {
     [theme.breakpoints.down(414)]: {
       fontSize: 14
