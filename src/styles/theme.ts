@@ -75,6 +75,7 @@ export default createMuiTheme({
         height: 65,
         borderRadius: 0,
         padding: "5px 15px",
+        border: "1px solid rgba(245, 239, 234, 0.8)",
         borderWidth: 3,
         "&:hover": {
           borderWidth: 3,
