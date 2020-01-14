@@ -215,7 +215,6 @@ class HeroBanner extends React.Component<Props, State> {
           </div>
         }
       </div>
-      
     );
   }
 }

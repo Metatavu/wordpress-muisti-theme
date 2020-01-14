@@ -46,7 +46,8 @@ export default createStyles({
       },
       [theme.breakpoints.up("xl")]: {}
     },
-    "@media only screen and (max-width:1280px) and (min-width:960px) and (max-height:750px)": {
+    // Media queries require single quotes
+    '@media only screen and (max-width:1280px) and (min-width:960px) and (max-height:750px)': {
       marginTop: "130px",
       "& h1": {
         fontSize: "3.5rem"
@@ -67,6 +68,7 @@ export default createStyles({
       left: 0,
       right: 0,
       bottom: 0,
+      overflow: "hidden",
       backgroundSize: "cover",
       backgroundRepeat: "no-repeat",
       backgroundPosition: "center",
@@ -82,7 +84,13 @@ export default createStyles({
       },
       "& .wp-block-cover__video-background": {
         minWidth: "100%",
-        minHeight: "100%"
+        minHeight: "100%",
+        [theme.breakpoints.down("sm")]: {
+          height: "100%"
+        },
+        [theme.breakpoints.up("sm")]: {
+          width: "100%"
+        }
       }
     }
   },
@@ -102,6 +110,10 @@ export default createStyles({
         fontSize: "1rem",
         marginLeft: theme.spacing(1)
       }
+    },
+    // Media queries require single quotes
+    '@media only screen and (max-width:1280px) and (min-width:960px) and (max-height:750px)': {
+      marginTop: "130px"
     }
   },
   heroTitle: {
@@ -121,6 +133,10 @@ export default createStyles({
     },
     [theme.breakpoints.up("md")]: {
       fontSize: "4.75rem",
+    },
+    // Media queries require single quotes
+    '@media only screen and (max-width:1280px) and (min-width:960px) and (max-height:750px)': {
+      fontSize: "3.5rem"
     },
     [theme.breakpoints.up("lg")]: {
       fontSize: "5.5rem",
