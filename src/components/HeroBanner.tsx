@@ -189,7 +189,7 @@ class HeroBanner extends React.Component<Props, State> {
       heroBannerBackround = `url(${featuredMediaUrl})`;
     }
     return (
-      <div>
+      <>
         { !this.state.heroBanner &&
           <div
             key={ post.id }
@@ -214,7 +214,7 @@ class HeroBanner extends React.Component<Props, State> {
             { this.state.heroBanner }
           </div>
         }
-      </div>
+      </>
     );
   }
 }
