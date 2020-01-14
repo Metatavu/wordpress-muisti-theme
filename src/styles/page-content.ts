@@ -180,6 +180,14 @@ export default createStyles({
       marginTop: theme.spacing(5),
       marginBottom: theme.spacing(10),
     },
+    "& .wp-block-group": {
+      width: "60%",
+      alignSelf: "center",
+      "& .MuiButton-outlinedPrimary": {
+        borderColor: theme.palette.primary.dark,
+        color: theme.palette.primary.dark
+      }
+    },
     "& .address-heading": {
       fontSize: 20,
       margin: 0,

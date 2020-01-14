@@ -58,44 +58,27 @@ class PostPage extends React.Component<Props, State> {
   /**
    * Component did mount life-cycle handler
    */
-  public componentDidMount = async () => {
-    this.setState({
-      loading: true
-    });
-
-    const lang = this.props.lang;
-    const slugParts = this.props.slug.split("/");
-    const slug = slugParts.pop() || slugParts.pop();
-    if (!slug) {
-      // TODO: handle error
-      return;
-    }
-
-    const api = ApiUtils.getApi();
-
-    const apiCalls = await Promise.all([
-      api.getWpV2Pages({ lang: [ lang ], slug: [slug] }),
-      api.getWpV2Posts({ lang: [ lang ], slug: [slug] })
-    ]);
-
-    const page = apiCalls[0][0];
-    const post = apiCalls[1][0];
-
-    this.setState({
-      page: page,
-      post: post,
-      isArticle: !!post,
-      loading: false
-    });
+  public componentDidMount = () => {
+    this.loadContent();
   }
 
   /**
    * Component will mount life-cycle handler
    */
-  public componentWillMount = async () => {
-    this.setState({
-      template: this.getTemplate()
-    });
+  public componentWillMount = () => {
+    this.setTemplate();
+  }
+
+  public componentWillUpdate = (prevProps: Props) => {
+    if (prevProps.slug !== this.props.slug) {
+      this.setTemplate();
+    }
+  }
+
+  public componentDidUpdate = (prevProps: Props) => {
+    if (prevProps.slug !== this.props.slug) {
+      this.loadContent();
+    }
   }
 
   /**
@@ -138,6 +121,43 @@ class PostPage extends React.Component<Props, State> {
       </Container>
     );
 
+  }
+
+  private setTemplate = () => {
+    this.setState({
+      template: this.getTemplate()
+    });
+  }
+
+  private loadContent = async () => {
+    this.setState({
+      loading: true
+    });
+
+    const lang = this.props.lang;
+    const slugParts = this.props.slug.split("/");
+    const slug = slugParts.pop() || slugParts.pop();
+    if (!slug) {
+      // TODO: handle error
+      return;
+    }
+
+    const api = ApiUtils.getApi();
+
+    const apiCalls = await Promise.all([
+      api.getWpV2Pages({ lang: [ lang ], slug: [slug] }),
+      api.getWpV2Posts({ lang: [ lang ], slug: [slug] })
+    ]);
+
+    const page = apiCalls[0][0];
+    const post = apiCalls[1][0];
+
+    this.setState({
+      page: page,
+      post: post,
+      isArticle: !!post,
+      loading: false
+    });
   }
 
   /**
@@ -205,13 +225,13 @@ class PostPage extends React.Component<Props, State> {
     if (!renderedContent) {
       return undefinedContentError;
     }
-    
+
     if (this.state.template === "dangerous") {
       return <div dangerouslySetInnerHTML={{__html:renderedContent}} />;
     }
-    
+
     return ReactHtmlParser(renderedContent, { transform: this.transformContent });
-    
+
   }
 
   /**
@@ -237,6 +257,7 @@ class PostPage extends React.Component<Props, State> {
    * @param index DomElement index
    */
   private transformContent = (node: DomElement, index: number) => {
+    console.log(node.name);
     const { classes } = this.props;
     const classNames = this.getElementClasses(node);
 
@@ -264,14 +285,12 @@ class PostPage extends React.Component<Props, State> {
     if (classNames.indexOf("wp-block-button") > -1) {
       const childNode = node.children && node.children.length ? node.children[0] : null;
       if (childNode) {
-        const urlParts = this.getLinkHref(childNode).split("/");
-        const slug = urlParts.pop() || urlParts.pop();
         return (
-          <Link style={{ textDecoration: "none" }} to={slug || "/"}>
+          <a href={this.getLinkHref(childNode)} style={{ textDecoration: "none" }}>
             <Button className={ classes.button } color="primary" variant="outlined" endIcon={ <ArrowIcon /> }>
               {this.getElementTextContent(childNode)}
             </Button>
-          </Link>
+          </a>
         );
       }
     }
