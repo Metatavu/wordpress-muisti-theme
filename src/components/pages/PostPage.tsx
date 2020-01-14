@@ -242,6 +242,9 @@ class PostPage extends React.Component<Props, State> {
 
   }
 
+  /**
+   * Hide page loader
+   */
   private hidePageLoader() {
     const loaderElement = document.getElementById("pageLoader");
     if (loaderElement) {
