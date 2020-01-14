@@ -50,6 +50,12 @@ export default createStyles({
     width: "100%",
     [theme.breakpoints.up("xl")]: {
       width: "75%"
+    },
+    "@media only screen and (min-width: 600px) and (max-width: 960px)": {
+      width: "70%"
+    },
+    [theme.breakpoints.down(600)]: {
+      width: "90%"
     }
   },
   contentContainer: {
