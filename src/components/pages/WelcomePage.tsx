@@ -80,6 +80,8 @@ class WelcomePage extends React.Component<Props, State> {
       featuredMedias: featuredMediaMap,
       loading: false
     });
+
+    this.hidePageLoader();
   }
 
   /**
@@ -97,6 +99,19 @@ class WelcomePage extends React.Component<Props, State> {
         <SocialFeed lang={ lang } />
       </BasicLayout>
     );
+  }
+
+  /**
+   * Hide page loader
+   */
+  private hidePageLoader() {
+    const loaderElement = document.getElementById("pageLoader");
+    if (loaderElement) {
+      loaderElement.style.opacity = "0";
+      setTimeout(() => {
+        loaderElement.style.display = "none";
+      }, 500);
+    }
   }
 }
 
