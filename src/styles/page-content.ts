@@ -419,6 +419,9 @@ export default createStyles({
         "&.is-vertically-aligned-top": {
           alignItems: "flex-start",
         },
+        "& .wp-block-media-text__media": {
+          margin: 0
+        },
         "&.is-image-fill .wp-block-media-text__media": {
           height: "280px",
           backgroundSize: "cover",
