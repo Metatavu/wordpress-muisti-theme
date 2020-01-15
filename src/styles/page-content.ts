@@ -224,8 +224,13 @@ export default createStyles({
       marginBottom: theme.spacing(10),
     },
     "& .wp-block-group": {
-      width: "60%",
-      alignSelf: "center",
+      [theme.breakpoints.up("md")]: {
+        width: "80%",
+        alignSelf: "center",
+      },
+      [theme.breakpoints.up("xl")]: {
+        width: "75%"
+      },
       "& .MuiButton-outlinedPrimary": {
         borderColor: theme.palette.primary.dark,
         color: theme.palette.primary.dark
@@ -423,7 +428,8 @@ export default createStyles({
                 }
               },
               "& ~ figure.wp-block-image": {
-                opacity: 0.6
+                opacity: 0.6,
+                margin: 0
               }
             }
           }
@@ -433,6 +439,7 @@ export default createStyles({
         margin: 0
       },
       "& .widget_flex-posts-list": {
+        width: "100%",
         [theme.breakpoints.up("md")]: {
           flex: 1
         }
@@ -469,6 +476,7 @@ export default createStyles({
         marginBottom: 0,
       },
       "& .fp-thumbnail": {
+        width: "100%",
         [theme.breakpoints.up("md")]: {
           display: "flex",
           flex: 1
@@ -504,6 +512,9 @@ export default createStyles({
         marginTop: 0,
       }
     },
+    // Fullscreen end
+
+    // Heading
     "& h2": {
       margin: theme.spacing(2),
       fontSize: 28,
@@ -524,7 +535,7 @@ export default createStyles({
         fontSize: theme.typography.h2.fontSize,
         lineHeight: 1.2,
         marginTop: theme.spacing(3),
-        marginBottom: theme.spacing(3),
+        marginBottom: theme.spacing(2),
         "&.error-text": {
           lineHeight: "4.5rem",
           fontSize: theme.typography.h2.fontSize,
@@ -534,7 +545,9 @@ export default createStyles({
       },
       [theme.breakpoints.up("lg")]: {
         lineHeight: 1.43,
-        width: "60%",
+      },
+      [theme.breakpoints.up("xl")]: {
+        width: "75%",
         marginTop: theme.spacing(5),
         marginBottom: theme.spacing(5),
       },
@@ -544,9 +557,15 @@ export default createStyles({
         margin: 0
       }
     },
+    // Heading end
+
+    // Paragraph
     "& p": {
-      alignSelf: "center",
-      fontSize: 12,
+      "&:empty": {
+        display: "none"
+      },
+      fontSize: 14,
+      margin: theme.spacing(2),
       "&.has-medium-font-size": {
         fontSize: 20
       },
@@ -556,32 +575,44 @@ export default createStyles({
       [theme.breakpoints.up("sm")]: {
         width: "80%",
         fontSize: 16,
+        alignSelf: "center",
+        marginLeft: 0,
+        marginRight: 0
       },
       [theme.breakpoints.up("lg")]: {
-        width: "60%",
         fontSize: "1rem"
+      },
+      [theme.breakpoints.up("xl")]: {
+        width: "75%",
       }
     },
-    "& strong": {
-      whiteSpace: "nowrap"
-    },
+    // Strong
+    "& strong": {},
+    // Lists
     "& ul": {
       listStyle: "none",
       padding: 0
     },
+    // Separator
     "& hr": {
       marginTop: theme.spacing(5),
       marginBottom: theme.spacing(5),
       width: "100%",
     },
+    // Image
     "& .wp-block-image": {
       margin: 0,
+      [theme.breakpoints.down("md")]: {
+        width: "100%",
+        marginBottom: 20
+      },
       "& img": {
-        width: "100%"
+        width: "100%",
       }
     },
+    // Columns
     "& .wp-block-columns": {
-      marginTop: theme.spacing(5),
+      [theme.breakpoints.up("sm")]: {},
       [theme.breakpoints.up("md")]: {
         display: "flex",
         flexDirection: "row",
@@ -597,13 +628,16 @@ export default createStyles({
             width: "50%",
           },
           "& .wp-block-column": {
+            marginBottom: theme.spacing(2),
             [theme.breakpoints.up("md")]: {
-              flex: 1
+              flex: 1,
+              margin: 0
             }
           }
         }
       }
     },
+    // Single column
     "& .wp-block-column": {
       display: "flex",
       [theme.breakpoints.up("md")]: {
@@ -640,6 +674,9 @@ export default createStyles({
         }
       }
     },
+    // Single column end
+
+    // Address info
     "& .address-info":{
       "& .wp-block-column": {
         flexDirection: "column",
@@ -765,6 +802,7 @@ export default createStyles({
         }
       }
     },
+    // Contact card end
     "& .wp-block-media-text": {
       [theme.breakpoints.up("md")]: {
         display: "flex"
