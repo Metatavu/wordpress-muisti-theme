@@ -31,5 +31,15 @@ export default createStyles({
   slideText: {
     display: "flex",
     maxWidth: "60%"
+  },
+  linkBallIndicators: {
+    display: "flex",
+    justifyContent: "flex-end",
+    color: theme.palette.primary.dark,
+    backgroundColor: theme.palette.background.paper,
+    paddingBottom: theme.spacing(3)
+  },
+  indicator: {
+    marginLeft: theme.spacing(1)
   }
 });

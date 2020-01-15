@@ -1,7 +1,9 @@
 import * as React from "react";
-import { WithStyles, withStyles, Hidden, Typography, Link } from "@material-ui/core";
+import { WithStyles, withStyles, Hidden, Typography, Link, Container } from "@material-ui/core";
 import styles from "../styles/link-bar";
 import SwipeableViews from "react-swipeable-views";
+import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
+import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import ArrowIcon from "@material-ui/icons/ArrowForwardSharp";
 import { MenuLocationData, MenuItemData } from "../generated/client/src";
 import ApiUtils from "../utils/ApiUtils";
@@ -18,7 +20,8 @@ interface Props extends WithStyles<typeof styles> {
  */
 interface State {
   menu?: MenuLocationData
-  loading: boolean
+  loading: boolean,
+  linkBallIndex: number
 }
 
 /**
@@ -34,7 +37,8 @@ class LinkBar extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      loading: false
+      loading: false,
+      linkBallIndex: 0
     };
   }
 
@@ -70,11 +74,14 @@ class LinkBar extends React.Component<Props, State> {
     return (
       <div>
         <Hidden mdUp implementation="css">
-          <SwipeableViews>
+          <SwipeableViews onChangeIndex={ (index) => { this.ChangeSwipeIndex(index) } } enableMouseEvents={ true } >
             {
               menu.items.map(this.renderLinkItem)
             }
           </SwipeableViews>
+          {
+            this.renderLinkBallIndicators()
+          }
         </Hidden>
         <Hidden smDown implementation="css">
           <div className={ classes.linkContainer }>
@@ -104,6 +111,33 @@ class LinkBar extends React.Component<Props, State> {
         </Link>
       </div>
     );
+  }
+
+  /**
+   * Render Link ball indicators
+   */
+  private renderLinkBallIndicators = () => {
+    if (this.state.menu && this.state.menu.items && this.state.menu.items.length > 0) {
+      const { classes } = this.props;
+      return (
+        <Container className={ classes.linkBallIndicators }>
+          
+          {
+            this.state.menu.items.map((item, index) => {
+              return (index !== this.state.linkBallIndex) ? <div className={ classes.indicator } ><RadioButtonUncheckedIcon /></div> : <div className={ classes.indicator } ><RadioButtonCheckedIcon /></div>
+            })
+          }
+        </Container>
+      );
+    }
+    return <></>
+  }
+
+  /**
+   * Change active indicator ball
+   */
+  private ChangeSwipeIndex = (index: number) => {
+    this.setState({ linkBallIndex: index });
   }
 }
 
