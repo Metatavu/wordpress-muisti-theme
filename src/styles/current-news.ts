@@ -101,7 +101,6 @@ export default createStyles({
     [theme.breakpoints.up("sm")]: {
       cursor: "pointer",
       padding: theme.spacing(2),
-      width: "auto",
       maxWidth: 470,
     },
     [theme.breakpoints.up("md")]: {
