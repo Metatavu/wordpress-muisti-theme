@@ -4,7 +4,6 @@ import { WithStyles, withStyles, Container, Typography, Button, Link } from "@ma
 import { Post, Attachment, MenuLocationData, MenuItemData } from "../generated/client/src";
 import ApiUtils from "../utils/ApiUtils";
 import { DomElement } from "domhandler";
-import { Link as RouterLink } from "react-router-dom";
 import ReactHtmlParser, { convertNodeToElement } from "react-html-parser";
 import ArrowIcon from "@material-ui/icons/ArrowForwardSharp";
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
@@ -193,13 +192,8 @@ class Footer extends React.Component<Props, State> {
     if (classNames.indexOf("wp-block-button") > -1) {
       const childNode = node.children && node.children.length ? node.children[0] : null;
       if (childNode) {
-        const urlParts = this.getLinkHref(childNode).split("/");
-        let slug = urlParts.pop() || urlParts.pop();
-        if (slug && slug.startsWith("?")) {
-          slug = urlParts.pop();
-        }
         return (
-          <RouterLink style={{ textDecoration: "none" }} to={slug || "/"}>
+          <a style={{ textDecoration: "none" }} href={this.getLinkHref(childNode)}>
             <Button
               className={ classes.button }
               style={{ marginTop: theme.spacing(5) }}
@@ -211,7 +205,7 @@ class Footer extends React.Component<Props, State> {
                 this.getElementTextContent(childNode)
               }
             </Button>
-          </RouterLink>
+          </a>
         );
       }
     }
