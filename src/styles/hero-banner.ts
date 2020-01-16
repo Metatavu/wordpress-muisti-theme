@@ -3,11 +3,8 @@ import theme from "./theme";
 
 export default createStyles({
   root: {
-    height: "100vh",
-    overflow: "hidden",
-    [theme.breakpoints.up("md")]: {
-      height: "90vh"
-    }
+    height: "90vh",
+    overflow: "hidden"
   },
   heroItem: {
     position: "relative",
@@ -46,6 +43,9 @@ export default createStyles({
       },
       [theme.breakpoints.up("xl")]: {}
     },
+    "& p": {
+      fontSize: 16
+    },
     // Media queries require single quotes
     '@media only screen and (max-width:1280px) and (min-width:960px) and (max-height:750px)': {
       marginTop: "130px",
@@ -55,12 +55,9 @@ export default createStyles({
     }
   },
   hero: {
-    height: "100vh",
+    height: "90vh",
     display: "flex",
     alignItems: "center",
-    [theme.breakpoints.up("md")]: {
-      height: "90vh",
-    },
     "& .wp-block-cover": {
       position: "absolute",
       zIndex: -1,
@@ -87,9 +84,6 @@ export default createStyles({
         minHeight: "100%",
         [theme.breakpoints.down("sm")]: {
           height: "100%"
-        },
-        [theme.breakpoints.up("sm")]: {
-          width: "100%"
         }
       }
     }
@@ -105,9 +99,10 @@ export default createStyles({
       width: "50vw",
     },
     "& p": {
+      fontSize: 16,
       fontFamily: theme.typography.subtitle2.fontFamily,
       [theme.breakpoints.up("lg")]: {
-        fontSize: "1rem",
+        fontSize: "1.25rem",
         marginLeft: theme.spacing(1)
       }
     },
