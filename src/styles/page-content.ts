@@ -623,6 +623,12 @@ export default createStyles({
       },
       "& img": {
         width: "100%",
+      },
+      "& figure": {
+        margin: 0,
+        "&.aligncenter": {
+          margin: 0
+        }
       }
     },
     // Columns
