@@ -2,8 +2,6 @@ import * as React from "react";
 import { WithStyles, withStyles, Hidden, Typography, Link, Container } from "@material-ui/core";
 import styles from "../styles/link-bar";
 import SwipeableViews from "react-swipeable-views";
-import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
-import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import ArrowIcon from "@material-ui/icons/ArrowForwardSharp";
 import { MenuLocationData, MenuItemData } from "../generated/client/src";
 import ApiUtils from "../utils/ApiUtils";
