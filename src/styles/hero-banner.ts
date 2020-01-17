@@ -3,11 +3,8 @@ import theme from "./theme";
 
 export default createStyles({
   root: {
-    height: "100vh",
-    overflow: "hidden",
-    [theme.breakpoints.up("md")]: {
-      height: "90vh"
-    }
+    height: "90vh",
+    overflow: "hidden"
   },
   heroItem: {
     position: "relative",
@@ -46,11 +43,102 @@ export default createStyles({
       },
       [theme.breakpoints.up("xl")]: {}
     },
-    "@media only screen and (max-width:1280px) and (min-width:960px) and (max-height:750px)": {
+    "& p": {
+      fontSize: 16
+    },
+    // Media queries require single quotes
+    '@media only screen and (max-width:1280px) and (min-width:960px) and (max-height:750px)': {
       marginTop: "130px",
       "& h1": {
         fontSize: "3.5rem"
       }
+    }
+  },
+  hero: {
+    height: "90vh",
+    display: "flex",
+    alignItems: "center",
+    "& .wp-block-cover": {
+      position: "absolute",
+      zIndex: -1,
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      overflow: "hidden",
+      backgroundSize: "cover",
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "center",
+      "&.has-background-dim.hero:before": {
+        content: "''",
+        position: "absolute",
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+        backgroundColor: "rgba(0, 0, 0, 0.4)",
+        zIndex: 1,
+      },
+      "& .wp-block-cover__video-background": {
+        minWidth: "100%",
+        minHeight: "100%",
+        [theme.breakpoints.down("sm")]: {
+          height: "100%"
+        }
+      }
+    }
+  },
+  heroContentContainer: {
+    marginLeft: "5%",
+    marginRight: "5%",
+    [theme.breakpoints.up("md")]: {
+      width: "70vw",
+      marginRight: 0,
+    },
+    [theme.breakpoints.up("lg")]: {
+      width: "50vw",
+    },
+    "& p": {
+      fontSize: 16,
+      fontFamily: theme.typography.subtitle2.fontFamily,
+      [theme.breakpoints.up("lg")]: {
+        fontSize: "1.25rem",
+        marginLeft: theme.spacing(1)
+      }
+    },
+    // Media queries require single quotes
+    '@media only screen and (max-width:1280px) and (min-width:960px) and (max-height:750px)': {
+      marginTop: "130px"
+    }
+  },
+  heroTitle: {
+    margin: 0,
+    fontFamily: theme.typography.h1.fontFamily,
+    fontWeight: "normal",
+    fontSize: "2.5rem",
+    lineHeight: 1,
+    [theme.breakpoints.up(360)]: {
+      fontSize: "2.75rem",
+    },
+    [theme.breakpoints.up(413)]: {
+      fontSize: "3rem",
+    },
+    [theme.breakpoints.up("sm")]: {
+      fontSize: "4.75rem",
+    },
+    [theme.breakpoints.up("md")]: {
+      fontSize: "4.75rem",
+    },
+    // Media queries require single quotes
+    '@media only screen and (max-width:1280px) and (min-width:960px) and (max-height:750px)': {
+      fontSize: "3.5rem"
+    },
+    [theme.breakpoints.up("lg")]: {
+      fontSize: "5.5rem",
+    },
+    [theme.breakpoints.up("xl")]: {
+      fontSize: "6rem",
+      lineHeight: "6.75rem"
     }
   },
   heroText: {
