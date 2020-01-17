@@ -30,6 +30,9 @@ export default createStyles({
     "&:nth-child(3)": {
       textAlign: "center",
       backgroundColor: "#ffffff",
+      "& .MuiTypography-h3": {
+        paddingBottom: theme.spacing(3)
+      }
     }
   },
   footerdata: {
@@ -47,15 +50,15 @@ export default createStyles({
     transform: "translate(-50%)"
   },
   carouselImg: {
-    width: "100%",
-    [theme.breakpoints.up("xl")]: {
-      width: "75%"
+    width: "70%",
+    [theme.breakpoints.up(2800)]: {
+      width: "30%"
     },
     "@media only screen and (min-width: 600px) and (max-width: 960px)": {
-      width: "70%"
+      width: "30%"
     },
     [theme.breakpoints.down(600)]: {
-      width: "90%"
+      width: "50%"
     }
   },
   contentContainer: {
