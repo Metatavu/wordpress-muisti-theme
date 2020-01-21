@@ -78,17 +78,10 @@ class Footer extends React.Component<Props, State> {
     const api = ApiUtils.getApi();
     const postCategories = await api.getWpV2Categories({ slug: ["footer-posts"] });
     const sponsorsPage = await api.getWpV2Pages({ slug: ["sponsorit"] });
-    console.log(sponsorsPage);
-    //const sponsorsCategory = await api.getWpV2Categories({ slug: ["sponsorit"] });
     const contactsCategories = await api.getWpV2Categories({ slug: ["footer-contacts"] });
     const posts = await api.getWpV2Posts({ lang: [ lang ], per_page: 2, categories: postCategories.map((category) => {
       return String(category.id);
     })});
-    /*
-    const sponsors = await api.getWpV2Pages({ lang: [ lang ], per_page: 2, categories: sponsorsCategory.map((category) => {
-      return String(category.id);
-    })});
-    */
     const footerDatas = await api.getWpV2Posts({ per_page: 1, categories: contactsCategories.map((category) => {
       return String(category.id);
     })});
