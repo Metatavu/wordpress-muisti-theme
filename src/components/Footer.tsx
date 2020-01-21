@@ -77,11 +77,18 @@ class Footer extends React.Component<Props, State> {
     const lang = this.props.lang;
     const api = ApiUtils.getApi();
     const postCategories = await api.getWpV2Categories({ slug: ["footer-posts"] });
-    const sponsors = await api.getWpV2Pages({ slug: ["sponsorit"] });
+    const sponsorsPage = await api.getWpV2Pages({ slug: ["sponsorit"] });
+    console.log(sponsorsPage);
+    //const sponsorsCategory = await api.getWpV2Categories({ slug: ["sponsorit"] });
     const contactsCategories = await api.getWpV2Categories({ slug: ["footer-contacts"] });
     const posts = await api.getWpV2Posts({ lang: [ lang ], per_page: 2, categories: postCategories.map((category) => {
       return String(category.id);
     })});
+    /*
+    const sponsors = await api.getWpV2Pages({ lang: [ lang ], per_page: 2, categories: sponsorsCategory.map((category) => {
+      return String(category.id);
+    })});
+    */
     const footerDatas = await api.getWpV2Posts({ per_page: 1, categories: contactsCategories.map((category) => {
       return String(category.id);
     })});
@@ -107,12 +114,15 @@ class Footer extends React.Component<Props, State> {
       featuredMediaMap[featureMedia.id!] = featureMedia;
     }
 
-    ReactHtmlParser(sponsors[0].content ? sponsors[0].content.rendered || "" : "", { transform: this.extractSponsorImages });
+    if (sponsorsPage.length > 0) {
+      ReactHtmlParser(sponsorsPage[0].content ? sponsorsPage[0].content.rendered || "" : "", { transform: this.extractSponsorImages });
+    }
+
     setInterval(() => { this.carouselLoop() }, 10000);
 
     this.setState({
       posts: posts,
-      sponsors: sponsors,
+      sponsors: sponsorsPage,
       footerDatas: footerDatas,
       menu: menu,
       featuredMedias: featuredMediaMap,
@@ -137,11 +147,11 @@ class Footer extends React.Component<Props, State> {
           {
             this.renderPosts()
           }
-          <Container  className={ classes.footerPost }>
-            {
-              this.renderSponsors()
-            }
-          </Container>
+          { this.state.sponsors.length > 0 &&
+            <Container  className={ classes.footerPost }>
+              {this.renderSponsors()}
+            </Container>
+          }
         </div>
         <div className={ classes.footerBackground } style={{ backgroundImage: `url('${( featuredMediaUrl != null ? featuredMediaUrl : placeholderImg )}')` }}>
           <div className={ classes.contentContainer }>
@@ -233,7 +243,6 @@ class Footer extends React.Component<Props, State> {
    * Get element text content
    */
   private extractSponsorImages = (node: DomElement, index: number) => {
-    const { classes } = this.props;
     const classNames = this.getElementClasses(node);
     if (classNames.indexOf("sponsori-item") > -1) {
       const childNode = node.children && node.children.length ? node.children[0] : null;
@@ -284,7 +293,6 @@ class Footer extends React.Component<Props, State> {
     if (!this.state.sponsors.length) {
       return null;
     }
-
     return (
       <a style={{ textDecoration: "none" }} href={(this.state.sponsors.length > 0 && this.state.sponsors[0].link) ? this.state.sponsors[0].link : "/"}>
         <Typography color="textSecondary" variant="h3"> { strings.sponsors } </Typography>
