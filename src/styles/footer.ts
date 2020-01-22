@@ -28,10 +28,14 @@ export default createStyles({
       backgroundColor: theme.palette.secondary.main
     },
     "&:nth-child(3)": {
+      paddingLeft: 0,
+      paddingRight: 0,
       textAlign: "center",
       backgroundColor: "#ffffff",
       "& .MuiTypography-h3": {
-        paddingBottom: theme.spacing(3)
+        paddingBottom: theme.spacing(3),
+        paddingLeft: "5%",
+        paddingRight: "5%"
       }
     }
   },
@@ -41,7 +45,9 @@ export default createStyles({
   },
   carouselWrapper: {
     minHeight: "120px",
-    position: "relative"
+    position: "relative",
+    display: "flex",
+    alignContent: "center"
   },
   carouselItem: {
     width: "100%",
@@ -50,7 +56,7 @@ export default createStyles({
     transform: "translate(-50%)"
   },
   carouselImg: {
-    width: "70%",
+    width: "40%",
     [theme.breakpoints.up(2800)]: {
       width: "30%"
     },
