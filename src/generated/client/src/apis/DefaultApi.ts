@@ -274,6 +274,7 @@ export interface GetWpV2MediaByIdRequest {
 export interface GetWpV2PagesRequest {
     context?: GetWpV2PagesContextEnum;
     page?: number;
+    categories?: Array<string>;
     per_page?: number;
     search?: string;
     after?: Date;
@@ -2045,6 +2046,10 @@ export class DefaultApi extends runtime.BaseAPI {
 
         if (requestParameters.page !== undefined) {
             queryParameters['page'] = requestParameters.page;
+        }
+
+        if (requestParameters.categories !== undefined) {
+            queryParameters['categories'] = requestParameters.categories;
         }
 
         if (requestParameters.per_page !== undefined) {
