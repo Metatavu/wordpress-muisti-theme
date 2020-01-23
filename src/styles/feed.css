@@ -6,8 +6,8 @@
   width: auto;
 }
 .masonry-grid_column {
-  padding-left: 16px; /* gutter size */
-  padding-right: 16px; /* gutter size */
+  padding-left: 8px; /* gutter size */
+  padding-right: 8px; /* gutter size */
   background-clip: padding-box;
 }
 
@@ -52,12 +52,13 @@
 }
 /* Individual post item */
 #cff .cff-item{
+  overflow: hidden;
   float: left;
   width: 100%;
   clear: both;
   padding: 20px 0 15px 0;
-  margin-bottom: 16px;
-  margin-top: 16px;
+  margin-bottom: 8px;
+  margin-top: 8px;
   border-bottom: 1px solid #ddd;
 }
 #cff .cff-item:first-child{
@@ -65,7 +66,7 @@
 }
 #cff .cff-item.cff-box,
 #cff .cff-item.cff-box:first-child{
-  padding: 15px;
+  padding: 0;
   background: rgba(255,255,255,1);
   border: none;
   -webkit-box-sizing: border-box;
@@ -168,11 +169,23 @@
 #cff-lightbox-wrapper .cff-author{
   float: left;
   clear: both;
-  margin: 0 0 15px 0;
-  padding: 0;
+  margin: 0;
+  padding: 15px;
   line-height: 1.2;
   width: 100%;
+  background-color: #F5EFEA;
 }
+
+#cff p.cff-post-text {
+  padding: 20px;
+  max-height: 195px;
+  overflow: hidden;
+}
+
+p.cff-cta-link {
+  display: none;
+}
+
 #cff .cff-author a,
 #cff-lightbox-wrapper .cff-author a{
   text-decoration: none;

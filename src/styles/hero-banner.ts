@@ -96,7 +96,10 @@ export default createStyles({
       marginRight: 0,
     },
     [theme.breakpoints.up("lg")]: {
-      width: "50vw",
+      width: "75vw",
+    },
+    [theme.breakpoints.up("xl")]: {
+      width: "60vw",
     },
     "& p": {
       fontSize: 16,
