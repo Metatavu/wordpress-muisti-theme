@@ -47,7 +47,7 @@ export default createStyles({
     minHeight: "120px",
     position: "relative",
     display: "flex",
-    alignContent: "center"
+    alignItems: "center"
   },
   carouselItem: {
     width: "100%",
@@ -56,6 +56,7 @@ export default createStyles({
     transform: "translate(-50%)"
   },
   carouselImg: {
+    minWidth: 200,
     width: "40%",
     [theme.breakpoints.up(2800)]: {
       width: "30%"

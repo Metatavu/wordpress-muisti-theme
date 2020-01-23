@@ -1015,6 +1015,11 @@ export default createStyles({
     },
     // Sponsor page styles
     "& .sponsori-item": {
+      "& .MuiButton-outlinedPrimary": {
+        color: theme.palette.primary.dark,
+        borderColor: theme.palette.primary.dark,
+        marginTop: 0
+      },
       "& .wp-block-media-text__content": {
         paddingTop: theme.spacing(4),
         paddingBottom: theme.spacing(4),
@@ -1022,6 +1027,9 @@ export default createStyles({
         paddingLeft: theme.spacing(13),
         "& h3": {
           marginTop: 0
+        },
+        "& p": {
+          width: "100%"
         }
       },
       "& .wp-block-media-text__media": {
