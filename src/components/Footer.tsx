@@ -1,7 +1,7 @@
 import * as React from "react";
 import styles from "../styles/footer";
-import { WithStyles, withStyles, Container, Typography, Button, Link } from "@material-ui/core";
-import { Post, Attachment, MenuLocationData, MenuItemData } from "../generated/client/src";
+import { WithStyles, withStyles, Container, Typography, Button, Link} from "@material-ui/core";
+import { Post, Attachment, MenuLocationData, MenuItemData, Page } from "../generated/client/src";
 import ApiUtils from "../utils/ApiUtils";
 import { DomElement } from "domhandler";
 import ReactHtmlParser, { convertNodeToElement } from "react-html-parser";
@@ -10,8 +10,10 @@ import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import TwitterIcon from '@material-ui/icons/Twitter';
+import Fade from '@material-ui/core/Fade';
 import theme from "../styles/theme";
 import placeholderImg from "../resources/img/muisti-konsepti.png";
+import strings from "../localization/strings";
 
 /**
  * Interface representing component properties
@@ -26,9 +28,14 @@ interface Props extends WithStyles<typeof styles> {
  */
 interface State {
   posts: Post[],
-  sponsors: Post[],
+  sponsors: Page[],
   footerDatas: Post[],
   menu?: MenuLocationData,
+  sponsorImages: string[],
+  carouselImage1: string,
+  carouselImage2: string,
+  carouselFade1: boolean,
+  carouselFade2: boolean,
   featuredMedias: { [ key: number ]: Attachment },
   loading: boolean
 }
@@ -49,6 +56,11 @@ class Footer extends React.Component<Props, State> {
       posts: [],
       sponsors: [],
       footerDatas: [],
+      sponsorImages: [],
+      carouselImage1: "",
+      carouselImage2: "",
+      carouselFade1: true,
+      carouselFade2: false,
       featuredMedias: { },
       loading: false
     };
@@ -65,12 +77,12 @@ class Footer extends React.Component<Props, State> {
     const lang = this.props.lang;
     const api = ApiUtils.getApi();
     const postCategories = await api.getWpV2Categories({ slug: ["footer-posts"] });
-    const sponsorCategories = await api.getWpV2Categories({ slug: ["sponsorit"] });
-    const contactsCategories = await api.getWpV2Categories({ slug: ["footer-contacts"] });
-    const posts = await api.getWpV2Posts({ lang: [ lang ], per_page: 2, categories: postCategories.map((category) => {
+    const sponsorsCategories = await api.getWpV2Categories({ slug: ["sponsorit"] });
+    const sponsorsPage = await api.getWpV2Pages({ per_page: 1, categories: sponsorsCategories.map((category) => {
       return String(category.id);
     })});
-    const sponsors = await api.getWpV2Posts({ lang: [ lang ], categories: sponsorCategories.map((category) => {
+    const contactsCategories = await api.getWpV2Categories({ slug: ["footer-contacts"] });
+    const posts = await api.getWpV2Posts({ lang: [ lang ], per_page: 2, categories: postCategories.map((category) => {
       return String(category.id);
     })});
     const footerDatas = await api.getWpV2Posts({ per_page: 1, categories: contactsCategories.map((category) => {
@@ -98,9 +110,15 @@ class Footer extends React.Component<Props, State> {
       featuredMediaMap[featureMedia.id!] = featureMedia;
     }
 
+    if (sponsorsPage.length > 0) {
+      ReactHtmlParser(sponsorsPage[0].content ? sponsorsPage[0].content.rendered || "" : "", { transform: this.extractSponsorImages });
+    }
+
+    setInterval(() => { this.carouselLoop() }, 10000);
+
     this.setState({
       posts: posts,
-      sponsors: sponsors,
+      sponsors: sponsorsPage,
       footerDatas: footerDatas,
       menu: menu,
       featuredMedias: featuredMediaMap,
@@ -124,6 +142,11 @@ class Footer extends React.Component<Props, State> {
         <div className={ classes.footerPosts }>
           {
             this.renderPosts()
+          }
+          { this.state.sponsors.length > 0 &&
+            <Container  className={ classes.footerPost }>
+              {this.renderSponsors()}
+            </Container>
           }
         </div>
         <div className={ classes.footerBackground } style={{ backgroundImage: `url('${( featuredMediaUrl != null ? featuredMediaUrl : placeholderImg )}')` }}>
@@ -213,6 +236,27 @@ class Footer extends React.Component<Props, State> {
   }
 
   /**
+   * Get element text content
+   */
+  private extractSponsorImages = (node: DomElement, index: number) => {
+    const classNames = this.getElementClasses(node);
+    if (classNames.indexOf("sponsori-item") > -1) {
+      const childNode = node.children && node.children.length ? node.children[0] : null;
+      if (childNode && childNode.children && childNode.children.length && childNode.children[0].attribs) {
+        if (!(this.state.sponsorImages.indexOf(childNode.children[0].attribs.src) > -1)) {
+          this.setState({ sponsorImages: [...this.state.sponsorImages, childNode.children[0].attribs.src] });
+        }
+        if (this.state.carouselImage1 === "") {
+          this.setState({ carouselImage1: childNode.children[0].attribs.src});
+        } else if (this.state.carouselImage2 === "") {
+          this.setState({ carouselImage2: childNode.children[0].attribs.src});
+        }
+      }
+    }
+    return null;
+  }
+
+  /**
    * Render footer posts method
    */
   private renderPosts = () => {
@@ -235,6 +279,33 @@ class Footer extends React.Component<Props, State> {
         })
       );
     }
+  }
+
+  /**
+   * Render footer sponsors method
+   */
+  private renderSponsors = () => {
+    const { classes } = this.props;
+    if (!this.state.sponsors.length) {
+      return null;
+    }
+    return (
+      <a style={{ textDecoration: "none" }} href={(this.state.sponsors.length > 0 && this.state.sponsors[0].link) ? this.state.sponsors[0].link : "/"}>
+        <Typography color="textSecondary" variant="h3"> { strings.sponsors } </Typography>
+        <div className={ classes.carouselWrapper }>
+          <div className={ classes.carouselItem }>
+            <Fade in={ this.state.carouselFade1 } timeout={ { enter: 2000, exit: 2000 } }>
+              <img className={ classes.carouselImg } src={ this.state.carouselImage1 } />
+            </Fade>
+          </div>
+          <div className={ classes.carouselItem }>
+            <Fade in={ this.state.carouselFade2 } timeout={ { enter: 2000, exit: 2000 } }>
+              <img className={ classes.carouselImg } src={ this.state.carouselImage2 } />
+            </Fade>
+          </div>
+        </div>
+      </a>
+    );
   }
 
   /**
@@ -365,6 +436,40 @@ class Footer extends React.Component<Props, State> {
         }
       </Link>
     );
+  }
+
+  /**
+   * Carousel image fading method
+   */
+  private carouselLoop = () => {
+    if (this.state.sponsorImages.length > 1) {
+      let image1 = "";
+      let image2 = "";
+      if (this.state.carouselImage1 === "" && this.state.carouselImage2 === "") {
+        image1 = this.state.sponsorImages[0];
+        image2 = this.state.sponsorImages[1];
+      } else if (this.state.carouselFade1) {
+        let index = this.state.sponsorImages.indexOf(this.state.carouselImage1) + 1;
+        if (index > this.state.sponsorImages.length - 1) {
+          index = 0;
+        }
+        image1 = this.state.carouselImage1;
+        image2 = this.state.sponsorImages[index];
+      } else {
+        let index = this.state.sponsorImages.indexOf(this.state.carouselImage2) + 1;
+        if (index > this.state.sponsorImages.length - 1) {
+          index = 0;
+        }
+        image1 = this.state.sponsorImages[index];
+        image2 = this.state.carouselImage2;
+      }
+      this.setState({
+        carouselImage1: image1,
+        carouselImage2: image2,
+        carouselFade1: !this.state.carouselFade1,
+        carouselFade2: !this.state.carouselFade2
+      })
+    }
   }
 }
 

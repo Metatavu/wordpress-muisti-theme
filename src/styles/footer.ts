@@ -12,6 +12,7 @@ export default createStyles({
     width: "100%",
     backgroundColor: "#000",
     flexDirection: "column",
+    overflow: "hidden",
     [theme.breakpoints.up("md")]: {
       flexDirection: "row"
     }
@@ -25,11 +26,46 @@ export default createStyles({
     },
     "&:nth-child(2)": {
       backgroundColor: theme.palette.secondary.main
+    },
+    "&:nth-child(3)": {
+      paddingLeft: 0,
+      paddingRight: 0,
+      textAlign: "center",
+      backgroundColor: "#ffffff",
+      "& .MuiTypography-h3": {
+        paddingBottom: theme.spacing(3),
+        paddingLeft: "5%",
+        paddingRight: "5%"
+      }
     }
   },
   footerdata: {
     width: 300,
     marginBottom: theme.spacing(5)
+  },
+  carouselWrapper: {
+    minHeight: "120px",
+    position: "relative",
+    display: "flex",
+    alignContent: "center"
+  },
+  carouselItem: {
+    width: "100%",
+    position: "absolute",
+    left: "50%",
+    transform: "translate(-50%)"
+  },
+  carouselImg: {
+    width: "40%",
+    [theme.breakpoints.up(2800)]: {
+      width: "30%"
+    },
+    "@media only screen and (min-width: 600px) and (max-width: 960px)": {
+      width: "30%"
+    },
+    [theme.breakpoints.down(600)]: {
+      width: "50%"
+    }
   },
   contentContainer: {
     [theme.breakpoints.up("md")]: {

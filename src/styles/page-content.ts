@@ -460,7 +460,7 @@ export default createStyles({
             marginBottom: 0
           }
         }
-      }
+      },
     },
     /**
      * Fullscreen page styles
@@ -610,7 +610,7 @@ export default createStyles({
       },
       "& .wp-block-embed__wrapper": {
         marginTop: 0,
-      }
+      },
     },
     // Fullscreen end
 
@@ -1011,6 +1011,37 @@ export default createStyles({
         [theme.breakpoints.up("xl")]: {
           height: 762
         },
+      }
+    },
+    // Sponsor page styles
+    "& .sponsori-item": {
+      "& .wp-block-media-text__content": {
+        paddingTop: theme.spacing(4),
+        paddingBottom: theme.spacing(4),
+        paddingRight: theme.spacing(4),
+        paddingLeft: theme.spacing(13),
+        "& h3": {
+          marginTop: 0
+        }
+      },
+      "& .wp-block-media-text__media": {
+        padding: theme.spacing(4),
+        margin: 0
+      },
+      "& img": {
+        width: "15vw",
+        maxWidth: "350px"
+      },
+      [theme.breakpoints.down("sm")]: {
+        "& img": {
+          width: "100%"
+        },
+        "& .wp-block-media-text__media": {
+          padding: theme.spacing(3)
+        },
+        "& .wp-block-media-text__content": {
+          padding: theme.spacing(4),
+        }
       }
     }
   }
