@@ -52,7 +52,7 @@ export default createStyles({
     backgroundColor: "#000000",
     width: 0,
     height: 0,
-    margin: "0.56rem",
+    margin: "0.625rem",
     borderRadius: "50%",
     transition: "width 0.2s, height 0.2s, margin 0.2s"
   },
