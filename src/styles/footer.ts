@@ -41,29 +41,16 @@ export default createStyles({
     marginBottom: theme.spacing(5)
   },
   carouselWrapper: {
-    minHeight: "120px",
-    position: "relative",
-    display: "flex",
-    alignItems: "center"
+    display: "grid"
   },
   carouselItem: {
-    width: "100%",
-    position: "absolute",
-    left: "50%",
-    transform: "translate(-50%)"
+    gridColumn: 1,
+    gridRow: 1
   },
   carouselImg: {
-    minWidth: 200,
-    width: "40%",
-    [theme.breakpoints.up(2800)]: {
-      width: "30%"
-    },
-    "@media only screen and (min-width: 600px) and (max-width: 960px)": {
-      width: "30%"
-    },
-    [theme.breakpoints.down(600)]: {
-      width: "50%"
-    }
+    maxHeight: "5rem",
+    maxWidth: "95%",
+    padding: ""
   },
   contentContainer: {
     [theme.breakpoints.up("md")]: {
