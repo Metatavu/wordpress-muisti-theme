@@ -60,7 +60,10 @@ export default createStyles({
     marginBottom: "1rem",
     fontFamily: theme.typography.body1.fontFamily,
     lineHeight: 1.2,
-    marginLeft: "0.8rem"
+    marginLeft: "0.8rem",
+    [theme.breakpoints.up("md")]: {
+      marginLeft: 0
+    }
   },
   controlContainer: {
     display: "flex",
