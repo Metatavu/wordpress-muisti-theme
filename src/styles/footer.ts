@@ -37,6 +37,9 @@ export default createStyles({
         paddingLeft: "5%",
         paddingRight: "5%"
       }
+    },
+    [theme.breakpoints.up("md")]: {
+      width: "33.33%"
     }
   },
   footerdata: {
