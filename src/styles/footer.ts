@@ -21,6 +21,7 @@ export default createStyles({
     paddingTop: theme.spacing(5),
     paddingBottom: theme.spacing(5),
     paddingLeft: "5%",
+    paddingRight: "5%",
     "&:nth-child(1)": {
       backgroundColor: "#2E2E50"
     },
@@ -28,18 +29,11 @@ export default createStyles({
       backgroundColor: theme.palette.secondary.main
     },
     "&:nth-child(3)": {
-      paddingLeft: 0,
-      paddingRight: 0,
       textAlign: "center",
       backgroundColor: "#ffffff",
       "& .MuiTypography-h3": {
         paddingBottom: theme.spacing(3),
-        paddingLeft: "5%",
-        paddingRight: "5%"
       }
-    },
-    [theme.breakpoints.up("md")]: {
-      width: "33.33%"
     }
   },
   footerdata: {
