@@ -532,7 +532,8 @@ export default createStyles({
               },
               "& ~ figure.wp-block-image": {
                 opacity: 0.6,
-                margin: 0
+                margin: 0,
+                width: "100%"
               }
             }
           }
