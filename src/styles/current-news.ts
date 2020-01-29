@@ -21,6 +21,7 @@ export default createStyles({
   buttonContainer: {
     display: "flex",
     width: "100%",
+    maxWidth: "2000px",
     justifyContent: "center",
     marginBottom: theme.spacing(5),
     [theme.breakpoints.up("md")]: {
@@ -43,6 +44,7 @@ export default createStyles({
     display: "flex",
     flexDirection: "column",
     width: "100%",
+    maxWidth: "2000px",
     justifyContent: "center",
     alignItems: "center",
     marginTop: theme.spacing(5),
