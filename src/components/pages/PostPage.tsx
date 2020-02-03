@@ -10,6 +10,8 @@ import strings from "../../localization/strings";
 import { Link } from "react-router-dom";
 import ArrowIcon from "@material-ui/icons/ArrowForwardRounded";
 import * as classNames from "classnames";
+import * as moment from "moment";
+import "../../styles/feed.css";
 
 /**
  * Interface representing component properties
@@ -19,7 +21,7 @@ interface Props extends WithStyles<typeof styles> {
   lang: string
 }
 
-type PageTemplate = "basic" | "fullscreen";
+type PageTemplate = "basic" | "fullscreen" | "dangerous" | "smallgutter";
 
 /**
  * Interface representing component state
@@ -29,6 +31,7 @@ interface State {
   template: PageTemplate
   post?: Post
   loading: boolean
+  isArticle: boolean
   heroBanner?: React.ReactElement
   heroContent?: React.ReactElement
 }
@@ -47,6 +50,7 @@ class PostPage extends React.Component<Props, State> {
     super(props);
     this.state = {
       template: "basic",
+      isArticle: false,
       loading: false
     };
   }
@@ -54,43 +58,27 @@ class PostPage extends React.Component<Props, State> {
   /**
    * Component did mount life-cycle handler
    */
-  public componentDidMount = async () => {
-    this.setState({
-      loading: true
-    });
-
-    const lang = this.props.lang;
-    const slugParts = this.props.slug.split("/");
-    const slug = slugParts.pop() || slugParts.pop();
-    if (!slug) {
-      // TODO: handle error
-      return;
-    }
-
-    const api = ApiUtils.getApi();
-
-    const apiCalls = await Promise.all([
-      api.getWpV2Pages({ lang: [ lang ], slug: [slug] }),
-      api.getWpV2Posts({ lang: [ lang ], slug: [slug] })
-    ]);
-
-    const page = apiCalls[0][0];
-    const post = apiCalls[1][0];
-
-    this.setState({
-      page: page,
-      post: post,
-      loading: false
-    });
+  public componentDidMount = () => {
+    this.loadContent();
   }
 
   /**
    * Component will mount life-cycle handler
    */
-  public componentWillMount = async () => {
-    this.setState({
-      template: this.getTemplate()
-    });
+  public componentWillMount = () => {
+    this.setTemplate();
+  }
+
+  public componentWillUpdate = (prevProps: Props) => {
+    if (prevProps.slug !== this.props.slug) {
+      this.setTemplate();
+    }
+  }
+
+  public componentDidUpdate = (prevProps: Props) => {
+    if (prevProps.slug !== this.props.slug) {
+      this.loadContent();
+    }
   }
 
   /**
@@ -122,27 +110,77 @@ class PostPage extends React.Component<Props, State> {
    * Render content method
    */
   private renderContent = (pageTitle: string) => {
+    const { classes } = this.props;
     if (this.state.template === "fullscreen") {
       return this.renderPostContent(pageTitle);
     }
 
     return (
-      <Container>
+      <Container className={ classNames( classes.root, this.state.isArticle && "article") }>
         { this.renderPostContent(pageTitle) }
       </Container>
     );
 
   }
 
+  private setTemplate = () => {
+    this.setState({
+      template: this.getTemplate()
+    });
+  }
+
+  private loadContent = async () => {
+    this.setState({
+      loading: true
+    });
+
+    const lang = this.props.lang;
+    const slugParts = this.props.slug.split("/");
+    const slug = slugParts.pop() || slugParts.pop();
+    if (!slug) {
+      // TODO: handle error
+      return;
+    }
+
+    const api = ApiUtils.getApi();
+
+    const apiCalls = await Promise.all([
+      api.getWpV2Pages({ lang: [ lang ], slug: [slug] }),
+      api.getWpV2Posts({ lang: [ lang ], slug: [slug] })
+    ]);
+
+    const page = apiCalls[0][0];
+    const post = apiCalls[1][0];
+
+    this.setState({
+      page: page,
+      post: post,
+      isArticle: !!post,
+      loading: false
+    });
+
+    this.hidePageLoader();
+  }
+
   /**
    * Render post content method
    */
   private renderPostContent = (pageTitle: string) => {
-    const { classes } = this.props;
+    const { classes, lang } = this.props;
+    moment.locale(lang);
     return (
-      <div className={ classNames(classes.htmlContainer, this.state.template === "fullscreen" ? "fullscreen" : "") }>
+      <div className={
+        classNames(classes.htmlContainer,
+        this.state.isArticle && "article",
+        this.state.template === "fullscreen" ? "fullscreen" : "",
+        this.state.template === "smallgutter" ? "smallgutter" : "")
+        }
+      >
       { !this.state.heroBanner &&
-        <h1 className={ classes.title }>{ pageTitle }</h1>
+        <>
+          { this.state.post ? <p className={ classes.date }>{ moment(this.state.post.date).format("dddd, DD. MMMM YYYY") }</p> : "" }
+          <h1 className={ classNames(classes.title, this.state.isArticle && "article") }>{ pageTitle }</h1>
+        </>
       }
       { !this.state.loading &&
         this.getPageOrPostContent()
@@ -196,7 +234,25 @@ class PostPage extends React.Component<Props, State> {
       return undefinedContentError;
     }
 
+    if (this.state.template === "dangerous") {
+      return <div dangerouslySetInnerHTML={{__html:renderedContent}} />;
+    }
+
     return ReactHtmlParser(renderedContent, { transform: this.transformContent });
+
+  }
+
+  /**
+   * Hide page loader
+   */
+  private hidePageLoader() {
+    const loaderElement = document.getElementById("pageLoader");
+    if (loaderElement) {
+      loaderElement.style.opacity = "0";
+      setTimeout(() => {
+        loaderElement.style.display = "none";
+      }, 500);
+    }
   }
 
   /**
@@ -249,14 +305,12 @@ class PostPage extends React.Component<Props, State> {
     if (classNames.indexOf("wp-block-button") > -1) {
       const childNode = node.children && node.children.length ? node.children[0] : null;
       if (childNode) {
-        const urlParts = this.getLinkHref(childNode).split("/");
-        const slug = urlParts.pop() || urlParts.pop();
         return (
-          <Link style={{ textDecoration: "none" }} to={slug || "/"}>
+          <a href={this.getLinkHref(childNode)} style={{ textDecoration: "none" }}>
             <Button className={ classes.button } color="primary" variant="outlined" endIcon={ <ArrowIcon /> }>
               {this.getElementTextContent(childNode)}
             </Button>
-          </Link>
+          </a>
         );
       }
     }

@@ -11,10 +11,12 @@
     "classnames": "^2.2.6",
     "localized-strings": "^0.2.4",
     "material-ui": "^0.20.2",
+    "moment": "^2.24.0",
     "query-string": "^6.9.0",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-html-parser": "^2.0.2",
+    "react-masonry-css": "^1.0.14",
     "react-router-dom": "^5.1.2",
     "react-swipeable-views": "^0.13.3",
     "urijs": "^1.19.1"
@@ -40,13 +42,13 @@
     "file-loader": "^4.2.0",
     "node-sass": "^4.12.0",
     "sass-loader": "^8.0.0",
-    "style-loader": "^1.0.0",
+    "style-loader": "^1.1.2",
     "ts-loader": "^6.2.0",
     "tslint": "^5.20.0",
     "typescript": "^3.6.4",
     "url-loader": "^2.2.0",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.9"
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10"
   },
   "babel": {
     "presets": [

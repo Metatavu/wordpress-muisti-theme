@@ -12,6 +12,7 @@ export default createStyles({
     width: "100%",
     backgroundColor: "#000",
     flexDirection: "column",
+    overflow: "hidden",
     [theme.breakpoints.up("md")]: {
       flexDirection: "row"
     }
@@ -20,16 +21,36 @@ export default createStyles({
     paddingTop: theme.spacing(5),
     paddingBottom: theme.spacing(5),
     paddingLeft: "5%",
+    paddingRight: "5%",
     "&:nth-child(1)": {
       backgroundColor: "#2E2E50"
     },
     "&:nth-child(2)": {
       backgroundColor: theme.palette.secondary.main
+    },
+    "&:nth-child(3)": {
+      textAlign: "center",
+      backgroundColor: "#ffffff",
+      "& .MuiTypography-h3": {
+        paddingBottom: theme.spacing(3),
+      }
     }
   },
   footerdata: {
     width: 300,
     marginBottom: theme.spacing(5)
+  },
+  carouselWrapper: {
+    display: "grid"
+  },
+  carouselItem: {
+    gridColumn: 1,
+    gridRow: 1
+  },
+  carouselImg: {
+    maxHeight: "5rem",
+    maxWidth: "95%",
+    padding: ""
   },
   contentContainer: {
     [theme.breakpoints.up("md")]: {
@@ -40,9 +61,14 @@ export default createStyles({
   },
   logoAndSomeContainer: {
     display: "flex",
+    flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: theme.spacing(5),
     paddingTop: 20,
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "column-reverse",
+      justifyContent: "none",
+    },
     [theme.breakpoints.up("md")]: {
       paddintTop: 0
     }
@@ -53,9 +79,28 @@ export default createStyles({
       }
   },
   someLinkContainer: {
-
+    margin: theme.spacing(2)
+  },
+  someLink: {
+    color: "#ffffff"
+  },
+  iconLink: {
+    fontSize: "2rem",
+    float: "right",
+    marginLeft: theme.spacing(2),
+    [theme.breakpoints.up("md")]: {
+      fontSize: "2.2rem",
+      marginLeft: theme.spacing(3)
+    }
+  },
+  logo: {
+    float: "left"
   },
   button: {
+    [theme.breakpoints.down(414)]: {
+      width: "100%"
+    },
+    fontSize: "1rem",
     width: 300
   },
   menuContent: {

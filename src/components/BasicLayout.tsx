@@ -61,8 +61,12 @@ class BasicLayout extends React.Component<Props, State> {
 
     const api = ApiUtils.getApi();
 
-    const mainMenu = await api.getMenusV1LocationsById({ lang: this.props.lang, id: "main" });
-    const localeMenu = await api.getMenusV1LocationsById({ lang: this.props.lang, id: "locale" });
+    const [mainMenu, localeMenu] = await Promise.all(
+      [
+        api.getMenusV1LocationsById({ lang: this.props.lang, id: "main" }),
+        api.getMenusV1LocationsById({ lang: this.props.lang, id: "locale" })
+      ]
+    )
 
     this.setState({
       loading: false,
@@ -82,7 +86,7 @@ class BasicLayout extends React.Component<Props, State> {
     const { classes } = this.props;
     let appBarClasses = classNames( classes.appBar );
     let logoClasses = classNames( classes.logo );
-    if (this.state.scrollPosition > 170) {
+    if (this.state.scrollPosition > 70) {
       appBarClasses = classNames( classes.appBar, classes.smallAppBar );
       logoClasses = classNames( classes.logo, classes.smallLogo );
     }
@@ -124,13 +128,13 @@ class BasicLayout extends React.Component<Props, State> {
         </div>
         <SiteMenu
           lang={ this.props.lang }
-          tinyHeader={ this.state.scrollPosition > 170 }
+          tinyHeader={ this.state.scrollPosition > 70 }
           onClose={ () => this.setState({ siteMenuVisible: false }) }
           visible={ this.state.siteMenuVisible }
         />
         <SiteSearch
           lang={ this.props.lang }
-          tinyHeader={ this.state.scrollPosition > 170 }
+          tinyHeader={ this.state.scrollPosition > 70 }
           onClose={ () => this.setState({ siteSearchVisible: false }) }
           visible={ this.state.siteSearchVisible }
         />

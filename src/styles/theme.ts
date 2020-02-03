@@ -62,12 +62,20 @@ export default createMuiTheme({
   },
   overrides: {
     MuiButton: {
+      label: {
+        whiteSpace: "nowrap",
+      },
+      text: {
+        fontFamily: theme.typography.h1.fontFamily,
+        fontSize: theme.typography.h6.fontSize
+      },
       outlinedPrimary: {
         justifyContent: "space-between",
         textTransform: "initial",
-        height: 65,
+        height: 55,
         borderRadius: 0,
         padding: "5px 15px",
+        border: "1px solid rgba(245, 239, 234, 0.8)",
         borderWidth: 3,
         "&:hover": {
           borderWidth: 3,
@@ -75,10 +83,6 @@ export default createMuiTheme({
         "&:active": {
           borderWidth: 3,
         }
-      },
-      label: {
-        fontFamily: theme.typography.h1.fontFamily,
-        fontSize: theme.typography.h6.fontSize
       }
     },
     MuiInputBase: {

@@ -31,5 +31,37 @@ export default createStyles({
   slideText: {
     display: "flex",
     maxWidth: "60%"
+  },
+  linkBallIndicators: {
+    display: "flex",
+    justifyContent: "flex-end",
+    color: theme.palette.primary.dark,
+    backgroundColor: theme.palette.background.paper,
+    paddingBottom: theme.spacing(3)
+  },
+  indicator: {
+    marginLeft: theme.spacing(1)
+  },
+  circle: {
+    border: "1px solid #000000",
+    width: "1.25rem",
+    height: "1.25rem",
+    borderRadius: "50%"
+  },
+  ball: {
+    backgroundColor: "#000000",
+    width: 0,
+    height: 0,
+    margin: "0.625rem",
+    borderRadius: "50%",
+    transition: "width 0.2s, height 0.2s, margin 0.2s"
+  },
+  fill: {
+    backgroundColor: "#000000",
+    width: "0.9rem",
+    height: "0.9rem",
+    margin: "0.1rem",
+    borderRadius: "50%",
+    transition: "width 0.2s, height 0.2s, margin 0.2s"
   }
 });

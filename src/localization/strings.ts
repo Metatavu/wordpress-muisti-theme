@@ -2,7 +2,9 @@ import LocalizedStrings, { LocalizedStringsMethods } from "localized-strings";
 
 export interface IStrings extends LocalizedStringsMethods {
   currentNews: string,
+  currentNewsSlug: string,
   donate: string,
+  sponsors: string,
   error: string,
   moreCurrentNews: string,
   morePlus: string,

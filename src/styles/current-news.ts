@@ -21,17 +21,17 @@ export default createStyles({
   buttonContainer: {
     display: "flex",
     width: "100%",
+    maxWidth: "2000px",
     justifyContent: "center",
     marginBottom: theme.spacing(5),
-    [theme.breakpoints.up("sm")]: {
-      justifyContent: "flex-end",
-    },
     [theme.breakpoints.up("md")]: {
+      justifyContent: "flex-end",
       marginBottom: theme.spacing(10),
       width: "80%"
     },
   },
   button: {
+    fontSize: "1rem",
     width: 300,
     color: "#000",
     borderColor: "#111",
@@ -44,7 +44,9 @@ export default createStyles({
     display: "flex",
     flexDirection: "column",
     width: "100%",
+    maxWidth: "2000px",
     justifyContent: "center",
+    alignItems: "center",
     marginTop: theme.spacing(5),
     marginBottom: theme.spacing(5),
     [theme.breakpoints.up("sm")]: {
@@ -60,16 +62,47 @@ export default createStyles({
   latestNewsHeading: {
     color: theme.palette.primary.dark
   },
+  latestNewsLoadingItem: {
+    display: "flex",
+    width: "100%",
+    marginBottom: theme.spacing(5),
+    animationDuration: "1.8s",
+    animationFillMode: "forwards",
+    animationIterationCount: "infinite",
+    animationName: "$shimmer",
+    animationTimingFunction: "linear",
+    backgroundColor: "#f6f7f8",
+    backgroundImage: "linear-gradient(to right, #fafafa 8%, #f4f4f4 38%, #fafafa 54%)",
+    backgroundSize: "1000px 640px",
+    [theme.breakpoints.up("sm")]: {
+      padding: theme.spacing(2),
+      width: 470,
+      height: 440
+    },
+    [theme.breakpoints.up("md")]: {
+      alignSelf: "flex-start",
+      marginBottom: theme.spacing(5)
+    },
+    "&:first-child": {
+      [theme.breakpoints.up("sm")]: {
+        marginRight: theme.spacing(2)
+      }
+    },
+    "&:last-child": {
+      [theme.breakpoints.up("sm")]: {
+        marginLeft: theme.spacing(2)
+      }
+    }
+  },
   latestNewsItem: {
-    cursor: "pointer",
     display: "flex",
     flexDirection: "column",
     textDecoration: "none",
-    padding: theme.spacing(2),
     width: "100%",
     marginBottom: theme.spacing(5),
     [theme.breakpoints.up("sm")]: {
-      width: "auto",
+      cursor: "pointer",
+      padding: theme.spacing(2),
       maxWidth: 470,
     },
     [theme.breakpoints.up("md")]: {
@@ -113,5 +146,9 @@ export default createStyles({
   },
   tag: {
     margin: "10px 0"
+  },
+  '@keyframes shimmer': {
+    from: {backgroundPosition: "-468px 0"},
+    to: {backgroundPosition: "468px 0"},
   }
 });

@@ -27,14 +27,28 @@ export default createStyles({
       paddingBottom: 0
     }
   },
-  textContainer: {},
+  textContainer: {
+    [theme.breakpoints.up("md")]: {
+      width: "50%"
+    }
+  },
   imageContainer: {
-    display: "flex",
+    maxWidth: "100%",
+    overflow: "hidden",
+    [theme.breakpoints.up("md")]: {
+      display: "flex",
+      width: "50%"
+    },
       "& img": {
-        width: "auto"
+        width: "auto",
+        maxWidth: "100%"
       }
   },
   button: {
+    [theme.breakpoints.down(414)]: {
+      width: "100%"
+    },
+    fontSize: "1rem",
     width: 300,
     height: 60,
     marginTop: theme.spacing(5)

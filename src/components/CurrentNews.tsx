@@ -54,7 +54,7 @@ class CurrentNews extends React.Component<Props, State> {
     const api = ApiUtils.getApi();
     const lang = this.props.lang;
     const categories = await api.getWpV2Categories({ slug: ["ajankohtaista"] });
-    const posts = await api.getWpV2Posts({ lang: [ lang ], categories: categories.map((category) => {
+    const posts = await api.getWpV2Posts({ lang: [ lang ], per_page: 3, categories: categories.map((category) => {
       return String(category.id);
     })});
 
@@ -90,10 +90,18 @@ class CurrentNews extends React.Component<Props, State> {
    */
   public render() {
     const { classes } = this.props;
+    const loading = this.state.loading;
     return (
       <div className={ classes.root}>
         <Typography variant="h2" className={ classes.latestNewsHeading }>{ strings.currentNews }</Typography>
         <div className={ classes.latestNewsContainer }>
+          { loading &&
+            <>
+              <div className={ classes.latestNewsLoadingItem }></div>
+              <div className={ classes.latestNewsLoadingItem }></div>
+              <div className={ classes.latestNewsLoadingItem }></div>
+            </>
+          }
           {
             this.state.posts.map((post) => {
               const featuredMedia = post.featured_media ? this.state.featuredMedias[post.featured_media] : null;
@@ -112,7 +120,7 @@ class CurrentNews extends React.Component<Props, State> {
           }
         </div>
         <div className={ classes.buttonContainer }>
-          <Link style={{ textDecoration: "none" }} to={ `/ajankohtaista/?lang=${ this.props.lang }` }>
+          <Link style={{ textDecoration: "none" }} to={ `/${ strings.currentNewsSlug }/?lang=${ this.props.lang }` }>
             <Button className={ classes.button } color="primary" variant="outlined" endIcon={ <ArrowIcon /> }>
               { strings.moreCurrentNews }
             </Button>

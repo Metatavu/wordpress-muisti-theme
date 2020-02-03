@@ -7,7 +7,6 @@ import placeholderImg from "../resources/img/muisti-konsepti.png";
 import styles from "../styles/hero-banner";
 import ReactHtmlParser, { convertNodeToElement } from "react-html-parser";
 import { DomElement } from "domhandler";
-import { Link } from "react-router-dom";
 
 /**
  * Interface representing component properties
@@ -22,6 +21,8 @@ interface Props extends WithStyles<typeof styles> {
 interface State {
   posts: Post[],
   featuredMedias: { [ key: number ]: Attachment },
+  heroBanner?: React.ReactElement,
+  heroContent?: React.ReactElement,
   loading: boolean
 }
 
@@ -77,6 +78,8 @@ class HeroBanner extends React.Component<Props, State> {
       const featureMedia = featureMedias[i];
       featuredMediaMap[featureMedia.id!] = featureMedia;
     }
+
+    ReactHtmlParser(posts[0].content ? posts[0].content.rendered || "" : "", { transform: this.ExtractHero });
 
     this.setState({
       posts: posts,
@@ -136,18 +139,38 @@ class HeroBanner extends React.Component<Props, State> {
     if (classNames.indexOf("wp-block-button") > -1) {
       const childNode = node.children && node.children.length ? node.children[0] : null;
       if (childNode) {
-        const urlParts = this.getLinkHref(childNode).split("/");
-        const slug = urlParts.pop() || urlParts.pop();
         return (
-          <Link style={{ textDecoration: "none" }} to={slug || "/"}>
+          <a style={{ textDecoration: "none" }} href={this.getLinkHref(childNode)}>
             <Button className={ classes.button } color="primary" variant="outlined" endIcon={ <ArrowIcon /> }>
               {this.getElementTextContent(childNode)}
             </Button>
-          </Link>
+          </a>
         );
       }
     }
     return convertNodeToElement(node, index, this.transformContent);
+  }
+
+  /**
+   * Extract Hero banner
+   */
+  private ExtractHero = (node: DomElement, index: number) => {
+    const classNames = this.getElementClasses(node);
+    if (classNames.indexOf("hero") > -1) {
+      if (!this.state.heroBanner) {
+        this.setState({
+          heroBanner: convertNodeToElement(node, index, this.transformContent)
+        });
+      }
+    }
+    if (classNames.indexOf("hero-content") > -1) {
+      if (!this.state.heroContent) {
+        this.setState({
+          heroContent: convertNodeToElement(node, index, this.transformContent)
+        });
+      }
+    }
+    return null;
   }
 
   /**
@@ -161,20 +184,37 @@ class HeroBanner extends React.Component<Props, State> {
     const post = this.state.posts[0];
     const featuredMedia = post.featured_media ? this.state.featuredMedias[post.featured_media] : null;
     const featuredMediaUrl = featuredMedia ? featuredMedia.source_url : null;
+    let heroBannerBackround = `url(${placeholderImg})`;
+    if (featuredMediaUrl) {
+      heroBannerBackround = `url(${featuredMediaUrl})`;
+    }
     return (
-      <div
-        key={ post.id }
-        className={ classes.heroItem }
-        style={{ backgroundImage: `url('${( featuredMediaUrl != null ? featuredMediaUrl : placeholderImg )}')` }}>
-        <div className={ classes.heroContent }>
-          <div className={ classes.heroContentBlock }>
-            <Typography color="primary" variant="h1"> { post.title ? post.title.rendered : "" } </Typography>
-            <div className={ classes.heroText }>
-              { ReactHtmlParser(post.content ? post.content.rendered || "" : "", { transform: this.transformContent }) }
+      <>
+        { !this.state.heroBanner &&
+          <div
+            key={ post.id }
+            className={ classes.heroItem }
+            style={{ backgroundImage: heroBannerBackround }}>
+            <div className={ classes.heroContent }>
+              <div className={ classes.heroContentBlock }>
+                <Typography color="primary" variant="h1"> { post.title ? post.title.rendered : "" } </Typography>
+                <div className={ classes.heroText }>
+                  { ReactHtmlParser(post.content ? post.content.rendered || "" : "", { transform: this.transformContent }) }
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        }
+        { this.state.heroBanner &&
+          <div className={ classes.hero }>
+            <div className={ classes.heroContentContainer }>
+              <h1 className={ classes.heroTitle }>{ post.title ? post.title.rendered : "" }</h1>
+              { ReactHtmlParser(post.content ? post.content.rendered || "" : "", { transform: this.transformContent }) }
+            </div>
+            { this.state.heroBanner }
+          </div>
+        }
+      </>
     );
   }
 }

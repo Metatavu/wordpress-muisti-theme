@@ -1,6 +1,8 @@
 {
   "currentNews": "Current news",
+  "currentNewsSlug": "current-news",
   "donate": "Donate",
+  "sponsors": "Sponsors",
   "error": "Error!",
   "moreCurrentNews": "More current news",
   "morePlus": "More +",
