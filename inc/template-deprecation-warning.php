@@ -1,8 +1,7 @@
 <div class="wrapper">
   <p>
-    Huomasimme, että käytätte vanhentunutta Internet Explorer selainta.
-    Voisitteko ystävällisesti vaihtaa tuettuun Microsoft Edge selaimeen sivuston
-    käytön jatkamiseksi.
+    Huomasimme, että käytätte vanhentunutta Internet Explorer selainta, jota sivustomme ei valitettavasti tue. 
+    Pyydämme teitä ytävällisesti vaihtamaan tuettuun Microsoft Edge selaimeen sivuston käytön jatkamiseksi.
   </p>
   <p>
     Microsoft Edgen saa ladattua ilmaiseksi osoitteesta <a href="https://www.microsoft.com/edge">https://www.microsoft.com/edge</a>
@@ -14,7 +13,7 @@
     Please switch to supported Microsoft Edge browser to continue using this site.
   </p>
   <p>
-    You may download Microsoft Edge from <a href="https://www.microsoft.com/edge">https://www.microsoft.com/edge</a>
+    You may download Microsoft Edge for free from <a href="https://www.microsoft.com/edge">https://www.microsoft.com/edge</a>
   </p>
 </div>
 <style>
