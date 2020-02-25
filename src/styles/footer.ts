@@ -18,21 +18,28 @@ export default createStyles({
     }
   },
   footerPost: {
-    paddingTop: theme.spacing(5),
-    paddingBottom: theme.spacing(5),
-    paddingLeft: "5%",
-    paddingRight: "5%",
+    padding: theme.spacing(5),
+    [theme.breakpoints.up("lg")]: {
+      padding: theme.spacing(8),
+    },
+    "& h3": {
+      fontSize: "2.5rem",
+      lineHeight: 1.2
+    },
     "&:nth-child(1)": {
       backgroundColor: "#2E2E50"
     },
     "&:nth-child(2)": {
-      backgroundColor: theme.palette.secondary.main
+      backgroundColor: theme.palette.secondary.main,
+      "& p": {
+        display: "none"
+      }
     },
     "&:nth-child(3)": {
-      textAlign: "center",
       backgroundColor: "#ffffff",
       "& .MuiTypography-h3": {
-        paddingBottom: theme.spacing(3),
+        paddingBottom: theme.spacing(6),
+        lineHeight: 1.2
       }
     }
   },
@@ -41,7 +48,8 @@ export default createStyles({
     marginBottom: theme.spacing(5)
   },
   carouselWrapper: {
-    display: "grid"
+    display: "grid",
+    justifyContent: "center"
   },
   carouselItem: {
     gridColumn: 1,
@@ -50,7 +58,7 @@ export default createStyles({
   carouselImg: {
     maxHeight: "5rem",
     maxWidth: "95%",
-    padding: ""
+    padding: 0
   },
   contentContainer: {
     [theme.breakpoints.up("md")]: {
@@ -70,7 +78,7 @@ export default createStyles({
       justifyContent: "none",
     },
     [theme.breakpoints.up("md")]: {
-      paddintTop: 0
+      paddingTop: 0
     }
   },
   imageContainer: {

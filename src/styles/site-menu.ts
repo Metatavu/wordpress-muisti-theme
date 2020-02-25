@@ -15,7 +15,7 @@ export default createStyles({
       top: 130,
       height: "calc(100% - 130px)",
     },
-    backgroundColor: "rgba(45, 45, 45, 0.9)"
+    backgroundColor: "rgba(45, 45, 45, 0.98)"
   },
   tinyHeader: {
     top: 60,
