@@ -38,6 +38,7 @@ export default createStyles({
     }
   },
   hero: {
+    paddingTop: 130,
     height: "90vh",
     display: "flex",
     alignItems: "center",
@@ -97,14 +98,15 @@ export default createStyles({
     "& p": {
       fontSize: 16,
       fontFamily: theme.typography.subtitle2.fontFamily,
+      margin: 0,
       [theme.breakpoints.up("lg")]: {
-        fontSize: "1.25rem",
-        marginLeft: theme.spacing(1)
+        fontSize: 18,
+        lineHeight: 1.75
+      },
+      [theme.breakpoints.up("xl")]: {
+        fontSize: 20,
+        lineHeight: 1.75
       }
-    },
-    // Media queries require single quotes
-    '@media only screen and (max-width:1280px) and (min-width:960px) and (max-height:750px)': {
-      marginTop: "130px"
     }
   },
   content: {
@@ -167,6 +169,7 @@ export default createStyles({
     fontWeight: "normal",
     fontSize: "2.5rem",
     lineHeight: 1,
+    marginBottom: theme.spacing(2),
     [theme.breakpoints.up(360)]: {
       fontSize: "2.75rem"
     },
@@ -174,22 +177,36 @@ export default createStyles({
       fontSize: "3rem"
     },
     [theme.breakpoints.up("sm")]: {
-      fontSize: "4.75rem"
+      fontSize: "4rem"
     },
     [theme.breakpoints.up("md")]: {
-      fontSize: "4.75rem"
+      fontSize: "4rem"
     },
     // Media queries require single quotes
+    // tslint:disable-next-line: quotemark
     '@media only screen and (max-width:1280px) and (min-width:960px) and (max-height:750px)': {
       fontSize: "3.5rem"
     },
     [theme.breakpoints.up("lg")]: {
-      fontSize: "5.5rem"
+      fontSize: "4rem",
+      marginLeft: "-6px"
+    },
+    [theme.breakpoints.up(1367)]: {
+      fontSize: "4.5rem",
+      marginLeft: "-7px"
+    },
+    [theme.breakpoints.up(1600)]: {
+      fontSize: "5rem"
     },
     [theme.breakpoints.up("xl")]: {
       fontSize: "6rem",
-      lineHeight: "6.75rem"
-    }
+      lineHeight: "6.75rem",
+      marginLeft: "-8px"
+    },
+    [theme.breakpoints.up(2000)]: {
+      fontSize: "7rem",
+      marginLeft: "-9px"
+    },
   },
   button: {
     width: "100%",
@@ -497,12 +514,12 @@ export default createStyles({
             },
             "& .highlight-content": {
               position: "absolute",
-              padding: theme.spacing(3),
+              padding: theme.spacing(5),
               [theme.breakpoints.up("md")]: {
-                padding: theme.spacing(4),
+                padding: theme.spacing(5),
               },
               [theme.breakpoints.up("lg")]: {
-                padding: theme.spacing(5),
+                padding: theme.spacing(8),
               },
               [theme.breakpoints.up("xl")]: {
                 padding: theme.spacing(8),
@@ -516,14 +533,16 @@ export default createStyles({
                 margin: 0,
                 color: "#fff",
                 fontSize: "1.5rem",
-                [theme.breakpoints.up("lg")]: {
-                  fontSize: "2.125rem",
+                [theme.breakpoints.up("md")]: {
+                  fontSize: "2.5rem",
+                  lineHeight: 1.2
                 },
                 fontFamily: "tt_norms_promedium",
                 fontWeight: "normal",
                 textShadow: "1px 1px 1px rgba(0,0,0,0.5)",
               },
               "& .MuiButton-outlinedPrimary": {
+                width: 300,
                 borderColor: "rgba(245, 239, 234, 0.8)",
                 color: "#F5EFEA",
                 "&:hover": {
@@ -593,12 +612,12 @@ export default createStyles({
       },
       "& .fp-body": {
         position: "absolute",
-        padding: theme.spacing(3),
+        padding: theme.spacing(5),
         [theme.breakpoints.up("md")]: {
-          padding: theme.spacing(4),
+          padding: theme.spacing(5),
         },
         [theme.breakpoints.up("lg")]: {
-          padding: theme.spacing(5),
+          padding: theme.spacing(8),
         },
         [theme.breakpoints.up("xl")]: {
           padding: theme.spacing(8),
@@ -646,10 +665,16 @@ export default createStyles({
       "&.has-2-columns": {
         "&.contact-column": {
           marginTop: 0,
+          width: "100%",
+          "& .wp-block-column": {
+            minWidth: "50%"
+          },
         },
         "&.address-info": {
           flexDirection: "row",
+          marginTop: theme.spacing(1),
           [theme.breakpoints.up("md")]: {
+            marginTop: theme.spacing(2),
             width: "50%",
           },
           "& .wp-block-column": {
@@ -911,13 +936,14 @@ export default createStyles({
     },
     "& .fp-title": {
       fontFamily: theme.typography.h4.fontFamily,
-      fontSize: theme.typography.h6.fontSize,
+      fontSize: "1.5rem",
       margin: 0,
       [theme.breakpoints.up("md")]: {
-        fontSize: theme.typography.h5.fontSize,
+        fontSize: "2rem",
+        lineHeight: 1.2
       },
       [theme.breakpoints.up("lg")]: {
-        fontSize: theme.typography.h4.fontSize,
+        fontSize: "2.5rem"
       }
     },
     "& .fp-list-2 .fp-title, .fp-list-3 .fp-main .fp-title, .fp-list-4 .fp-title": {

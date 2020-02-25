@@ -208,8 +208,8 @@ class HeroBanner extends React.Component<Props, State> {
         { this.state.heroBanner &&
           <div className={ classes.hero }>
             <div className={ classes.heroContentContainer }>
-              <h1 className={ classes.heroTitle }>{ post.title ? post.title.rendered : "" }</h1>
-              { ReactHtmlParser(post.content ? post.content.rendered || "" : "", { transform: this.transformContent }) }
+                <h1 className={ classes.heroTitle }>{ post.title ? post.title.rendered : "" }</h1>
+                { ReactHtmlParser(post.content ? post.content.rendered || "" : "", { transform: this.transformContent }) }
             </div>
             { this.state.heroBanner }
           </div>

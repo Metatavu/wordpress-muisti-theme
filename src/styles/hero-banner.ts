@@ -47,6 +47,7 @@ export default createStyles({
       fontSize: 16
     },
     // Media queries require single quotes
+    // tslint:disable-next-line: quotemark
     '@media only screen and (max-width:1280px) and (min-width:960px) and (max-height:750px)': {
       marginTop: "130px",
       "& h1": {
@@ -55,6 +56,7 @@ export default createStyles({
     }
   },
   hero: {
+    paddingTop: 130,
     height: "90vh",
     display: "flex",
     alignItems: "center",
@@ -104,14 +106,15 @@ export default createStyles({
     "& p": {
       fontSize: 16,
       fontFamily: theme.typography.subtitle2.fontFamily,
+      margin: 0,
       [theme.breakpoints.up("lg")]: {
-        fontSize: "1.25rem",
-        marginLeft: theme.spacing(1)
+        fontSize: 18,
+        lineHeight: 1.75
+      },
+      [theme.breakpoints.up("xl")]: {
+        fontSize: 20,
+        lineHeight: 1.75
       }
-    },
-    // Media queries require single quotes
-    '@media only screen and (max-width:1280px) and (min-width:960px) and (max-height:750px)': {
-      marginTop: "130px"
     }
   },
   heroTitle: {
@@ -120,6 +123,7 @@ export default createStyles({
     fontWeight: "normal",
     fontSize: "2.5rem",
     lineHeight: 1,
+    marginBottom: theme.spacing(2),
     [theme.breakpoints.up(360)]: {
       fontSize: "2.75rem",
     },
@@ -127,22 +131,36 @@ export default createStyles({
       fontSize: "3rem",
     },
     [theme.breakpoints.up("sm")]: {
-      fontSize: "4.75rem",
+      fontSize: "4rem",
     },
     [theme.breakpoints.up("md")]: {
-      fontSize: "4.75rem",
+      fontSize: "4rem",
     },
     // Media queries require single quotes
+    // tslint:disable-next-line: quotemark
     '@media only screen and (max-width:1280px) and (min-width:960px) and (max-height:750px)': {
       fontSize: "3.5rem"
     },
     [theme.breakpoints.up("lg")]: {
-      fontSize: "5.5rem",
+      fontSize: "4rem",
+      marginLeft: "-6px"
+    },
+    [theme.breakpoints.up(1367)]: {
+      fontSize: "4.5rem",
+      marginLeft: "-7px"
+    },
+    [theme.breakpoints.up(1600)]: {
+      fontSize: "5rem"
     },
     [theme.breakpoints.up("xl")]: {
       fontSize: "6rem",
-      lineHeight: "6.75rem"
-    }
+      lineHeight: "6.75rem",
+      marginLeft: "-8px"
+    },
+    [theme.breakpoints.up(2000)]: {
+      fontSize: "7rem",
+      marginLeft: "-9px"
+    },
   },
   heroText: {
     [theme.breakpoints.down(414)]: {
@@ -153,7 +171,6 @@ export default createStyles({
     marginBottom: 0,
     [theme.breakpoints.up("lg")]: {
       fontSize: "1rem",
-      marginLeft: theme.spacing(1)
     }
   },
   button: {

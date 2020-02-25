@@ -30,7 +30,10 @@ export default createStyles({
   textContainer: {
     [theme.breakpoints.up("md")]: {
       width: "50%"
-    }
+    },
+    [theme.breakpoints.up("xl")]: {
+      width: "80%"
+    },
   },
   imageContainer: {
     maxWidth: "100%",

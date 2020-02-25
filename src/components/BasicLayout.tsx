@@ -86,7 +86,9 @@ class BasicLayout extends React.Component<Props, State> {
     const { classes } = this.props;
     let appBarClasses = classNames( classes.appBar );
     let logoClasses = classNames( classes.logo );
-    if (this.state.scrollPosition > 70) {
+    if (this.state.siteMenuVisible) {
+      appBarClasses = classNames( classes.appBar, classes.darken );
+    } else if (this.state.scrollPosition > 70) {
       appBarClasses = classNames( classes.appBar, classes.smallAppBar );
       logoClasses = classNames( classes.logo, classes.smallLogo );
     }
@@ -97,7 +99,7 @@ class BasicLayout extends React.Component<Props, State> {
         // disable scrolling when search and menu dialogs are open
         style={ this.state.siteMenuVisible || this.state.siteSearchVisible ? {overflow: "hidden"} : {overflow: "visible"} }
       >
-        <AppBar elevation={0} className={ appBarClasses }>
+        <AppBar elevation={ 0 } className={ appBarClasses }>
           <div className={ classes.headerSection }>
             <Link href={ `/?lang=${ this.props.lang }` }>
               <img className={ logoClasses } src={ logo } />

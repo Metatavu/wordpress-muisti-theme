@@ -15,8 +15,8 @@ export default createStyles({
     alignItems: "center",
     justifyContent: "space-between",
     height: 100,
-    backgroundColor: "transparent",
     padding: "0 20px",
+    backgroundColor: "rgba(45, 45, 45, 0)",
     borderBottom: "1px solid rgba(255, 255, 255, 0.2)",
     transition: "height 0.3s ease-out, background-color 0.3s ease-out",
     [theme.breakpoints.up("md")]: {
@@ -27,9 +27,12 @@ export default createStyles({
       padding: "0 80px",
     }
   },
+  darken: {
+    backgroundColor: "rgba(45, 45, 45, 0.5)"
+  },
   smallAppBar: {
     height: 60,
-    backgroundColor: "rgba(45, 45, 45, 0.9)",
+    backgroundColor: "rgba(45, 45, 45, 0.98)",
     "& .MuiTypography-h6": {}
   },
   headerSection: {

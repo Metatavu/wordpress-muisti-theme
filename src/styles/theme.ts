@@ -63,6 +63,7 @@ export default createMuiTheme({
   overrides: {
     MuiButton: {
       label: {
+        fontSize: "1rem",
         whiteSpace: "nowrap",
       },
       text: {
