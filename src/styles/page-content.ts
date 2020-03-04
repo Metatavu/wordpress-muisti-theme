@@ -387,8 +387,15 @@ export default createStyles({
       margin: theme.spacing(2),
       marginLeft: 0,
       marginRight: 0,
+      marginBottom: 0,
       "&.has-medium-font-size": {
         fontSize: 20
+      },
+      "&.has-large-font-size": {
+        fontSize: 36
+      },
+      "&.has-huge-font-size": {
+        fontSize: 48
       },
       [theme.breakpoints.up(413)]: {
         fontSize: "0.875rem",
@@ -884,6 +891,7 @@ export default createStyles({
           fontSize: "1.2rem",
           marginTop: 0,
           marginBottom: 0,
+          alignSelf: "start",
           [theme.breakpoints.up("md")]: {
             fontSize: 28,
           },
@@ -933,6 +941,9 @@ export default createStyles({
           marginLeft: 0,
           [theme.breakpoints.up("sm")]: {
             marginRight: theme.spacing(5)
+          },
+          "& h3": {
+            marginTop: 0
           }
         }
       },
