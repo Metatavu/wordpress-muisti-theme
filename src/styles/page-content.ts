@@ -129,23 +129,40 @@ export default createStyles({
   title: {
     fontFamily: theme.typography.h1.fontFamily,
     fontWeight: "normal",
-    fontSize: "1.6rem",
+    fontSize: "2.5rem",
+    lineHeight: 1,
+    [theme.breakpoints.up(360)]: {
+      fontSize: "2.75rem"
+    },
+    [theme.breakpoints.up(413)]: {
+      fontSize: "3rem"
+    },
     [theme.breakpoints.up("sm")]: {
-      fontSize: "2rem",
-      lineHeight: 1.67
+      fontSize: "4rem"
     },
     [theme.breakpoints.up("md")]: {
-      fontSize: "4.75rem"
+      fontSize: "4rem"
     },
     // Media queries require single quotes
+    // tslint:disable-next-line: quotemark
     '@media only screen and (max-width:1280px) and (min-width:960px) and (max-height:750px)': {
       fontSize: "3.5rem"
     },
     [theme.breakpoints.up("lg")]: {
-      fontSize: "5.5rem"
+      fontSize: "4rem"
+    },
+    [theme.breakpoints.up(1367)]: {
+      fontSize: "4.5rem"
+    },
+    [theme.breakpoints.up(1600)]: {
+      fontSize: "5rem"
     },
     [theme.breakpoints.up("xl")]: {
-      fontSize: "6rem"
+      fontSize: "6rem",
+      lineHeight: "6.75rem",
+    },
+    [theme.breakpoints.up(2000)]: {
+      fontSize: "7rem"
     },
     "&.article": {
       textAlign: "left",
@@ -260,7 +277,7 @@ export default createStyles({
       fontSize: 20,
       margin: 0,
       [theme.breakpoints.up("md")]: {
-        fontSize: 28,
+        fontSize: "2.75rem",
       }
     },
     "& a": {
@@ -288,7 +305,7 @@ export default createStyles({
         marginRight: 0
       },
       [theme.breakpoints.up("md")]: {
-        fontSize: theme.typography.h2.fontSize,
+        fontSize: "2.75rem",
         lineHeight: 1.2,
         marginTop: theme.spacing(3),
         marginBottom: theme.spacing(2),
@@ -306,6 +323,52 @@ export default createStyles({
         width: "75%",
         marginTop: theme.spacing(5),
         marginBottom: theme.spacing(5),
+      },
+      "&.address-heading": {
+        width: "100%",
+        alignSelf: "start",
+        margin: 0
+      }
+    },
+    // Heading end
+    // Heading H3
+    "& h3": {
+      margin: theme.spacing(2),
+      marginRight: 0,
+      marginLeft: 0,
+      fontSize: "2.25rem",
+      fontFamily: theme.typography.h3.fontFamily,
+      lineHeight: 1.2,
+      fontWeight: "normal",
+      [theme.breakpoints.up(360)]: {
+        marginBottom: theme.spacing(2),
+      },
+      [theme.breakpoints.up("sm")]: {
+        fontSize: theme.typography.h5.fontSize,
+        width: "80%",
+        alignSelf: "center",
+        marginLeft: 0,
+        marginRight: 0
+      },
+      [theme.breakpoints.up("md")]: {
+        fontSize: "2.25rem",
+        lineHeight: 1.2,
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(2),
+        "&.error-text": {
+          lineHeight: "4.5rem",
+          fontSize: theme.typography.h3.fontSize,
+          width: "100%",
+          alignSelf: "flex-start"
+        }
+      },
+      [theme.breakpoints.up("lg")]: {
+        lineHeight: 1.2,
+      },
+      [theme.breakpoints.up("xl")]: {
+        width: "75%",
+        marginTop: theme.spacing(3),
+        marginBottom: theme.spacing(3),
       },
       "&.address-heading": {
         width: "100%",
@@ -854,8 +917,49 @@ export default createStyles({
     },
     // Contact card end
     "& .wp-block-media-text": {
+      marginTop: theme.spacing(5),
+      [theme.breakpoints.up("sm")]: {
+        display: "flex",
+        flexDirection: "row",
+        marginBottom: theme.spacing(5)
+      },
       [theme.breakpoints.up("md")]: {
-        display: "flex"
+        marginBottom: theme.spacing(5)
+      },
+      "&.has-media-on-the-right": {
+        flexDirection: "row-reverse",
+        "& .wp-block-media-text__content": {
+          marginLeft: 0,
+          [theme.breakpoints.up("sm")]: {
+            marginRight: theme.spacing(5)
+          }
+        }
+      },
+      "&.is-vertically-aligned-top": {
+        alignItems: "flex-start",
+      },
+      "& .wp-block-media-text__media": {
+        margin: 0
+      },
+      "&.is-image-fill .wp-block-media-text__media": {
+        height: "280px",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        margin: 0,
+        marginBottom: theme.spacing(5),
+        [theme.breakpoints.up(360)]: {
+          height: "320px",
+        },
+        [theme.breakpoints.up("sm")]: {
+          display: "flex",
+          flex: 1,
+          alignSelf: "stretch",
+          height: "auto",
+          marginBottom: 0
+        },
+        "& img": {
+          display: "none"
+        }
       }
     },
     /**
