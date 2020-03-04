@@ -916,6 +916,7 @@ export default createStyles({
       }
     },
     // Contact card end
+    // Media & Text block
     "& .wp-block-media-text": {
       marginTop: theme.spacing(5),
       [theme.breakpoints.up("sm")]: {
@@ -962,6 +963,25 @@ export default createStyles({
         }
       }
     },
+    "& .wp-block-media-text__media": {
+      width: "initial",
+      height: "initial",
+    },
+    "& .wp-block-media-text__content": {
+      flex: 2,
+      [theme.breakpoints.up("sm")]: {
+        marginLeft: theme.spacing(5),
+      },
+      "& p": {
+        "&:first-child": {
+          marginTop: 0
+        },
+        "&:last-child": {
+          marginBottom: 0
+        }
+      }
+    },
+    // Media & Text block end
     /**
      * Flex Posts styles
      */
