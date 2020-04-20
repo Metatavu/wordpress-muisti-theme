@@ -228,8 +228,8 @@ export default createStyles({
   button: {
     width: "100%",
     marginTop: theme.spacing(5),
-    [theme.breakpoints.up(961)]: {
-      width: 300,
+    [theme.breakpoints.up("md")]: {
+      width: "auto",
     }
   },
   errorText: {},
