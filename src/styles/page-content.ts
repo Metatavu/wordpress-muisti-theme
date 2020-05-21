@@ -1,5 +1,6 @@
 import { createStyles } from "@material-ui/core";
 import theme from "./theme";
+import checkIcon from "../resources/svg/check-24px.svg"
 
 export default createStyles({
   /**
@@ -378,6 +379,34 @@ export default createStyles({
     },
     // Heading end
 
+    // Block quote
+    "& .wp-block-quote": {
+      [theme.breakpoints.up("sm")]: {
+        width: "80%",
+        alignSelf: "center",
+      },
+      [theme.breakpoints.up("xl")]: {
+        width: "75%",
+        alignSelf: "center",
+      },
+      marginLeft: 0,
+      marginRight: 0,
+      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(2),
+      [theme.breakpoints.up("md")]: {
+        marginTop: theme.spacing(5),
+        marginBottom: theme.spacing(5),
+      },
+      "& p": {
+        fontFamily: theme.typography.h1.fontFamily,
+        fontSize: "1.6rem",
+        color: theme.palette.secondary.main,
+        margin: 0,
+        [theme.breakpoints.up("md")]: {
+          fontSize: "2rem",
+        }
+      }
+    },
     // Paragraph
     "& p": {
       "&:empty": {
@@ -418,8 +447,16 @@ export default createStyles({
     "& strong": {},
     // Lists
     "& ul": {
-      listStyle: "none",
-      padding: 0
+      [theme.breakpoints.up("sm")]: {
+        width: "80%",
+        alignSelf: "center",
+      },
+      [theme.breakpoints.up("xl")]: {
+        width: "75%",
+        alignSelf: "center",
+      },
+      listStyleImage: `url(${ checkIcon })`,
+      paddingLeft: 20
     },
     // Separator
     "& hr": {
@@ -469,23 +506,7 @@ export default createStyles({
         },
       },
       "& .wp-block-quote": {
-        marginLeft: 0,
-        marginRight: 0,
-        marginTop: theme.spacing(2),
-        marginBottom: theme.spacing(2),
-        [theme.breakpoints.up("md")]: {
-          marginTop: theme.spacing(5),
-          marginBottom: theme.spacing(5),
-        },
-        "& p": {
-          fontFamily: theme.typography.h1.fontFamily,
-          fontSize: "1.6rem",
-          color: theme.palette.secondary.main,
-          margin: 0,
-          [theme.breakpoints.up("md")]: {
-            fontSize: "2rem",
-          }
-        }
+        width: "100%"
       },
       "& .wp-block-media-text": {
         marginTop: theme.spacing(5),
