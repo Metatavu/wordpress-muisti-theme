@@ -119,7 +119,6 @@ class LinkBar extends React.Component<Props, State> {
       const { classes } = this.props;
       return (
         <Container className={ classes.linkBallIndicators }>
-          
           {
             this.state.menu.items.map((item, index) => {
               return (index !== this.state.linkBallIndex)
@@ -132,7 +131,7 @@ class LinkBar extends React.Component<Props, State> {
         </Container>
       );
     }
-    return <></>
+    return <></>;
   }
 
   /**
