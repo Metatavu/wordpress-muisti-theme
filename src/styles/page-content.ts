@@ -604,7 +604,6 @@ export default createStyles({
               flex: 1
             },
             "& .highlight-content": {
-              position: "absolute",
               padding: theme.spacing(5),
               [theme.breakpoints.up("md")]: {
                 padding: theme.spacing(5),
@@ -615,10 +614,8 @@ export default createStyles({
               [theme.breakpoints.up("xl")]: {
                 padding: theme.spacing(8),
               },
-              bottom: 0,
-              right: 0,
-              left: 0,
               zIndex: 1,
+              alignSelf: "flex-end",
               width: "100%",
               "& h3": {
                 margin: 0,
@@ -633,7 +630,16 @@ export default createStyles({
                 textShadow: "1px 1px 1px rgba(0,0,0,0.5)",
               },
               "& .MuiButton-outlinedPrimary": {
-                width: 300,
+                width: "100%",
+                [theme.breakpoints.down(414)]: {
+                  width: "100%"
+                },
+                [theme.breakpoints.down(960)]: {
+                  width: 300
+                },
+                [theme.breakpoints.up("lg")]: {
+                  width: 300
+                },
                 borderColor: "rgba(245, 239, 234, 0.8)",
                 color: "#F5EFEA",
                 "&:hover": {
@@ -643,7 +649,18 @@ export default createStyles({
               "& ~ figure.wp-block-image": {
                 opacity: 0.6,
                 margin: 0,
-                width: "100%"
+                width: "100%",
+                position: "absolute",
+                top: 0,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                "& img": {
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  zIndex: -1
+                }
               }
             }
           }

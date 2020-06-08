@@ -105,11 +105,17 @@ export default createStyles({
     float: "left"
   },
   button: {
+    fontSize: "1rem",
+    width: "100%",
     [theme.breakpoints.down(414)]: {
       width: "100%"
     },
-    fontSize: "1rem",
-    width: 300
+    [theme.breakpoints.down(960)]: {
+      width: 300
+    },
+    [theme.breakpoints.up("lg")]: {
+      width: 300
+    }
   },
   menuContent: {
     display: "flex",
