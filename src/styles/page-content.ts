@@ -621,7 +621,11 @@ export default createStyles({
                 margin: 0,
                 color: "#fff",
                 fontSize: "1.5rem",
-                [theme.breakpoints.up("md")]: {
+                [theme.breakpoints.up("sm")]: {
+                  fontSize: "2rem",
+                  lineHeight: 1.2
+                },
+                [theme.breakpoints.up("lg")]: {
                   fontSize: "2.5rem",
                   lineHeight: 1.2
                 },
