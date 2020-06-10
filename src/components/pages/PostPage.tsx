@@ -12,6 +12,7 @@ import ArrowIcon from "@material-ui/icons/ArrowForwardRounded";
 import * as classNames from "classnames";
 import * as moment from "moment";
 import "../../styles/feed.css";
+import MetaTags from "react-meta-tags";
 
 /**
  * Interface representing component properties
@@ -34,6 +35,7 @@ interface State {
   isArticle: boolean
   heroBanner?: React.ReactElement
   heroContent?: React.ReactElement
+  ogImageSrc?: string
 }
 
 /**
@@ -98,6 +100,9 @@ class PostPage extends React.Component<Props, State> {
             </div>
             { this.state.heroBanner }
           </div>
+        }
+        {
+          this.renderMetatags()
         }
         <div className={ this.state.heroBanner ? classes.contentWithHero : classes.content }>
           { this.renderContent(pageTitle) }
@@ -281,6 +286,19 @@ class PostPage extends React.Component<Props, State> {
     const { classes } = this.props;
     const classNames = this.getElementClasses(node);
 
+    // Find article image and set og:image meta tag
+    if (classNames.indexOf("wp-block-image") > -1) {
+      if (this.state.ogImageSrc === undefined && node.children && node.children.length > 0) {
+        const imageElement = node.children[0];
+        const imageSrc = imageElement.attribs ? imageElement.attribs.src : undefined;
+        if (imageSrc) {
+          this.setState({
+            ogImageSrc: imageSrc
+          });
+        }
+      }
+    }
+
     // Find hero banner and set it to state
     if (classNames.indexOf("hero") > -1) {
       if (!this.state.heroBanner) {
@@ -316,6 +334,21 @@ class PostPage extends React.Component<Props, State> {
     }
 
     return convertNodeToElement(node, index, this.transformContent);
+  }
+
+  /**
+   * Renders og:image metatag for fb link sharing thumbnail
+   */
+  private renderMetatags = () => {
+    const { ogImageSrc } = this.state;
+    if (ogImageSrc) {
+      return (
+        <MetaTags>
+          <meta property="og:image" content={ ogImageSrc } />
+        </MetaTags>
+      );
+    }
+    return null;
   }
 
   /**
