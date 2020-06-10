@@ -12,6 +12,7 @@ import * as classNames from "classnames";
 import * as moment from "moment";
 import "../../styles/feed.css";
 import MetaTags from "react-meta-tags";
+import { AttachmentDescription } from '../../generated/client/src/models/AttachmentDescription';
 
 /**
  * Interface representing component properties
@@ -35,6 +36,7 @@ interface State {
   heroBanner?: React.ReactElement
   heroContent?: React.ReactElement
   featuredImage?: string
+  pageDescription?: string
 }
 
 /**
@@ -101,7 +103,7 @@ class PostPage extends React.Component<Props, State> {
           </div>
         }
         {
-          this.renderMetatags()
+          this.renderMetatags( pageTitle )
         }
         <div className={ this.state.heroBanner ? classes.contentWithHero : classes.content }>
           { this.renderContent(pageTitle) }
@@ -157,11 +159,15 @@ class PostPage extends React.Component<Props, State> {
     const post = apiCalls[1][0];
 
     const featuredMediaId = page ? page.featured_media : (post ? post.featured_media : undefined);
+    const excerpt = page ? page.excerpt : (post ? post.excerpt : undefined);
+
     try {
       const featuredMedia = await api.getWpV2MediaById({ id: `${ featuredMediaId }` });
       const featuredImage = featuredMedia.source_url;
+      const excerptContent = excerpt ? (excerpt.rendered ? excerpt.rendered.replace(/<p>/, "").replace(/<\/p>/, "") : undefined) : "";
       this.setState({
-        featuredImage: featuredImage
+        featuredImage: featuredImage,
+        pageDescription: excerptContent
       });
     } catch (error) {
       console.log(error);
@@ -171,7 +177,7 @@ class PostPage extends React.Component<Props, State> {
       page: page,
       post: post,
       isArticle: !!post,
-      loading: false,
+      loading: false
     });
 
     this.hidePageLoader();
@@ -334,18 +340,21 @@ class PostPage extends React.Component<Props, State> {
   }
 
   /**
-   * Renders og:image metatag for fb link sharing thumbnail
+   * Renders og: metatags for fb link sharing
    */
-  private renderMetatags = () => {
-    const { featuredImage } = this.state;
-    if (featuredImage) {
-      return (
-        <MetaTags>
+  private renderMetatags = ( pageTitle: string ) => {
+    const { featuredImage, pageDescription } = this.state;
+    return (
+      <MetaTags>
+        { featuredImage &&
           <meta property="og:image" content={ featuredImage } />
-        </MetaTags>
-      );
-    }
-    return null;
+        }
+        <meta property="og:title" content={ pageTitle } />
+        { pageDescription && 
+          <meta property="og:description" content={ pageDescription } />
+        }
+      </MetaTags>
+    );
   }
 
   /**
