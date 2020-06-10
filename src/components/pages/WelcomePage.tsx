@@ -7,6 +7,8 @@ import ApiUtils from "../../utils/ApiUtils";
 import LinkBar from "../LinkBar";
 import DonateBanner from "../DonateBanner";
 import SocialFeed from "../SocialFeed";
+import MetaTags from "react-meta-tags";
+import metatagImage from "../../resources/img/muisti-konsepti.png";
 
 /**
  * Interface representing component properties

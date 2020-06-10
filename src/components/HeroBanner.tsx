@@ -153,34 +153,7 @@ class HeroBanner extends React.Component<Props, State> {
         );
       }
     }
-    // Find article image and set it to state
-    if (classNames.indexOf("wp-block-image") > -1) {
-      if (this.state.ogImageSrc === undefined && node.children && node.children.length > 0) {
-        const imageElement = node.children[0];
-        const imageSrc = imageElement.attribs ? imageElement.attribs.src : undefined;
-        if (imageSrc) {
-          this.setState({
-            ogImageSrc: imageSrc
-          });
-        }
-      }
-    }
     return convertNodeToElement(node, index, this.transformContent);
-  }
-
-  /**
-   * Renders og:image metatag for fb link sharing thumbnail
-   */
-  private renderMetatags = () => {
-    const { ogImageSrc } = this.state;
-    if (ogImageSrc) {
-      return (
-        <MetaTags>
-          <meta property="og:image" content={ ogImageSrc } />
-        </MetaTags>
-      );
-    }
-    return null;
   }
 
   /**
@@ -203,6 +176,17 @@ class HeroBanner extends React.Component<Props, State> {
       }
     }
     return null;
+  }
+
+  /**
+   * Renders og:image metatag for fb link sharing thumbnail
+   */
+  private renderMetatags = () => {
+    return (
+      <MetaTags>
+        <meta property="og:image" content={ placeholderImg } />
+      </MetaTags>
+    );
   }
 
   /**

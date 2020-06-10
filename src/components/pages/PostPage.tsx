@@ -34,7 +34,7 @@ interface State {
   isArticle: boolean
   heroBanner?: React.ReactElement
   heroContent?: React.ReactElement
-  ogImageSrc?: string
+  featuredImage?: string
 }
 
 /**
@@ -155,10 +155,14 @@ class PostPage extends React.Component<Props, State> {
 
     const page = apiCalls[0][0];
     const post = apiCalls[1][0];
-    const featuredMediaId = page ? `${page.featured_media}` : (post ? `${post.featured_media}` : "");
-    let featuredMedia = undefined;
+
+    const featuredMediaId = page ? page.featured_media : (post ? post.featured_media : undefined);
     try {
-      featuredMedia = await api.getWpV2MediaById({ id: featuredMediaId });
+      const featuredMedia = await api.getWpV2MediaById({ id: `${ featuredMediaId }` });
+      const featuredImage = featuredMedia.source_url;
+      this.setState({
+        featuredImage: featuredImage
+      });
     } catch (error) {
       console.log(error);
     }
@@ -168,7 +172,6 @@ class PostPage extends React.Component<Props, State> {
       post: post,
       isArticle: !!post,
       loading: false,
-      ogImageSrc: featuredMedia ? featuredMedia.link : undefined
     });
 
     this.hidePageLoader();
@@ -334,11 +337,11 @@ class PostPage extends React.Component<Props, State> {
    * Renders og:image metatag for fb link sharing thumbnail
    */
   private renderMetatags = () => {
-    const { ogImageSrc } = this.state;
-    if (ogImageSrc) {
+    const { featuredImage } = this.state;
+    if (featuredImage) {
       return (
         <MetaTags>
-          <meta property="og:image" content={ ogImageSrc } />
+          <meta property="og:image" content={ featuredImage } />
         </MetaTags>
       );
     }
