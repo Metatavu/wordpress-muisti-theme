@@ -285,7 +285,7 @@ class PostPage extends React.Component<Props, State> {
     const { classes } = this.props;
     const classNames = this.getElementClasses(node);
 
-    // Find article image and set og:image meta tag
+    // Find article image and set it to state
     if (classNames.indexOf("wp-block-image") > -1) {
       if (this.state.ogImageSrc === undefined && node.children && node.children.length > 0) {
         const imageElement = node.children[0];
