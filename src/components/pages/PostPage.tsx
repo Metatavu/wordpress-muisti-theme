@@ -155,12 +155,20 @@ class PostPage extends React.Component<Props, State> {
 
     const page = apiCalls[0][0];
     const post = apiCalls[1][0];
+    const featuredMediaId = page ? `${page.featured_media}` : (post ? `${post.featured_media}` : "");
+    let featuredMedia = undefined;
+    try {
+      featuredMedia = await api.getWpV2MediaById({ id: featuredMediaId });
+    } catch (error) {
+      console.log(error);
+    }
 
     this.setState({
       page: page,
       post: post,
       isArticle: !!post,
-      loading: false
+      loading: false,
+      ogImageSrc: featuredMedia ? featuredMedia.link : undefined
     });
 
     this.hidePageLoader();
@@ -284,19 +292,6 @@ class PostPage extends React.Component<Props, State> {
   private transformContent = (node: DomElement, index: number) => {
     const { classes } = this.props;
     const classNames = this.getElementClasses(node);
-
-    // Find article image and set it to state
-    if (classNames.indexOf("wp-block-image") > -1) {
-      if (this.state.ogImageSrc === undefined && node.children && node.children.length > 0) {
-        const imageElement = node.children[0];
-        const imageSrc = imageElement.attribs ? imageElement.attribs.src : undefined;
-        if (imageSrc) {
-          this.setState({
-            ogImageSrc: imageSrc
-          });
-        }
-      }
-    }
 
     // Find hero banner and set it to state
     if (classNames.indexOf("hero") > -1) {
