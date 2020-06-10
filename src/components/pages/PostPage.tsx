@@ -100,6 +100,9 @@ class PostPage extends React.Component<Props, State> {
             { this.state.heroBanner }
           </div>
         }
+        {
+          this.renderMetatags()
+        }
         <div className={ this.state.heroBanner ? classes.contentWithHero : classes.content }>
           { this.renderContent(pageTitle) }
         </div>
@@ -282,6 +285,19 @@ class PostPage extends React.Component<Props, State> {
     const { classes } = this.props;
     const classNames = this.getElementClasses(node);
 
+    // Find article image and set it to state
+    if (classNames.indexOf("wp-block-image") > -1) {
+      if (this.state.ogImageSrc === undefined && node.children && node.children.length > 0) {
+        const imageElement = node.children[0];
+        const imageSrc = imageElement.attribs ? imageElement.attribs.src : undefined;
+        if (imageSrc) {
+          this.setState({
+            ogImageSrc: imageSrc
+          });
+        }
+      }
+    }
+
     // Find hero banner and set it to state
     if (classNames.indexOf("hero") > -1) {
       if (!this.state.heroBanner) {
@@ -317,6 +333,21 @@ class PostPage extends React.Component<Props, State> {
     }
 
     return convertNodeToElement(node, index, this.transformContent);
+  }
+
+  /**
+   * Renders og:image metatag for fb link sharing thumbnail
+   */
+  private renderMetatags = () => {
+    const { ogImageSrc } = this.state;
+    if (ogImageSrc) {
+      return (
+        <MetaTags>
+          <meta property="og:image" content={ ogImageSrc } />
+        </MetaTags>
+      );
+    }
+    return null;
   }
 
   /**

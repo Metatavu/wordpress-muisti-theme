@@ -7,6 +7,7 @@ import placeholderImg from "../resources/img/muisti-konsepti.png";
 import styles from "../styles/hero-banner";
 import ReactHtmlParser, { convertNodeToElement } from "react-html-parser";
 import { DomElement } from "domhandler";
+import MetaTags from "react-meta-tags";
 
 /**
  * Interface representing component properties
@@ -23,7 +24,8 @@ interface State {
   featuredMedias: { [ key: number ]: Attachment },
   heroBanner?: React.ReactElement,
   heroContent?: React.ReactElement,
-  loading: boolean
+  loading: boolean,
+  ogImageSrc?: string
 }
 
 /**
@@ -96,6 +98,9 @@ class HeroBanner extends React.Component<Props, State> {
     return (
       <div className={ classes.root }>
         {
+          this.renderMetatags()
+        }
+        {
           this.renderPost()
         }
       </div>
@@ -148,7 +153,34 @@ class HeroBanner extends React.Component<Props, State> {
         );
       }
     }
+    // Find article image and set it to state
+    if (classNames.indexOf("wp-block-image") > -1) {
+      if (this.state.ogImageSrc === undefined && node.children && node.children.length > 0) {
+        const imageElement = node.children[0];
+        const imageSrc = imageElement.attribs ? imageElement.attribs.src : undefined;
+        if (imageSrc) {
+          this.setState({
+            ogImageSrc: imageSrc
+          });
+        }
+      }
+    }
     return convertNodeToElement(node, index, this.transformContent);
+  }
+
+  /**
+   * Renders og:image metatag for fb link sharing thumbnail
+   */
+  private renderMetatags = () => {
+    const { ogImageSrc } = this.state;
+    if (ogImageSrc) {
+      return (
+        <MetaTags>
+          <meta property="og:image" content={ ogImageSrc } />
+        </MetaTags>
+      );
+    }
+    return null;
   }
 
   /**
