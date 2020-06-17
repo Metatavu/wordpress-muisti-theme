@@ -1118,9 +1118,6 @@ export default createStyles({
       [theme.breakpoints.up("md")]: {
         fontSize: "2rem",
         lineHeight: 1.2
-      },
-      [theme.breakpoints.up("xl")]: {
-        fontSize: "2.5rem"
       }
     },
     "& .fp-list-2 .fp-title, .fp-list-3 .fp-main .fp-title, .fp-list-4 .fp-title": {
