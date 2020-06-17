@@ -11,8 +11,6 @@ import ArrowIcon from "@material-ui/icons/ArrowForwardRounded";
 import * as classNames from "classnames";
 import * as moment from "moment";
 import "../../styles/feed.css";
-import MetaTags from "react-meta-tags";
-import { AttachmentDescription } from '../../generated/client/src/models/AttachmentDescription';
 
 /**
  * Interface representing component properties
@@ -36,7 +34,6 @@ interface State {
   heroBanner?: React.ReactElement
   heroContent?: React.ReactElement
   featuredImage?: string
-  pageDescription?: string
 }
 
 /**
@@ -102,9 +99,6 @@ class PostPage extends React.Component<Props, State> {
             { this.state.heroBanner }
           </div>
         }
-        {
-          this.renderMetatags( pageTitle )
-        }
         <div className={ this.state.heroBanner ? classes.contentWithHero : classes.content }>
           { this.renderContent(pageTitle) }
         </div>
@@ -164,10 +158,8 @@ class PostPage extends React.Component<Props, State> {
     try {
       const featuredMedia = await api.getWpV2MediaById({ id: `${ featuredMediaId }` });
       const featuredImage = featuredMedia.source_url;
-      const excerptContent = excerpt ? (excerpt.rendered ? excerpt.rendered.replace(/<p>/, "").replace(/<\/p>/, "") : undefined) : "";
       this.setState({
         featuredImage: featuredImage,
-        pageDescription: excerptContent
       });
     } catch (error) {
       console.log(error);
@@ -337,24 +329,6 @@ class PostPage extends React.Component<Props, State> {
     }
 
     return convertNodeToElement(node, index, this.transformContent);
-  }
-
-  /**
-   * Renders og: metatags for fb link sharing
-   */
-  private renderMetatags = ( pageTitle: string ) => {
-    const { featuredImage, pageDescription } = this.state;
-    return (
-      <MetaTags>
-        { featuredImage &&
-          <meta property="og:image" content={ featuredImage } />
-        }
-        <meta property="og:title" content={ pageTitle } />
-        { pageDescription && 
-          <meta property="og:description" content={ pageDescription } />
-        }
-      </MetaTags>
-    );
   }
 
   /**
