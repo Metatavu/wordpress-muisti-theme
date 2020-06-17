@@ -1119,7 +1119,7 @@ export default createStyles({
         fontSize: "2rem",
         lineHeight: 1.2
       },
-      [theme.breakpoints.up("lg")]: {
+      [theme.breakpoints.up("xl")]: {
         fontSize: "2.5rem"
       }
     },
