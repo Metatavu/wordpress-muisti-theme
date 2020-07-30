@@ -55,7 +55,7 @@ class DonateBanner extends React.Component<Props, State> {
     const posts = await api.getWpV2Posts({ lang: [ lang ], categories: categories.map((category) => {
       return String(category.id);
     })});
-
+    this.setState({posts: posts, loading: false});
     const featureMediaIds: number[] = posts
     .filter((post) => {
       return post.featured_media;
@@ -77,9 +77,7 @@ class DonateBanner extends React.Component<Props, State> {
     }
 
     this.setState({
-      posts: posts,
-      featuredMedias: featuredMediaMap,
-      loading: false
+      featuredMedias: featuredMediaMap
     });
   }
 

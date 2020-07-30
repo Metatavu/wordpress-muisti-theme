@@ -46,47 +46,6 @@ class WelcomePage extends React.Component<Props, State> {
   }
 
   /**
-   * Component did mount life-cycle handler
-   */
-  public componentDidMount = async () => {
-    this.setState({
-      loading: true
-    });
-
-    const api = ApiUtils.getApi();
-
-    const posts = await api.getWpV2Posts({lang: [ this.props.lang ]});
-
-    const featureMediaIds: number[] = posts
-      .filter((post) => {
-        return post.featured_media;
-      })
-      .map((post) => {
-        return post.featured_media;
-      })
-      .reduce((unique: any, item: any) => unique.includes(item) ? unique : [...unique, item], []);
-
-    const featureMedias = await Promise.all(featureMediaIds.map((featureMediaId) => {
-      return api.getWpV2MediaById({ id: featureMediaId.toString() });
-    }));
-
-    const featuredMediaMap: { [ key: number ]: Attachment } = { };
-
-    for (let i = 0; i < featureMedias.length; i++) {
-      const featureMedia = featureMedias[i];
-      featuredMediaMap[featureMedia.id!] = featureMedia;
-    }
-
-    this.setState({
-      posts: posts,
-      featuredMedias: featuredMediaMap,
-      loading: false
-    });
-
-    this.hidePageLoader();
-  }
-
-  /**
    * Component render method
    */
   public render() {
@@ -94,7 +53,7 @@ class WelcomePage extends React.Component<Props, State> {
 
     return (
       <BasicLayout lang={ lang }>
-        <HeroBanner lang={ lang } />
+        <HeroBanner onTitleLoaded={() => this.hidePageLoader()} lang={ lang } />
         <LinkBar lang={ lang } />
         <DonateBanner lang={ lang } />
         <CurrentNews lang={ lang } />

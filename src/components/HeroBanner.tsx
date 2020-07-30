@@ -13,7 +13,8 @@ import MetaTags from "react-meta-tags";
  * Interface representing component properties
  */
 interface Props extends WithStyles<typeof styles> {
-  lang: string
+  lang: string,
+  onTitleLoaded?: () => void
 }
 
 /**
@@ -61,6 +62,11 @@ class HeroBanner extends React.Component<Props, State> {
       return String(category.id);
     })});
 
+    this.setState({posts: posts, loading: false});
+    if (this.props.onTitleLoaded) {
+      this.props.onTitleLoaded();
+    }
+
     const featureMediaIds: number[] = posts
       .filter((post) => {
         return post.featured_media;
@@ -84,9 +90,7 @@ class HeroBanner extends React.Component<Props, State> {
     ReactHtmlParser(posts[0].content ? posts[0].content.rendered || "" : "", { transform: this.ExtractHero });
 
     this.setState({
-      posts: posts,
-      featuredMedias: featuredMediaMap,
-      loading: false
+      featuredMedias: featuredMediaMap
     });
   }
 
