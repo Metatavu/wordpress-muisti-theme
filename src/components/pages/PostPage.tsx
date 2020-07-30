@@ -152,6 +152,15 @@ class PostPage extends React.Component<Props, State> {
     const page = apiCalls[0][0];
     const post = apiCalls[1][0];
 
+    this.setState({
+      page: page,
+      post: post,
+      isArticle: !!post,
+      loading: false
+    });
+
+    this.hidePageLoader();
+
     const featuredMediaId = page ? page.featured_media : (post ? post.featured_media : undefined);
     const excerpt = page ? page.excerpt : (post ? post.excerpt : undefined);
 
@@ -164,15 +173,6 @@ class PostPage extends React.Component<Props, State> {
     } catch (error) {
       console.log(error);
     }
-
-    this.setState({
-      page: page,
-      post: post,
-      isArticle: !!post,
-      loading: false
-    });
-
-    this.hidePageLoader();
   }
 
   /**

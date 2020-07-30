@@ -57,7 +57,7 @@ class CurrentNews extends React.Component<Props, State> {
     const posts = await api.getWpV2Posts({ lang: [ lang ], per_page: 3, categories: categories.map((category) => {
       return String(category.id);
     })});
-
+    this.setState({posts: posts, loading: false});
     const featureMediaIds: number[] = posts
       .filter((post) => {
         return post.featured_media;
@@ -79,9 +79,7 @@ class CurrentNews extends React.Component<Props, State> {
     }
 
     this.setState({
-      posts: posts,
-      featuredMedias: featuredMediaMap,
-      loading: false
+      featuredMedias: featuredMediaMap
     });
   }
 
