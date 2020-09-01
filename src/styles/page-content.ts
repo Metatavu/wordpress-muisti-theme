@@ -758,6 +758,8 @@ export default createStyles({
       },
       "& img": {
         width: "100%",
+        height: "auto",
+        objectFit: "contain"
       },
       "& figure": {
         margin: 0,
