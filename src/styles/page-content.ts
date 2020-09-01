@@ -757,7 +757,7 @@ export default createStyles({
         marginBottom: 20
       },
       "& img": {
-        width: "100%",
+        maxWidth: "100%",
         height: "auto",
         objectFit: "contain"
       },
