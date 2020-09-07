@@ -511,18 +511,25 @@ export default createStyles({
       "& .wp-block-media-text": {
         marginTop: theme.spacing(5),
         [theme.breakpoints.up("sm")]: {
-          display: "flex",
-          flexDirection: "row",
+          display: "grid",
           marginBottom: theme.spacing(5)
         },
         [theme.breakpoints.up("md")]: {
           marginBottom: theme.spacing(5)
         },
         "&.has-media-on-the-right": {
-          flexDirection: "row-reverse",
+          display: "flex",
+          flexDirection: "column",
+          [theme.breakpoints.up("sm")]: {
+            display: "grid",
+            direction: "rtl",
+          },
           "& .wp-block-media-text__content": {
+            marginTop: theme.spacing(2),
             marginLeft: 0,
+            direction: "ltr",
             [theme.breakpoints.up("sm")]: {
+              marginTop: 0,
               marginRight: theme.spacing(5)
             }
           }
@@ -559,8 +566,9 @@ export default createStyles({
         height: "initial",
       },
       "& .wp-block-media-text__content": {
-        flex: 2,
+        marginTop: theme.spacing(2),
         [theme.breakpoints.up("sm")]: {
+          marginTop: 0,
           marginLeft: theme.spacing(5),
         },
         "& p": {
@@ -972,8 +980,7 @@ export default createStyles({
     "& .wp-block-media-text": {
       marginTop: theme.spacing(5),
       [theme.breakpoints.up("sm")]: {
-        display: "flex",
-        flexDirection: "row",
+        display: "grid",
         marginBottom: theme.spacing(5)
       },
       [theme.breakpoints.up("md")]: {
@@ -995,7 +1002,10 @@ export default createStyles({
         alignItems: "flex-start",
       },
       "& .wp-block-media-text__media": {
-        margin: 0
+        margin: 0,
+        "& img": {
+          width: "100%"
+        }
       },
       "&.is-image-fill .wp-block-media-text__media": {
         height: "280px",
