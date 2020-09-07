@@ -791,6 +791,31 @@ export default createStyles({
           "& .wp-block-column": {
             minWidth: "50%"
           },
+          "& .wp-block-media-text": {
+            display: "flex",
+            "& .wp-block-media-text__media": {
+              maxWidth: 100,
+              [theme.breakpoints.up("sm")]: {
+                maxWidth: "initial"
+              }
+            },
+            "& .wp-block-media-text__content": {
+              marginLeft: theme.spacing(2),
+              [theme.breakpoints.up("sm")]: {
+                marginLeft: theme.spacing(2)
+              },
+              [theme.breakpoints.up("md")]: {
+                marginLeft: theme.spacing(4)
+              },
+              [theme.breakpoints.up("lg")]: {
+                marginLeft: theme.spacing(6)
+              },
+              "& h1, h2, h3": {
+                marginTop: 0,
+                [theme.breakpoints.up("sm")]: {},
+              }
+            }
+          }
         },
         "&.address-info": {
           flexDirection: "row",
@@ -1230,11 +1255,19 @@ export default createStyles({
       }
     },
     // Sponsor page styles
-    "& .sponsori-item": {
+    "& .wp-block-media-text.sponsori-item": {
+      display: "flex",
+      flexDirection: "column",
+      [theme.breakpoints.up("sm")]: {
+        flexDirection: "row",
+      },
       "& .MuiButton-outlinedPrimary": {
         color: theme.palette.primary.dark,
         borderColor: theme.palette.primary.dark,
-        marginTop: 0
+        marginTop: theme.spacing(2),
+        [theme.breakpoints.up("sm")]: {
+          marginTop: theme.spacing(2)
+        }
       },
       "& .wp-block-media-text__content": {
         paddingTop: theme.spacing(4),
@@ -1250,16 +1283,16 @@ export default createStyles({
       },
       "& .wp-block-media-text__media": {
         padding: theme.spacing(4),
-        margin: 0
-      },
-      "& img": {
-        width: "15vw",
-        maxWidth: "350px"
+        margin: 0,
+        "& img": {
+          width: "100%",
+          [theme.breakpoints.up("sm")]: {
+            width: "15vw",
+            maxWidth: "350px",
+          }
+        }
       },
       [theme.breakpoints.down("sm")]: {
-        "& img": {
-          width: "100%"
-        },
         "& .wp-block-media-text__media": {
           padding: theme.spacing(3)
         },
