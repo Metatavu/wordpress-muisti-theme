@@ -990,6 +990,7 @@ export default createStyles({
           marginBottom: 0,
           marginTop: theme.spacing(1),
           fontSize: 12,
+          width: "100%",
           [theme.breakpoints.up(360)]: {
             fontSize: "0.875rem",
             marginBottom: theme.spacing(1)
