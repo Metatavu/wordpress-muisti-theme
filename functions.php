@@ -43,5 +43,5 @@
         });
     </script>';
 }
-add_action('admin_footer', 'fix_preview_link_on_draft');
+  add_action('admin_footer', 'fix_preview_link_on_draft');
 ?>
