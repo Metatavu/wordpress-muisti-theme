@@ -137,41 +137,71 @@ class PostPage extends React.Component<Props, State> {
     const lang = this.props.lang;
     const slugParts = this.props.slug.split("/");
     const slug = slugParts.pop() || slugParts.pop();
-    if (!slug) {
-      // TODO: handle error
-      return;
-    }
 
     const api = ApiUtils.getApi();
 
-    const apiCalls = await Promise.all([
-      api.getWpV2Pages({ lang: [ lang ], slug: [slug] }),
-      api.getWpV2Posts({ lang: [ lang ], slug: [slug] })
-    ]);
+    const [previewPage, previewPost] = await this.getPreview();
 
-    const page = apiCalls[0][0];
-    const post = apiCalls[1][0];
+    if (previewPage || previewPost) {
+      const page = previewPage ? previewPage[0] : undefined;
+      const post = previewPost ? previewPost[0] : undefined;
 
-    this.setState({
-      page: page,
-      post: post,
-      isArticle: !!post,
-      loading: false
-    });
-
-    this.hidePageLoader();
-
-    const featuredMediaId = page ? page.featured_media : (post ? post.featured_media : undefined);
-    const excerpt = page ? page.excerpt : (post ? post.excerpt : undefined);
-
-    try {
-      const featuredMedia = await api.getWpV2MediaById({ id: `${ featuredMediaId }` });
-      const featuredImage = featuredMedia.source_url;
       this.setState({
-        featuredImage: featuredImage,
+        page: page,
+        post: post,
+        isArticle: !!post,
+        loading: false
       });
-    } catch (error) {
-      console.log(error);
+
+      this.hidePageLoader();
+
+      const featuredMediaId = page ? page.featured_media : (post ? post.featured_media : undefined);
+      const excerpt = page ? page.excerpt : (post ? post.excerpt : undefined);
+
+      try {
+        const featuredMedia = await api.getWpV2MediaById({ id: `${ featuredMediaId }` });
+        const featuredImage = featuredMedia.source_url;
+        this.setState({
+          featuredImage: featuredImage,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+
+      if (!slug) {
+        return;
+      }
+
+      const apiCalls = await Promise.all([
+        api.getWpV2Pages({ lang: [ lang ], slug: [ slug ] }),
+        api.getWpV2Posts({ lang: [ lang ], slug: [ slug ] })
+      ]);
+
+      const page = apiCalls[0][0];
+      const post = apiCalls[1][0];
+
+      this.setState({
+        page: page,
+        post: post,
+        isArticle: !!post,
+        loading: false
+      });
+
+      this.hidePageLoader();
+
+      const featuredMediaId = page ? page.featured_media : (post ? post.featured_media : undefined);
+      const excerpt = page ? page.excerpt : (post ? post.excerpt : undefined);
+
+      try {
+        const featuredMedia = await api.getWpV2MediaById({ id: `${ featuredMediaId }` });
+        const featuredImage = featuredMedia.source_url;
+        this.setState({
+          featuredImage: featuredImage,
+        });
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 
@@ -339,6 +369,27 @@ class PostPage extends React.Component<Props, State> {
   private getTemplate = (): PageTemplate => {
     const templateClass = (document.body.className || "").split(" ").find((className) => className.indexOf("template-") === 0);
     return templateClass ? templateClass.substring(9) as PageTemplate : "basic";
+  }
+
+  /**
+   * Method for getting preview
+   */
+  private getPreview = async () => {
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const preview = urlSearchParams.get("preview");
+    const nonce = urlSearchParams.get("nonce");
+    const id = urlSearchParams.get("p");
+
+    if (!preview) {
+      return [];
+    }
+
+    const [post, page] = await Promise.all([
+      fetch(`${window.location.origin}/wp-json/wp/v2/posts/${id}/revisions?_wpnonce=${nonce}`),
+      fetch(`${window.location.origin}/wp-json/wp/v2/pages/${id}/revisions?_wpnonce=${nonce}`)
+    ]);
+
+    return Promise.all([post.json(), page.json()]);
   }
 }
 

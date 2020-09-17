@@ -46,11 +46,25 @@ class App extends React.Component<Props, State> {
             <Route
               path="/"
               exact={ true }
-              render={ (props) => (
-                <WelcomePage
+              render={ (props) => {
+                const urlSearchParams = new URLSearchParams(window.location.search);
+                const preview = urlSearchParams.get("preview");
+
+                if (preview) {
+                  return (
+                    <PostPage
+                      lang={language}
+                      slug={ props.location.pathname as string }
+                    />
+                  );
+                }
+
+                return (
+                  <WelcomePage
                   lang={language}
                 />
-              )}
+                );
+              }}
             />
             <Route
               path="/:slug"
