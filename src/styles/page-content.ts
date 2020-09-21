@@ -426,15 +426,6 @@ export default createStyles({
       "&.has-huge-font-size": {
         fontSize: 48
       },
-      "&.has-text-align-left": {
-        textAlign: "left"
-      },
-      "&.has-text-align-center": {
-        textAlign: "center"
-      },
-      "&.has-text-align-right": {
-        textAlign: "right"
-      },
       [theme.breakpoints.up(413)]: {
         fontSize: "0.875rem",
       },
@@ -451,6 +442,87 @@ export default createStyles({
       [theme.breakpoints.up("xl")]: {
         width: "75%",
       }
+    },
+    "& .has-text-align-left": {
+      textAlign: "left"
+    },
+    "& .has-text-align-center": {
+      textAlign: "center"
+    },
+    "& .has-text-align-right": {
+      textAlign: "right"
+    },
+    "& .has-pale-pink-color": {
+      color: "rgb(247, 141, 167)"
+    },
+    "& .has-pale-pink-background-color": {
+      backgroundColor: "rgb(247, 141, 167)"
+    },
+    "& .has-vivid-red-color": {
+      color: "rgb(207, 46, 46)"
+    },
+    "& .has-vivid-red-background-color": {
+      backgroundColor: "rgb(207, 46, 46)"
+    },
+    "& .has-luminous-vivid-orange-color": {
+      color: "rgb(255, 105, 0)"
+    },
+    "& .has-luminous-vivid-orange-background-color": {
+      backgroundColor: "rgb(255, 105, 0)"
+    },
+    "& .has-luminous-vivid-amber-color": {
+      color: "rgb(252, 185, 0)"
+    },
+    "& .has-luminous-vivid-amber-background-color": {
+      backgroundColor: "rgb(252, 185, 0)"
+    },
+    "& .has-light-green-cyan-color": {
+      color: "rgb(123, 220, 181)"
+    },
+    "& .has-light-green-cyan-background-color": {
+      backgroundColor: "rgb(123, 220, 181)"
+    },
+    "& .has-vivid-green-cyan-color": {
+      color: "rgb(0, 208, 132)"
+    },
+    "& .has-vivid-green-cyan-background-color": {
+      backgroundColor: "rgb(0, 208, 132)"
+    },
+    "& .has-pale-cyan-blue-color": {
+      color: "rgb(142, 209, 252)"
+    },
+    "& .has-pale-cyan-blue-background-color": {
+      backgroundColor: "rgb(142, 209, 252)"
+    },
+    "& .has-vivid-cyan-blue-color": {
+      color: "rgb(6, 147, 227)"
+    },
+    "& .has-vivid-cyan-blue-background-color": {
+      backgroundColor: "rgb(6, 147, 227)"
+    },
+    "& .has-vivid-purple-color": {
+      color: "rgb(155, 81, 224)"
+    },
+    "& .has-vivid-purple-background-color": {
+      backgroundColor: "rgb(155, 81, 224)"
+    },
+    "& .has-very-light-gray-color": {
+      color: "rgb(238, 238, 238)"
+    },
+    "& .has-very-light-gray-background-color": {
+      backgroundColor: "rgb(238, 238, 238)"
+    },
+    "& .has-cyan-bluish-gray-color": {
+      color: "rgb(171, 184, 195)"
+    },
+    "& .has-cyan-bluish-gray-background-color": {
+      backgroundColor: "rgb(171, 184, 195)"
+    },
+    "& .has-very-dark-gray-color": {
+      color: "rgb(49, 49, 49)"
+    },
+    "& .has-very-dark-gray-background-color": {
+      backgroundColor: "rgb(49, 49, 49)"
     },
     // Strong
     "& strong": {},
