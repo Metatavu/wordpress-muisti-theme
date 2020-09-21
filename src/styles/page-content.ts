@@ -443,13 +443,13 @@ export default createStyles({
         width: "75%",
       }
     },
-    "&.has-text-align-left": {
+    "& .has-text-align-left": {
       textAlign: "left"
     },
-    "&.has-text-align-center": {
+    "& .has-text-align-center": {
       textAlign: "center"
     },
-    "&.has-text-align-right": {
+    "& .has-text-align-right": {
       textAlign: "right"
     },
     "& .has-pale-pink-color": {
