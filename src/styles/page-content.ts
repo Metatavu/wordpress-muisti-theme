@@ -246,19 +246,22 @@ export default createStyles({
   htmlContainer: {
     display: "flex",
     flexDirection: "column",
+    paddingTop: theme.spacing(2),
     [theme.breakpoints.up("sm")]: {
       marginBottom: theme.spacing(5),
     },
     [theme.breakpoints.up("md")]: {
       paddingBottom: theme.spacing(5),
       marginBottom: theme.spacing(5),
+      paddingTop: theme.spacing(3),
     },
     [theme.breakpoints.up("lg")]: {
       paddingBottom: theme.spacing(10),
       marginBottom: theme.spacing(5),
+      paddingTop: theme.spacing(4),
     },
     [theme.breakpoints.up("xl")]: {
-      marginTop: theme.spacing(5),
+      marginTop: theme.spacing(6),
       marginBottom: theme.spacing(10),
     },
     "& .wp-block-group": {
@@ -337,7 +340,7 @@ export default createStyles({
       margin: theme.spacing(2),
       marginRight: 0,
       marginLeft: 0,
-      fontSize: "2.25rem",
+      fontSize: 26,
       fontFamily: theme.typography.h3.fontFamily,
       lineHeight: 1.2,
       fontWeight: "normal",
@@ -377,7 +380,165 @@ export default createStyles({
         margin: 0
       }
     },
-    // Heading end
+    // H3 end
+
+    // Heading H4
+    "& h4": {
+      margin: theme.spacing(2),
+      marginRight: 0,
+      marginLeft: 0,
+      fontSize: 24,
+      fontFamily: theme.typography.h4.fontFamily,
+      lineHeight: 1.2,
+      fontWeight: "normal",
+      [theme.breakpoints.up(360)]: {
+        marginBottom: theme.spacing(2),
+      },
+      [theme.breakpoints.up("sm")]: {
+        fontSize: theme.typography.h4.fontSize,
+        width: "80%",
+        alignSelf: "center",
+        marginLeft: 0,
+        marginRight: 0
+      },
+      [theme.breakpoints.up("md")]: {
+        fontSize: "2rem",
+        lineHeight: 1.2,
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(2),
+        "&.error-text": {
+          lineHeight: "4.5rem",
+          fontSize: theme.typography.h4.fontSize,
+          width: "100%",
+          alignSelf: "flex-start"
+        }
+      },
+      [theme.breakpoints.up("lg")]: {
+        lineHeight: 1.2,
+      },
+      [theme.breakpoints.up("xl")]: {
+        width: "75%",
+        marginTop: theme.spacing(3),
+        marginBottom: theme.spacing(3),
+      },
+      "&.address-heading": {
+        width: "100%",
+        alignSelf: "start",
+        margin: 0
+      }
+    },
+    // H4 end
+
+    // Heading H5
+    "& h5": {
+      margin: theme.spacing(2),
+      marginRight: 0,
+      marginLeft: 0,
+      fontSize: 20,
+      fontFamily: theme.typography.h5.fontFamily,
+      lineHeight: 1.2,
+      fontWeight: "normal",
+      [theme.breakpoints.up(360)]: {
+        marginBottom: theme.spacing(2),
+      },
+      [theme.breakpoints.up("sm")]: {
+        fontSize: theme.typography.h5.fontSize,
+        width: "80%",
+        alignSelf: "center",
+        marginLeft: 0,
+        marginRight: 0
+      },
+      [theme.breakpoints.up("md")]: {
+        fontSize: "1.75rem",
+        lineHeight: 1.2,
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(2),
+        "&.error-text": {
+          lineHeight: "4.5rem",
+          fontSize: theme.typography.h5.fontSize,
+          width: "100%",
+          alignSelf: "flex-start"
+        }
+      },
+      [theme.breakpoints.up("lg")]: {
+        lineHeight: 1.2,
+      },
+      [theme.breakpoints.up("xl")]: {
+        width: "75%",
+        marginTop: theme.spacing(3),
+        marginBottom: theme.spacing(3),
+      },
+      "&.address-heading": {
+        width: "100%",
+        alignSelf: "start",
+        margin: 0
+      }
+    },
+    // H5 end
+
+    // Heading H6
+    "& h6": {
+      margin: theme.spacing(2),
+      marginRight: 0,
+      marginLeft: 0,
+      fontSize: 18,
+      fontFamily: theme.typography.h6.fontFamily,
+      lineHeight: 1.2,
+      fontWeight: "normal",
+      [theme.breakpoints.up(360)]: {
+        marginBottom: theme.spacing(2),
+      },
+      [theme.breakpoints.up("sm")]: {
+        fontSize: theme.typography.h6.fontSize,
+        width: "80%",
+        alignSelf: "center",
+        marginLeft: 0,
+        marginRight: 0
+      },
+      [theme.breakpoints.up("md")]: {
+        fontSize: "1.6rem",
+        lineHeight: 1.2,
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(2),
+        "&.error-text": {
+          lineHeight: "4.5rem",
+          fontSize: theme.typography.h6.fontSize,
+          width: "100%",
+          alignSelf: "flex-start"
+        }
+      },
+      [theme.breakpoints.up("lg")]: {
+        lineHeight: 1.2,
+      },
+      [theme.breakpoints.up("xl")]: {
+        width: "75%",
+        marginTop: theme.spacing(3),
+        marginBottom: theme.spacing(3),
+      },
+      "&.address-heading": {
+        width: "100%",
+        alignSelf: "start",
+        margin: 0
+      }
+    },
+    // H5 end
+
+    // Buttons
+    "& .wp-block-buttons": {
+      width: "100%",
+      alignSelf: "center",
+      [theme.breakpoints.up("sm")]: {
+        width: "80%"
+      },
+      [theme.breakpoints.up("xl")]: {
+        width: "75%"
+      },
+      "& .MuiButton-outlinedPrimary": {
+        color: theme.palette.primary.dark,
+        borderColor: theme.palette.primary.dark,
+        marginTop: 0
+      }
+    },
 
     // Block quote
     "& .wp-block-quote": {
@@ -413,10 +574,10 @@ export default createStyles({
         display: "none"
       },
       fontSize: 14,
-      margin: theme.spacing(2),
+      marginTop: 0,
       marginLeft: 0,
       marginRight: 0,
-      marginBottom: 0,
+      marginBottom: theme.spacing(2),
       "&.has-medium-font-size": {
         fontSize: 20
       },
@@ -680,6 +841,7 @@ export default createStyles({
       "& .wp-block-columns": {
         marginTop: 0,
         overflow: "hidden",
+        width: "100%",
         backgroundColor: theme.palette.background.default,
         [theme.breakpoints.up("md")]: {
           marginTop: 0,
@@ -841,9 +1003,35 @@ export default createStyles({
     // Image
     "& .wp-block-image": {
       margin: 0,
+      marginTop: theme.spacing(2),
+      alignSelf: "center",
+      "&.size-large": {
+        width: "80%",
+        "& img": {
+          width: "100%"
+        }
+      },
+      "&.size-full": {
+        width: "100%",
+        "& img": {
+          width: "100%"
+        }
+      },
       [theme.breakpoints.down("md")]: {
         width: "100%",
-        marginBottom: 20
+        marginBottom: 20,
+        "&.size-large": {
+          width: "100%"
+        }
+      },
+      [theme.breakpoints.up("lg")]: {
+        marginTop: theme.spacing(3)
+      },
+      [theme.breakpoints.up("xl")]: {
+        marginTop: theme.spacing(4),
+        "&.size-large": {
+          width: "75%",
+        }
       },
       "& img": {
         maxWidth: "100%",
@@ -859,6 +1047,12 @@ export default createStyles({
     },
     // Columns
     "& .wp-block-columns": {
+      alignSelf: "center",
+      "& .wp-block-column": {
+        "& .wp-block-image": {
+          width: "100%"
+        },
+      },
       [theme.breakpoints.up("sm")]: {},
       [theme.breakpoints.up("md")]: {
         display: "flex",
