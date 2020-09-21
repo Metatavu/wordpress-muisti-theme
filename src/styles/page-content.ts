@@ -426,6 +426,15 @@ export default createStyles({
       "&.has-huge-font-size": {
         fontSize: 48
       },
+      "&.has-text-align-left": {
+        textAlign: "left"
+      },
+      "&.has-text-align-center": {
+        textAlign: "center"
+      },
+      "&.has-text-align-right": {
+        textAlign: "right"
+      },
       [theme.breakpoints.up(413)]: {
         fontSize: "0.875rem",
       },
