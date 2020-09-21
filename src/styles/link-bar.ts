@@ -23,14 +23,14 @@ export default createStyles({
     cursor: "pointer",
     display: "flex",
     justifyContent: "space-between",
-    height: 80,
+    minHeight: 80,
     borderBottomWidth: 3,
     borderBottomStyle: "solid",
     borderBottomColor: theme.palette.primary.dark
   },
   slideText: {
     display: "flex",
-    maxWidth: "60%"
+    maxWidth: "100%"
   },
   linkBallIndicators: {
     display: "flex",
