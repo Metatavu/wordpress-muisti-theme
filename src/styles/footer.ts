@@ -19,8 +19,11 @@ export default createStyles({
   },
   footerPost: {
     padding: theme.spacing(5),
+    [theme.breakpoints.up("md")]: {
+      padding: 40
+    },
     [theme.breakpoints.up("lg")]: {
-      padding: theme.spacing(8),
+      padding: 80,
     },
     "& h3": {
       fontSize: "2.5rem",
@@ -78,7 +81,8 @@ export default createStyles({
       justifyContent: "none",
     },
     [theme.breakpoints.up("md")]: {
-      paddingTop: 0
+      paddingTop: 0,
+      paddingLeft: 0
     }
   },
   imageContainer: {
@@ -154,7 +158,8 @@ export default createStyles({
     display: "flex",
     flexDirection: "column",
     [theme.breakpoints.up("md")]: {
-      flexDirection: "row"
+      flexDirection: "row",
+      paddingLeft: 0
     },
     "& h3": {
       margin: 0,

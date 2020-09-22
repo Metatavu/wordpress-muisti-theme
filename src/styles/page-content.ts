@@ -42,7 +42,6 @@ export default createStyles({
     paddingTop: 130,
     height: "90vh",
     display: "flex",
-    alignItems: "center",
     [theme.breakpoints.up("md")]: {
       height: "90vh",
     },
@@ -86,12 +85,17 @@ export default createStyles({
   heroContentContainer: {
     marginLeft: "5%",
     marginRight: "5%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
     [theme.breakpoints.up("md")]: {
       width: "70vw",
       marginRight: 0,
+      marginLeft: 40
     },
     [theme.breakpoints.up("lg")]: {
       width: "75vw",
+      marginLeft: 80
     },
     [theme.breakpoints.up("xl")]: {
       width: "60vw",
@@ -139,10 +143,9 @@ export default createStyles({
       fontSize: "3rem"
     },
     [theme.breakpoints.up("sm")]: {
-      fontSize: "4rem"
+      fontSize: "3rem"
     },
     [theme.breakpoints.up("md")]: {
-      fontSize: "4rem"
     },
     // Media queries require single quotes
     // tslint:disable-next-line: quotemark
@@ -160,7 +163,6 @@ export default createStyles({
     },
     [theme.breakpoints.up("xl")]: {
       fontSize: "6rem",
-      lineHeight: "6.75rem",
     },
     [theme.breakpoints.up(2000)]: {
       fontSize: "7rem"
