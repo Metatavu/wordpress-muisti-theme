@@ -766,6 +766,15 @@ export default createStyles({
         [theme.breakpoints.up("xl")]: {
           width: "100%"
         },
+        "&.contact-card": {
+          display: "flex",
+          flexDirection: "row",
+          alignSelf: "flex-start",
+          marginRight: 0,
+          "& .wp-block-media-text__content": {
+            marginTop: 0
+          }
+        },
         "&.has-media-on-the-right": {
           display: "flex",
           flexDirection: "column",

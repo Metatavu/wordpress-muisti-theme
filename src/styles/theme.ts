@@ -43,6 +43,10 @@ export default createMuiTheme({
       fontFamily: "tt_norms_promedium",
       fontWeight: "normal"
     },
+    h6: {
+      fontFamily: "tt_norms_promedium",
+      fontWeight: "normal"
+    },
     body1: {
       fontFamily: "tt_norms_proregular",
       fontWeight: "normal"
