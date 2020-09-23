@@ -140,7 +140,7 @@ class PostPage extends React.Component<Props, State> {
 
     const api = ApiUtils.getApi();
 
-    const [previewPage, previewPost] = await this.getPreview();
+    const [previewPost, previewPage] = await this.getPreview();
 
     if (previewPage || previewPost) {
       const page = previewPage ? previewPage[0] : undefined;
@@ -378,7 +378,9 @@ class PostPage extends React.Component<Props, State> {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const preview = urlSearchParams.get("preview");
     const nonce = urlSearchParams.get("nonce");
-    const id = urlSearchParams.get("p");
+    const draftId = urlSearchParams.get("p");
+    const publishedId = urlSearchParams.get("preview_id");
+    const id = publishedId ? publishedId : draftId;
 
     if (!preview) {
       return [];
