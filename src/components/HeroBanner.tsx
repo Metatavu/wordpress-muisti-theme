@@ -210,17 +210,15 @@ class HeroBanner extends React.Component<Props, State> {
     }
     return (
       <>
-        { !this.state.heroBanner &&
+        { !this.state.heroBanner && !this.state.loading &&
           <div
             key={ post.id }
             className={ classes.heroItem }
-            style={{ backgroundImage: heroBannerBackround }}>
+            style={{ backgroundImage: heroBannerBackround }}
+          >
             <div className={ classes.heroContent }>
               <div className={ classes.heroContentBlock }>
                 <Typography color="primary" variant="h1"> { post.title ? post.title.rendered : "" } </Typography>
-                <div className={ classes.heroText }>
-                  { ReactHtmlParser(post.content ? post.content.rendered || "" : "", { transform: this.transformContent }) }
-                </div>
               </div>
             </div>
           </div>
