@@ -1022,6 +1022,16 @@ export default createStyles({
     },
     // Fullscreen end
 
+    // Instagram embed
+    "& .wp-block-embed-instagram": {
+      "& .aligncenter": {
+        alignSelf: "center"
+      },
+      "& .alignright": {
+        alignSelf: "flex-end"
+      }
+    },
+
     // Image
     "&.article .wp-block-image": {
       "&.size-large": {
@@ -1562,27 +1572,42 @@ export default createStyles({
       textDecoration: "none",
     },
     "& .wp-block-embed": {
-      margin: 0,
+      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(2),
+      marginRight: 0,
+      marginLeft: 0,
       display: "flex",
       justifyContent: "center",
-      background: theme.palette.background.default
+      "& .is-type-video": {
+        backgroundColor: "#000"
+      },
+      [theme.breakpoints.up("sm")]: {
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(2),
+      },
+      [theme.breakpoints.up("md")]: {
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(2),
+      },
+      [theme.breakpoints.up("lg")]: {
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(2),
+      },
+      [theme.breakpoints.up("xl")]: {
+        marginTop: theme.spacing(4),
+        marginBottom: theme.spacing(4),
+      },
     },
     "& .wp-block-embed__wrapper": {
       width: "100%",
       "& iframe": {
         width: "100%",
         [theme.breakpoints.up("sm")]: {
-          height: 762
+          height: 320
         },
         [theme.breakpoints.up("md")]: {
-          height: 762
-        },
-        [theme.breakpoints.up("lg")]: {
-          height: 762
-        },
-        [theme.breakpoints.up("xl")]: {
-          height: 762
-        },
+          height: 512
+        }
       }
     },
     // Sponsor page styles
