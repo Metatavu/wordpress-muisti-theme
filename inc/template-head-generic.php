@@ -22,3 +22,22 @@
 <script>
   window.THEME_PATH = "<?php bloginfo('template_url');?>";
 </script>
+
+<!-- This is for instagram embeds -->
+<script async src="//www.instagram.com/embed.js"></script>
+
+<!-- This is for facebook embeds -->
+<script>
+  window.fbAsyncInit = function() {
+  FB.init({
+  xfbml : true,
+  version : 'v2.3'
+  });
+  }; (function(d, s, id){
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js";
+  fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>

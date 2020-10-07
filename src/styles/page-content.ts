@@ -605,6 +605,18 @@ export default createStyles({
         width: "75%",
       }
     },
+    "& .alignleft div:first-of-type": {
+      display: "flex",
+      justifyContent: "left"
+    },
+    "& .aligncenter div:first-of-type": {
+      display: "flex",
+      justifyContent: "center"
+    },
+    "& .alignright div:first-of-type": {
+      display: "flex",
+      justifyContent: "right"
+    },
     "& .has-text-align-left": {
       textAlign: "left"
     },
