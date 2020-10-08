@@ -605,6 +605,64 @@ export default createStyles({
         width: "75%",
       }
     },
+    // Instagram embed
+    "& figure.wp-block-embed-instagram": {
+      "& .wp-block-embed__wrapper": {
+        flexDirection: "column",
+      },
+      "&.aligncenter": {
+        alignSelf: "center",
+        "& .wp-block-embed__wrapper": {
+          flexDirection: "column",
+        }
+      },
+      "&.alignright": {
+        alignSelf: "flex-end",
+        "& .wp-block-embed__wrapper": {
+          flexDirection: "column",
+        }
+      }
+    },
+
+    "& .wp-block-embed": {
+      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(2),
+      marginRight: 0,
+      marginLeft: 0,
+      display: "flex",
+      justifyContent: "center",
+      "& .is-type-video": {
+        backgroundColor: "#000"
+      },
+      [theme.breakpoints.up("sm")]: {
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(2),
+      },
+      [theme.breakpoints.up("md")]: {
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(2),
+      },
+      [theme.breakpoints.up("lg")]: {
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(2),
+      },
+      [theme.breakpoints.up("xl")]: {
+        marginTop: theme.spacing(4),
+        marginBottom: theme.spacing(4),
+      },
+    },
+    "& .wp-block-embed__wrapper": {
+      width: "100%",
+      "& iframe": {
+        width: "100%",
+        [theme.breakpoints.up("sm")]: {
+          height: 320
+        },
+        [theme.breakpoints.up("md")]: {
+          height: 512
+        }
+      }
+    },
     "& .has-text-align-left": {
       textAlign: "left"
     },
@@ -1560,30 +1618,6 @@ export default createStyles({
     },
     "& .fp-post .fp-readmore-link:hover": {
       textDecoration: "none",
-    },
-    "& .wp-block-embed": {
-      margin: 0,
-      display: "flex",
-      justifyContent: "center",
-      background: theme.palette.background.default
-    },
-    "& .wp-block-embed__wrapper": {
-      width: "100%",
-      "& iframe": {
-        width: "100%",
-        [theme.breakpoints.up("sm")]: {
-          height: 762
-        },
-        [theme.breakpoints.up("md")]: {
-          height: 762
-        },
-        [theme.breakpoints.up("lg")]: {
-          height: 762
-        },
-        [theme.breakpoints.up("xl")]: {
-          height: 762
-        },
-      }
     },
     // Sponsor page styles
     "& .wp-block-media-text.sponsori-item": {
