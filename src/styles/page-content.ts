@@ -1324,7 +1324,8 @@ export default createStyles({
           maxHeight: 175,
         },
         "& img": {
-          width: "100%"
+          width: "100%",
+          height: "initial"
         }
       },
       "& .wp-block-media-text__content": {
@@ -1418,7 +1419,8 @@ export default createStyles({
       "& .wp-block-media-text__media": {
         margin: 0,
         "& img": {
-          width: "100%"
+          width: "100%",
+          height: "initial"
         }
       },
       "&.is-image-fill .wp-block-media-text__media": {
