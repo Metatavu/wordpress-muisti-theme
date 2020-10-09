@@ -41,6 +41,8 @@ interface State {
  */
 class PostPage extends React.Component<Props, State> {
 
+  private contentLoaded: boolean = false;
+
   /**
    * Constructor
    *
@@ -89,7 +91,7 @@ class PostPage extends React.Component<Props, State> {
     const pageTitle = this.state.loading ? "" : this.setTitleSource();
 
     return (
-      <BasicLayout lang={lang}>
+      <BasicLayout lang={ lang }>
         { this.state.heroBanner &&
           <div className={ classes.hero }>
             <div className={ classes.heroContentContainer }>
@@ -228,6 +230,9 @@ class PostPage extends React.Component<Props, State> {
       { !this.state.loading &&
         this.getPageOrPostContent()
       }
+      { this.contentLoaded &&
+        this.loadThirdPartyScripts()
+      }
     </div>
     );
   }
@@ -281,8 +286,9 @@ class PostPage extends React.Component<Props, State> {
       return <div dangerouslySetInnerHTML={{__html:renderedContent}} />;
     }
 
-    return ReactHtmlParser(renderedContent, { transform: this.transformContent });
+    this.contentLoaded = true;
 
+    return ReactHtmlParser(renderedContent, { transform: this.transformContent });
   }
 
   /**
@@ -392,6 +398,34 @@ class PostPage extends React.Component<Props, State> {
     ]);
 
     return Promise.all([post.json(), page.json()]);
+  }
+
+  /**
+   * Loads javascript libraries after content is ready
+   */
+  private loadThirdPartyScripts = () => {
+    const instagram = document.createElement("script");
+    instagram.src = "//platform.instagram.com/en_US/embeds.js";
+    instagram.async = true;
+    document.body.appendChild(instagram);
+    const facebook = document.createElement("script");
+    facebook.innerHTML = `
+      window.fbAsyncInit = function() {
+        FB.init({
+        xfbml : true,
+        version : 'v2.3'
+        });
+        }; (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    `;
+    facebook.async = true;
+    document.body.appendChild(facebook);
+    return;
   }
 }
 
