@@ -1466,15 +1466,123 @@ export default createStyles({
     /**
      * Flex Posts styles
      */
-    "& .fp-flex": {
+
+    "& .widget_flex-posts-list": {
+      "& .widget-title": {
+        fontSize: "2rem",
+        marginTop: 0,
+        marginBottom: theme.spacing(2),
+        [theme.breakpoints.up("md")]: {
+          margin: 0
+        }
+      }
+    },
+    "& .fp-list-2": {
       display: "flex",
       justifyContent: "flex-start",
       flexDirection: "column",
-      flexWrap: "wrap",
-      [theme.breakpoints.up("md")]: {
+      flexWrap: "nowrap",
+      marginTop: theme.spacing(4),
+      [theme.breakpoints.up("sm")]: {
+        flexWrap: "wrap",
         alignItems: "flex-start",
         flexDirection: "row",
+      },
+      "& .fp-col": {
+        [theme.breakpoints.up("sm")]: {
+          marginLeft: 0,
+          flex: "1 1 40%"
+        },
+        [theme.breakpoints.up("md")]: {
+          flex: "1 1 30%"
+        }
+      },
+      "& .fp-post": {
+        "& .fp-media": {
+          [theme.breakpoints.up("sm")]: {
+            height: 250,
+            overflow: "hidden",
+            display: "flex",
+            justifyContent: "center",
+            alignContent: "center"
+          },
+          [theme.breakpoints.up("md")]: {
+            height: 280,
+          },
+          "& .fp-thumbnail": {
+            [theme.breakpoints.up("sm")]: {
+              height: "100%",
+              width: "100%",
+              display: "flex"
+            },
+            "& img": {
+              height: "initial",
+              [theme.breakpoints.up("sm")]: {
+                width: "100%",
+                display: "block",
+                overflow: "hidden",
+                objectFit: "cover",
+                objectPosition: "center",
+                height: "100%"
+              }
+            }
+          }
+        }
       }
+    },
+    "& .fp-list-4": {
+      display: "flex",
+      justifyContent: "flex-start",
+      flexDirection: "column",
+      flexWrap: "nowrap",
+      marginTop: theme.spacing(4),
+      "& .fp-post": {
+        flexDirection: "row",
+        marginBottom: theme.spacing(4),
+        "&.fp-flex": {
+          display: "flex",
+          flexWrap: "nowrap",
+          flexDirection: "column",
+          [theme.breakpoints.up("sm")]: {
+            height: 180,
+            flexDirection: "row",
+          },
+          [theme.breakpoints.up("md")]: {
+            flexWrap: "nowrap",
+            height: 180,
+            cursor: "pointer",
+          },
+          "& .fp-media": {
+            flex: 1,
+            width: "100%",
+            [theme.breakpoints.up("sm")]: {
+              flex: "1 0 40%",
+              marginRight: theme.spacing(2),
+            },
+            [theme.breakpoints.up("md")]: {
+              height: "100%"
+            },
+            "& img": {
+              height: "initial",
+              [theme.breakpoints.up("sm")]: {
+                height: "100%"
+              }
+            }
+          },
+          "& .fp-body": {
+            "& .fp-title": {
+              fontSize: 20,
+              marginTop: theme.spacing(2),
+              [theme.breakpoints.up("sm")]: {
+                marginTop: 0
+              },
+              "&:hover": {
+                textDecoration: "underline"
+              }
+            },
+          },
+        },
+      },
     },
     "& .fp-row": {
       marginLeft: -15,
@@ -1488,7 +1596,10 @@ export default createStyles({
       maxWidth: "100%",
       marginLeft: theme.spacing(2),
       marginRight: theme.spacing(2),
-      [theme.breakpoints.up("md")]: {
+      paddingBottom: theme.spacing(2),
+      display: "flex",
+      flexDirection: "column",
+      [theme.breakpoints.up("sm")]: {
         padding: theme.spacing(2),
         display: "flex",
         flexDirection: "column",
@@ -1529,9 +1640,6 @@ export default createStyles({
       objectFit: "cover",
       overflow: "hidden",
     },
-    "& .fp-media .fp-thumbnail img": {
-      margin: 0,
-    },
     "& .fp-thumbnail img.size-thumbnail": {
       width: 85,
       height: 85,
@@ -1551,31 +1659,14 @@ export default createStyles({
     "& .fp-list-2 .fp-title, .fp-list-3 .fp-main .fp-title, .fp-list-4 .fp-title": {
       fontWeight: theme.typography.h4.fontWeight,
     },
-    "& .fp-list-4 .fp-post": {
-      marginLeft: -10,
-      marginRight: -10,
-    },
-    "& .fp-list-4 .fp-media": {
-      flex: "1 0 40%",
-      minWidth: 150,
-      maxWidth: 300,
-      marginLeft: 10,
-      marginRight: 10,
-      marginBottom: "0.8em",
-    },
-    "& .fp-list-4 .fp-body": {
-      flex: "1 0 50%",
-      marginLeft: 10,
-      marginRight: 10,
-    },
     "& .fp-title a": {
       color: theme.palette.primary.dark,
       textDecoration: "none",
     },
     "& .fp-excerpt": {
       marginTop: "1rem",
-      fontFamily: theme.typography.subtitle2.fontFamily,
-      fontSize: theme.typography.subtitle1.fontSize
+      fontFamily: theme.typography.body1.fontFamily,
+      fontSize: theme.typography.body1.fontSize
     },
     "& .fp-meta": {
       marginTop: "0.1em",
