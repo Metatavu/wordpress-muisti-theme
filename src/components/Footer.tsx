@@ -6,11 +6,11 @@ import ApiUtils from "../utils/ApiUtils";
 import { DomElement } from "domhandler";
 import ReactHtmlParser, { convertNodeToElement } from "react-html-parser";
 import ArrowIcon from "@material-ui/icons/ArrowForwardSharp";
-import LinkedInIcon from '@material-ui/icons/LinkedIn';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import InstagramIcon from '@material-ui/icons/Instagram';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import Fade from '@material-ui/core/Fade';
+import LinkedInIcon from "@material-ui/icons/LinkedIn";
+import FacebookIcon from "@material-ui/icons/Facebook";
+import InstagramIcon from "@material-ui/icons/Instagram";
+import TwitterIcon from "@material-ui/icons/Twitter";
+import Fade from "@material-ui/core/Fade";
 import theme from "../styles/theme";
 import placeholderImg from "../resources/img/muisti-konsepti.png";
 import strings from "../localization/strings";
@@ -156,10 +156,10 @@ class Footer extends React.Component<Props, State> {
                 <img src={ this.props.logo } />
               </div>
               <div className={ classes.someLinkContainer }>
-                <a className={ classes.someLink } href="https://twitter.com/muistimme"><TwitterIcon className={ classes.iconLink } /></a>
-                {/* <a className={ classes.someLink } href="https://www.instagram.com/mikkelinseudunmuisti/"><InstagramIcon className={ classes.iconLink } /></a> */}
-                <a className={ classes.someLink } href="https://www.facebook.com/muistimme//"><FacebookIcon className={ classes.iconLink } /></a>
-                <a className={ classes.someLink } href="https://www.linkedin.com/company/muisti"><LinkedInIcon className={ classes.iconLink } /></a>
+                <a className={ classes.someLink } target="_blank" href="https://twitter.com/muistimme"><TwitterIcon className={ classes.iconLink } /></a>
+                <a className={ classes.someLink } target="_blank" href="https://www.instagram.com/muistimme/"><InstagramIcon className={ classes.iconLink } /></a>
+                <a className={ classes.someLink } target="_blank" href="https://www.facebook.com/muistimme/"><FacebookIcon className={ classes.iconLink } /></a>
+                <a className={ classes.someLink } target="_blank" href="https://www.linkedin.com/company/muisti"><LinkedInIcon className={ classes.iconLink } /></a>
               </div>
             </Container>
             <Container className={ classes.contactsMenu } maxWidth="xl">
