@@ -1,6 +1,6 @@
 import * as React from "react";
 import classNames from "classnames";
-import { AppBar, WithStyles, withStyles, Button, IconButton, Link, Hidden } from "@material-ui/core";
+import { AppBar, WithStyles, withStyles, Button, IconButton, Link, Hidden, Box } from "@material-ui/core";
 import logo from "../resources/svg/logo.svg";
 import ArrowIcon from "@material-ui/icons/ArrowForwardRounded";
 import SearchIcon from "@material-ui/icons/SearchRounded";
@@ -101,9 +101,21 @@ class BasicLayout extends React.Component<Props, State> {
       >
         <AppBar elevation={ 0 } className={ appBarClasses }>
           <div className={ classes.headerSection }>
-            <Link href={ `/?lang=${ this.props.lang }` }>
-              <img className={ logoClasses } src={ logo } />
-            </Link>
+            <Hidden smDown implementation="css">
+              <Link href={ `/?lang=${ this.props.lang }` }>
+                <img className={ logoClasses } src={ logo } />
+              </Link>
+            </Hidden>
+            <Hidden mdUp implementation="css">
+              <Box display="flex" alignItems="center">
+                <Link href={ `/?lang=${ this.props.lang }` }>
+                  <img className={ logoClasses } src={ logo } />
+                </Link>
+                <Box ml={ 2 }>
+                  { this.renderLocaleMenu() }
+                </Box>
+              </Box>
+            </Hidden>
             <Hidden smDown implementation="css">
               <div className={ classes.topNavDesktop }>
                 { this.renderMenu() }
@@ -120,7 +132,6 @@ class BasicLayout extends React.Component<Props, State> {
           <Hidden smDown implementation="css">
             <div className={ classes.headerSection }>
               { this.renderDonateButton() }
-              {/* { this.renderSearch() } */}
               { this.renderLocaleMenu() }
             </div>
           </Hidden>

@@ -3,7 +3,7 @@ import { Typography, WithStyles, withStyles, Button } from "@material-ui/core";
 import ArrowIcon from "@material-ui/icons/ArrowForwardRounded";
 import { Post, Attachment } from "../generated/client/src";
 import ApiUtils from "../utils/ApiUtils";
-import placeholderImg from "../resources/img/muisti-konsepti.png";
+import placeholderImg from "../resources/img/placeholder.jpg";
 import styles from "../styles/hero-banner";
 import ReactHtmlParser, { convertNodeToElement } from "react-html-parser";
 import { DomElement } from "domhandler";
