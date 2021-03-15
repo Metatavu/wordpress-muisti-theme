@@ -22,45 +22,45 @@ export default createMuiTheme({
     }
   },
   typography: {
-    fontFamily: "tt_norms_proregular",
+    fontFamily: "'tt_norms_proregular', sans-serif",
     h1: {
-      fontFamily: "tt_norms_promedium",
+      fontFamily: "'tt_norms_promedium', sans-serif",
       fontWeight: "normal"
     },
     h2: {
-      fontFamily: "tt_norms_promedium",
+      fontFamily: "'tt_norms_promedium', sans-serif",
       fontWeight: "normal"
     },
     h3: {
-      fontFamily: "tt_norms_promedium",
+      fontFamily: "'tt_norms_promedium', sans-serif",
       fontWeight: "normal"
     },
     h4: {
-      fontFamily: "tt_norms_promedium",
+      fontFamily: "'tt_norms_promedium', sans-serif",
       fontWeight: "normal"
     },
     h5: {
-      fontFamily: "tt_norms_promedium",
+      fontFamily: "'tt_norms_promedium', sans-serif",
       fontWeight: "normal"
     },
     h6: {
-      fontFamily: "tt_norms_promedium",
+      fontFamily: "'tt_norms_promedium', sans-serif",
       fontWeight: "normal"
     },
     body1: {
-      fontFamily: "tt_norms_proregular",
+      fontFamily: "'tt_norms_proregular', sans-serif",
       fontWeight: "normal"
     },
     body2: {
-      fontFamily: "tt_norms_proregular",
+      fontFamily: "'tt_norms_proregular', sans-serif",
       fontWeight: "normal"
     },
     subtitle1: {
-      fontFamily: "tt_norms_proregular",
+      fontFamily: "'tt_norms_proregular', sans-serif",
       fontWeight: "normal"
     },
     subtitle2: {
-      fontFamily: "tt_norms_promedium",
+      fontFamily: "'tt_norms_promedium', sans-serif",
       fontWeight: "normal"
     }
   },
@@ -69,6 +69,7 @@ export default createMuiTheme({
       label: {
         fontSize: "1rem",
         whiteSpace: "nowrap",
+        fontFamily: "'tt_norms_proregular', sans-serif"
       },
       text: {
         fontFamily: theme.typography.h1.fontFamily,
