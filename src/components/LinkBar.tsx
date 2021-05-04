@@ -123,9 +123,13 @@ class LinkBar extends React.Component<Props, State> {
             this.state.menu.items.map((item, index) => {
               return (index !== this.state.linkBallIndex)
               ?
-                <div className={ `${classes.indicator} ${classes.circle}` } ><div className={ classes.ball }></div></div>
+                <div className={ `${classes.indicator} ${classes.circle}` }>
+                  <div className={ classes.ball }/>
+                </div>
               :
-                <div className={ `${classes.indicator} ${classes.circle}` } ><div className={ classes.fill }></div></div>
+                <div className={ `${classes.indicator} ${classes.circle}` }>
+                  <div className={ classes.fill }/>
+                </div>
             })
           }
         </Container>

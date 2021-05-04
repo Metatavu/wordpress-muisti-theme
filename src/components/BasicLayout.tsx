@@ -131,7 +131,6 @@ class BasicLayout extends React.Component<Props, State> {
           </div>
           <Hidden smDown implementation="css">
             <div className={ classes.headerSection }>
-              { this.renderDonateButton() }
               { this.renderLocaleMenu() }
             </div>
           </Hidden>
@@ -276,24 +275,6 @@ class BasicLayout extends React.Component<Props, State> {
           {
             langText
           }
-      </Link>
-    );
-  }
-
-  /**
-   * Render donate button method
-   */
-  private renderDonateButton = () => {
-    const { classes } = this.props;
-    return (
-      <Link href={ `/lahjoita/?lang=${ this.props.lang }` }>
-        <Button
-          variant="contained"
-          className={ classes.donate }
-          endIcon={ <ArrowIcon /> }
-          >
-          { strings.donate }
-        </Button>
       </Link>
     );
   }

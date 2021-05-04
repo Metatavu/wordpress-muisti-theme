@@ -2,6 +2,7 @@ import { createStyles } from "@material-ui/core";
 import theme from "./theme";
 
 export default createStyles({
+
   slide: {
     backgroundColor: theme.palette.background.paper,
     display: "flex",
@@ -12,13 +13,16 @@ export default createStyles({
     minHeight: 200,
     color: theme.palette.text.secondary,
   },
+
   link: {
     color: theme.palette.primary.dark,
   },
+
   linkContainer: {
     display: "flex",
     flexDirection: "row"
   },
+
   slideContent: {
     cursor: "pointer",
     display: "flex",
@@ -28,10 +32,12 @@ export default createStyles({
     borderBottomStyle: "solid",
     borderBottomColor: theme.palette.primary.dark
   },
+
   slideText: {
     display: "flex",
     maxWidth: "100%"
   },
+
   linkBallIndicators: {
     display: "flex",
     justifyContent: "flex-end",
@@ -39,29 +45,40 @@ export default createStyles({
     backgroundColor: theme.palette.background.paper,
     paddingBottom: theme.spacing(3)
   },
+
   indicator: {
     marginLeft: theme.spacing(1)
   },
+
   circle: {
+    position: "relative",
     border: "1px solid #000000",
     width: "1.25rem",
     height: "1.25rem",
     borderRadius: "50%"
   },
+
   ball: {
+    position: "absolute",
+    left: "50%",
+    top: "50%",
     backgroundColor: "#000000",
-    width: 0,
-    height: 0,
-    margin: "0.625rem",
+    width: "0.9rem",
+    height: "0.9rem",
     borderRadius: "50%",
-    transition: "width 0.2s, height 0.2s, margin 0.2s"
+    transition: "transform 0.2s ease-out",
+    transform: "translate3d(-50%, -50%, 0) scale(0)"
   },
+
   fill: {
     backgroundColor: "#000000",
     width: "0.9rem",
     height: "0.9rem",
-    margin: "0.1rem",
     borderRadius: "50%",
-    transition: "width 0.2s, height 0.2s, margin 0.2s"
+    transition: "transform 0.2s ease-out",
+    position: "absolute",
+    left: "50%",
+    top: "50%",
+    transform: "translate3d(-50%, -50%, 0) scale(1)"
   }
 });
