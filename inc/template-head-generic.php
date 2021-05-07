@@ -22,8 +22,8 @@
 <script>
   window.THEME_PATH = "<?php bloginfo('template_url');?>";
 </script>
-<!-- Facebook Pixel Code -->
 
+<!-- Facebook Pixel Code -->
 <script>
   !function(f,b,e,v,n,t,s)
   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
