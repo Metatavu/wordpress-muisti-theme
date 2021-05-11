@@ -51,6 +51,8 @@ class WelcomePage extends React.Component<Props, State> {
   public render() {
     const { lang } = this.props;
 
+    console.log("lol")
+
     return (
       <BasicLayout lang={ lang }>
         <HeroBanner onTitleLoaded={() => this.hidePageLoader()} lang={ lang } />

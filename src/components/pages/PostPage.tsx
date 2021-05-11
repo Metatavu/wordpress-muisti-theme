@@ -16,7 +16,7 @@ import "../../styles/feed.css";
  * Interface representing component properties
  */
 interface Props extends WithStyles<typeof styles> {
-  slug: string
+  slug?: string
   lang: string
 }
 
@@ -89,7 +89,7 @@ class PostPage extends React.Component<Props, State> {
   public render() {
     const { classes, lang } = this.props;
     const pageTitle = this.state.loading ? "" : this.setTitleSource();
-
+    
     return (
       <BasicLayout lang={ lang }>
         { this.state.heroBanner &&
@@ -136,9 +136,11 @@ class PostPage extends React.Component<Props, State> {
       loading: true
     });
 
+    const { slug } = this.props;
+
     const lang = this.props.lang;
-    const slugParts = this.props.slug.split("/");
-    const slug = slugParts.pop() || slugParts.pop();
+    const slugParts = slug ? slug.split("/") : null;
+    const slugg = slugParts ? slugParts.pop() || slugParts.pop() : null
 
     const api = ApiUtils.getApi();
 
@@ -386,18 +388,29 @@ class PostPage extends React.Component<Props, State> {
     const nonce = urlSearchParams.get("nonce");
     const draftId = urlSearchParams.get("p");
     const publishedId = urlSearchParams.get("preview_id");
-    const id = publishedId ? publishedId : draftId;
+    const pageid = urlSearchParams.get("page_id");
+    const id = publishedId || pageid ||  draftId;
 
-    if (!preview) {
+    if (!preview || !id) {
       return [];
     }
 
-    const [post, page] = await Promise.all([
-      fetch(`${window.location.origin}/wp-json/wp/v2/posts/${id}/revisions?_wpnonce=${nonce}`),
-      fetch(`${window.location.origin}/wp-json/wp/v2/pages/${id}/revisions?_wpnonce=${nonce}`)
-    ]);
+    if (nonce) {
+      const [post, page] = await Promise.all([
+        fetch(`${window.location.origin}/wp-json/wp/v2/posts/${id}/revisions?_wpnonce=${nonce}`),
+        fetch(`${window.location.origin}/wp-json/wp/v2/pages/${id}/revisions?_wpnonce=${nonce}`)
+      ]);
+  
+      return Promise.all([post.json(), page.json()]);
+    }
 
-    return Promise.all([post.json(), page.json()]);
+    const api = ApiUtils.getApi();
+    
+    const page = await api.getWpV2PagesById({
+      id: id
+    });
+
+    return [ page ];
   }
 
   /**
