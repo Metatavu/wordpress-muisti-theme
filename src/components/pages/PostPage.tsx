@@ -138,7 +138,6 @@ class PostPage extends React.Component<Props, State> {
     const { slug } = this.props;
     const lang = this.props.lang;
     const slugParts = slug ? slug.split("/") : null;
-    const slugg = slugParts ? slugParts.pop() || slugParts.pop() : null
 
     const api = ApiUtils.getApi();
 
