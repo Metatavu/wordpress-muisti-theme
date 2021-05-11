@@ -1298,7 +1298,6 @@ export default createStyles({
         }
       },
       "& .wp-block-media-text__media": {
-        backgroundColor: "#fff",
         margin: 0,
         width: 50,
         maxWidth: 50,
