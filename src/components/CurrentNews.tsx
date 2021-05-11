@@ -3,7 +3,7 @@ import { Typography, WithStyles, withStyles, Button } from "@material-ui/core";
 import { Post, Attachment } from "../generated/client/src";
 import ApiUtils from "../utils/ApiUtils";
 import styles from "../styles/current-news";
-import placeholderImg from "../resources/img/muisti-konsepti.png";
+import placeholderImg from "../resources/img/placeholder.jpg";
 import ArrowIcon from "@material-ui/icons/ArrowForwardRounded";
 import { Link } from "react-router-dom";
 import strings from "../localization/strings";

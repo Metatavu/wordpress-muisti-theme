@@ -87,7 +87,12 @@ export default createStyles({
         [theme.breakpoints.down("sm")]: {
           height: "100%"
         }
-      }
+      },
+      "& .wp-block-cover__image-background": {
+        width: "100%",
+        objectFit: "cover",
+        height: "100%"
+      },
     }
   },
   heroContentContainer: {
@@ -124,6 +129,7 @@ export default createStyles({
     fontSize: "2.5rem",
     lineHeight: 1,
     marginBottom: theme.spacing(2),
+    textShadow: "0 0 75px rgba(0,0,0,0.2)",
     [theme.breakpoints.up(360)]: {
       fontSize: "2.75rem",
     },
