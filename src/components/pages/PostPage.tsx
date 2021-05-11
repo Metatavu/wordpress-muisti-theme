@@ -144,8 +144,8 @@ class PostPage extends React.Component<Props, State> {
     const [previewPost, previewPage] = await this.getPreview();
 
     if (previewPage || previewPost) {
-      const page = previewPage ? previewPage[0] : undefined;
-      const post = previewPost ? previewPost[0] : undefined;
+      const page = Array.isArray(previewPage) ? previewPage[0] : previewPage;
+      const post = Array.isArray(previewPost) ? previewPost[0] : previewPost;
 
       this.setState({
         page: page,
@@ -160,11 +160,13 @@ class PostPage extends React.Component<Props, State> {
       const excerpt = page ? page.excerpt : (post ? post.excerpt : undefined);
 
       try {
-        const featuredMedia = await api.getWpV2MediaById({ id: `${ featuredMediaId }` });
-        const featuredImage = featuredMedia.source_url;
-        this.setState({
-          featuredImage: featuredImage,
-        });
+        if (featuredMediaId) {
+          const featuredMedia = await api.getWpV2MediaById({ id: `${ featuredMediaId }` });
+          const featuredImage = featuredMedia.source_url;
+          this.setState({
+            featuredImage: featuredImage,
+          });
+        }
       } catch (error) {
         console.log(error);
       }
@@ -394,8 +396,8 @@ class PostPage extends React.Component<Props, State> {
 
     if (nonce) {
       const [post, page] = await Promise.all([
-        fetch(`${window.location.origin}/wp-json/wp/v2/posts/${id}/revisions?_wpnonce=${nonce}`),
-        fetch(`${window.location.origin}/wp-json/wp/v2/pages/${id}/revisions?_wpnonce=${nonce}`)
+        fetch(`${window.location.origin}/wp-json/wp/v2/posts/${id}?_wpnonce=${nonce}`),
+        fetch(`${window.location.origin}/wp-json/wp/v2/pages/${id}?_wpnonce=${nonce}`)
       ]);
   
       return Promise.all([post.json(), page.json()]);
