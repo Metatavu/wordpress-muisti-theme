@@ -6,21 +6,23 @@ import styles from "../styles/middle-section";
 import ArrowIcon from "@material-ui/icons/ArrowForwardSharp";
 import ReactHtmlParser, { convertNodeToElement } from "react-html-parser";
 import { DomElement } from "domhandler";
+import { CircularProgress } from "material-ui";
 
 /**
  * Interface representing component properties
  */
 interface Props extends WithStyles<typeof styles> {
-  lang: string
+  lang: string;
 }
 
 /**
  * Interface representing component state
  */
 interface State {
-  posts: Post[],
-  featuredMedias: { [ key: number ]: Attachment },
-  loading: boolean
+  posts: Post[];
+  featuredMedias: { [ key: number ]: Attachment };
+  postsLoading: boolean;
+  imagesLoading: boolean;
 }
 
 /**
@@ -38,7 +40,8 @@ class MiddleSection extends React.Component<Props, State> {
     this.state = {
       posts: [],
       featuredMedias: { },
-      loading: false
+      postsLoading: false,
+      imagesLoading: false
     };
   }
 
@@ -46,24 +49,32 @@ class MiddleSection extends React.Component<Props, State> {
    * Component did mount life-cycle handler
    */
   public componentDidMount = async () => {
+    const { lang } = this.props;
+
     this.setState({
-      loading: true
+      postsLoading: true,
+      imagesLoading: true
     });
-    const lang = this.props.lang;
+
     const api = ApiUtils.getApi();
     const categories = await api.getWpV2Categories({ slug: ["keskialue"] });
     const posts = await api.getWpV2Posts({ lang: [ lang ], per_page: 2, categories: categories.map((category) => {
       return String(category.id);
     })});
-    this.setState({posts: posts, loading: false});
+
+    this.setState({
+      posts: posts,
+      postsLoading: false
+    });
+  
     const featureMediaIds: number[] = posts
-    .filter((post) => {
-      return post.featured_media;
-    })
-    .map((post) => {
-      return post.featured_media;
-    })
-    .reduce((unique: any, item: any) => unique.includes(item) ? unique : [...unique, item], []);
+      .filter(post => {
+        return post.featured_media;
+      })
+      .map(post => {
+        return post.featured_media;
+      })
+      .reduce((unique: any, item: any) => unique.includes(item) ? unique : [...unique, item], []);
 
     const featureMedias = await Promise.all(featureMediaIds.map((featureMediaId) => {
       return api.getWpV2MediaById({ id: featureMediaId.toString() });
@@ -77,7 +88,8 @@ class MiddleSection extends React.Component<Props, State> {
     }
 
     this.setState({
-      featuredMedias: featuredMediaMap
+      featuredMedias: featuredMediaMap,
+      imagesLoading: false
     });
   }
 
@@ -86,9 +98,13 @@ class MiddleSection extends React.Component<Props, State> {
    */
   public render() {
     const { classes } = this.props;
-    const { posts } = this.state;
+    const { 
+      posts, 
+      imagesLoading,
+      postsLoading
+    } = this.state;
 
-    if (!posts.length) {
+    if (postsLoading) {
       return null;
     }
 
@@ -103,10 +119,14 @@ class MiddleSection extends React.Component<Props, State> {
                 <Typography color="primary" variant="h3">
                   { post.title ? post.title.rendered : "" }
                 </Typography>
-                <Box
-                  className={ classes.imageContainer }
-                  style={{ backgroundImage: `url('${( featuredMediaUrl != null ? featuredMediaUrl : "" )}')` }}
-                />
+                { imagesLoading ?
+                  <Box className={ classes.loaderContainer } />
+                  :
+                  <Box
+                    className={ classes.imageContainer }
+                    style={{ backgroundImage: `url('${( featuredMediaUrl != null ? featuredMediaUrl : "" )}')` }}
+                  />
+                }
                 <Box>
                   {
                     ReactHtmlParser(post.content ? post.content.rendered || "" : "", { transform: this.transformContent })

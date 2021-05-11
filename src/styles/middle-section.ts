@@ -32,6 +32,37 @@ export default createStyles({
     }
   },
 
+  loaderContainer: {
+    marginTop: theme.spacing(4),
+    width: "100%",
+    height: 320,
+    display: "flex",
+    animationDuration: "1.25s",
+    animationFillMode: "forwards",
+    animationIterationCount: "infinite",
+    animationName: "$placeHolderShimmer",
+    animationTimingFunction: "linear",
+    backgroundColor: "#26201E",
+    background: "linear-gradient(to right, #26201E 10%, #312b28 18%, #26201E 33%)",
+    backgroundSize: "800px 300px",
+    position: "relative",
+    [theme.breakpoints.up("md")]: {
+      height: 280,
+    },
+    [theme.breakpoints.up(1000)]: {
+      height: 320,
+    }
+  },
+
+  "@keyframes placeHolderShimmer": {
+    from: {
+      backgroundPosition: "-468px 0"
+    },
+    to: {
+      backgroundPosition: "468px 0"
+    }
+  },
+
   imageContainer: {
     marginTop: theme.spacing(4),
     width: "100%",
