@@ -86,7 +86,7 @@ class MiddleSection extends React.Component<Props, State> {
    */
   public render() {
     const { classes } = this.props;
-    const { posts, loading } = this.state;
+    const { posts } = this.state;
 
     if (!posts.length) {
       return null;
