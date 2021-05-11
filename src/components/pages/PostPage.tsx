@@ -89,7 +89,6 @@ class PostPage extends React.Component<Props, State> {
   public render() {
     const { classes, lang } = this.props;
     const pageTitle = this.state.loading ? "" : this.setTitleSource();
-    
     return (
       <BasicLayout lang={ lang }>
         { this.state.heroBanner &&
@@ -137,7 +136,6 @@ class PostPage extends React.Component<Props, State> {
     });
 
     const { slug } = this.props;
-
     const lang = this.props.lang;
     const slugParts = slug ? slug.split("/") : null;
     const slugg = slugParts ? slugParts.pop() || slugParts.pop() : null
