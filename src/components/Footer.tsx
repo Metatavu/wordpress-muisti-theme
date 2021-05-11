@@ -12,7 +12,7 @@ import InstagramIcon from "@material-ui/icons/Instagram";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import Fade from "@material-ui/core/Fade";
 import theme from "../styles/theme";
-import placeholderImg from "../resources/img/muisti-konsepti.png";
+import placeholderImg from "../resources/img/MUISTI2020.jpg";
 import strings from "../localization/strings";
 
 /**

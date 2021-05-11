@@ -1,14 +1,11 @@
 import * as React from "react";
+import { Attachment, Post } from "../../generated/client/src";
 import BasicLayout from "../BasicLayout";
 import CurrentNews from "../CurrentNews";
 import HeroBanner from "../HeroBanner";
-import { Post, Attachment } from "../../generated/client/src";
-import ApiUtils from "../../utils/ApiUtils";
 import LinkBar from "../LinkBar";
-import DonateBanner from "../DonateBanner";
+import MiddleSection from "../MiddleSection";
 import SocialFeed from "../SocialFeed";
-import MetaTags from "react-meta-tags";
-import metatagImage from "../../resources/img/muisti-konsepti.png";
 
 /**
  * Interface representing component properties
@@ -55,7 +52,7 @@ class WelcomePage extends React.Component<Props, State> {
       <BasicLayout lang={ lang }>
         <HeroBanner onTitleLoaded={() => this.hidePageLoader()} lang={ lang } />
         <LinkBar lang={ lang } />
-        <DonateBanner lang={ lang } />
+        <MiddleSection lang={ lang } />
         <CurrentNews lang={ lang } />
         <SocialFeed lang={ lang } />
       </BasicLayout>

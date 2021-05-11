@@ -77,6 +77,11 @@ export default createStyles({
         [theme.breakpoints.down("sm")]: {
           height: "100%"
         }
+      },
+      "& .wp-block-cover__image-background": {
+        width: "100%",
+        objectFit: "cover",
+        height: "100%"
       }
     }
   },
