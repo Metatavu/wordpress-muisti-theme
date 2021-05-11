@@ -12,7 +12,7 @@ export default createStyles({
     [theme.breakpoints.up("md")]: {
       alignItems: "flex-start",
       justifyContent: "space-evenly",
-      padding: theme.spacing(10, 6),
+      padding: theme.spacing(12, 6),
       flexDirection: "row",
     }
   },
