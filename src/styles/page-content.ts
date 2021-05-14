@@ -943,6 +943,9 @@ export default createStyles({
         // marginRight: theme.spacing(2),
         // marginLeft: theme.spacing(2)
       },
+      "& hr": {
+        borderColor: "#222",
+      },
       "& .wp-block-columns": {
         alignItems: "flex-start",
         "&.highlight-columns": {
@@ -956,6 +959,7 @@ export default createStyles({
             marginBottom: 0,
           },
           "& .wp-block-column": {
+            margin: 0,
             position: "relative",
             [theme.breakpoints.up("md")]: {
               cursor: "pointer",
@@ -1027,9 +1031,6 @@ export default createStyles({
             }
           }
         }
-      },
-      "& .wp-block-column": {
-        margin: 0
       },
       "& .widget_flex-posts-list": {
         width: "100%",
