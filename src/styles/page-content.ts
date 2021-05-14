@@ -790,6 +790,15 @@ export default createStyles({
       [theme.breakpoints.up("lg")]: {
         marginBottom: theme.spacing(12),
       },
+      "&.fullscreen": {
+        marginBottom: 0,
+        [theme.breakpoints.up("md")]: {
+          marginBottom: 0,
+        },
+        [theme.breakpoints.up("lg")]: {
+          marginBottom: 0,
+        },
+      },
       "& h2, h3, h4, h5, h6, p, .wp-block-buttons, .wp-block-quote": {
         width: "100%"
       },
@@ -915,24 +924,37 @@ export default createStyles({
       marginTop: 0,
       marginBottom: 0,
       paddingBottom: 0,
+      color: theme.palette.text.primary,
+      backgroundColor: theme.palette.background.default,
+      "& .wp-block-group": {
+        [theme.breakpoints.down("md")]: {
+          marginLeft: theme.spacing(3),
+          marginRight: theme.spacing(3)
+        }
+      },
+      "& a": {
+        color: "#fff"
+      },
       "& h2": {
-        marginRight: theme.spacing(2),
-        marginLeft: theme.spacing(2)
+        // marginRight: theme.spacing(2),
+        // marginLeft: theme.spacing(2)
       },
       "& p": {
-        marginRight: theme.spacing(2),
-        marginLeft: theme.spacing(2)
+        // marginRight: theme.spacing(2),
+        // marginLeft: theme.spacing(2)
       },
       "& .wp-block-columns": {
-        marginTop: 0,
-        overflow: "hidden",
-        width: "100%",
-        backgroundColor: theme.palette.background.default,
-        [theme.breakpoints.up("md")]: {
-          marginTop: 0,
-          marginBottom: 0,
-        },
+        alignItems: "flex-start",
         "&.highlight-columns": {
+          alignItems: "stretch",
+          backgroundColor: theme.palette.background.default,
+          marginTop: 0,
+          overflow: "hidden",
+          width: "100%",
+          [theme.breakpoints.up("md")]: {
+            marginTop: 0,
+            marginBottom: 0,
+          },
           "& .wp-block-column": {
             position: "relative",
             [theme.breakpoints.up("md")]: {
