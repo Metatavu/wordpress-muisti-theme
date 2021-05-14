@@ -932,6 +932,12 @@ export default createStyles({
           marginRight: theme.spacing(3)
         }
       },
+      "& .wp-block-column": {
+        "& .wp-block-group": {
+          marginLeft: 0,
+          marginRight: 0
+        }
+      },
       "& a": {
         color: "#fff"
       },
@@ -1175,6 +1181,9 @@ export default createStyles({
       "& .wp-block-column": {
         flex: 1,
         "& .wp-block-image": {
+          width: "100%"
+        },
+        "& .wp-block-group": {
           width: "100%"
         },
       },
