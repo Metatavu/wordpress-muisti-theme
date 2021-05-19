@@ -1,12 +1,10 @@
 import * as React from "react";
-import { Link, WithStyles, withStyles, Fade, IconButton, Button, Hidden } from "@material-ui/core";
+import { Link, WithStyles, withStyles, Fade, IconButton } from "@material-ui/core";
 import { MenuLocationData, MenuItemData } from "../generated/client/src";
 import ApiUtils from "../utils/ApiUtils";
 import CloseIcon from "@material-ui/icons/CloseSharp";
 import classNames from "classnames";
 import styles from "../styles/site-menu";
-import ArrowIcon from "@material-ui/icons/ArrowForwardRounded";
-import strings from "../localization/strings";
 
 /**
  * Interface representing component properties
@@ -105,9 +103,6 @@ class SiteMenu extends React.Component<Props, State> {
             </IconButton>
           </div>
           <div className={ classes.menuContent }>
-          <Hidden mdUp implementation="css">
-            { this.renderDonateButton() }
-          </Hidden>
             {
               itemsWithChildren.map((item) => {
                 return this.renderMenuItem(item);
@@ -191,24 +186,6 @@ class SiteMenu extends React.Component<Props, State> {
         {
           item.title
         }
-      </Link>
-    );
-  }
-
-  /**
-   * Render donate button method
-   */
-  private renderDonateButton = () => {
-    const { classes } = this.props;
-    return (
-      <Link className={ classes.donateLink } href={ `/lahjoita/?lang=${ this.props.lang }` }>
-        <Button
-          variant="contained"
-          className={ classes.donate }
-          endIcon={ <ArrowIcon /> }
-          >
-          { strings.donate }
-        </Button>
       </Link>
     );
   }
