@@ -14,6 +14,7 @@ import Fade from "@material-ui/core/Fade";
 import theme from "../styles/theme";
 import placeholderImg from "../resources/img/MUISTI2020.jpg";
 import strings from "../localization/strings";
+import museumNominationLogo from "../resources/img/museokaupunkiehdokas.png";
 
 /**
  * Interface representing component properties
@@ -140,38 +141,48 @@ class Footer extends React.Component<Props, State> {
     return (
       <div className={ classes.root }>
         <div className={ classes.footerPosts }>
-          {
-            this.renderPosts()
-          }
+          { this.renderPosts() }
           { this.state.sponsors.length > 0 &&
             <Container  className={ classes.footerPost }>
-              {this.renderSponsors()}
+              { this.renderSponsors() }
             </Container>
           }
         </div>
-        <div className={ classes.footerBackground } style={{ backgroundImage: `url('${( featuredMediaUrl != null ? featuredMediaUrl : placeholderImg )}')` }}>
+        <div
+          className={ classes.footerBackground }
+          style={{ backgroundImage: `url('${( featuredMediaUrl != null ? featuredMediaUrl : placeholderImg )}')` }}
+        >
           <div className={ classes.contentContainer }>
             <Container maxWidth="xl" className={ classes.logoAndSomeContainer }>
               <div className={ classes.logo } >
                 <img src={ this.props.logo } />
               </div>
               <div className={ classes.someLinkContainer }>
-                <a className={ classes.someLink } target="_blank" href="https://twitter.com/muistimme"><TwitterIcon className={ classes.iconLink } /></a>
-                <a className={ classes.someLink } target="_blank" href="https://www.instagram.com/muistimme/"><InstagramIcon className={ classes.iconLink } /></a>
-                <a className={ classes.someLink } target="_blank" href="https://www.facebook.com/muistimme/"><FacebookIcon className={ classes.iconLink } /></a>
-                <a className={ classes.someLink } target="_blank" href="https://www.linkedin.com/company/muisti"><LinkedInIcon className={ classes.iconLink } /></a>
+                <a className={ classes.someLink } target="_blank" href="https://twitter.com/muistimme">
+                  <TwitterIcon className={ classes.iconLink }/>
+                </a>
+                <a className={ classes.someLink } target="_blank" href="https://www.instagram.com/muistimme/">
+                  <InstagramIcon className={ classes.iconLink }/>
+                </a>
+                <a className={ classes.someLink } target="_blank" href="https://www.facebook.com/muistimme/">
+                  <FacebookIcon className={ classes.iconLink }/>
+                </a>
+                <a className={ classes.someLink } target="_blank" href="https://www.linkedin.com/company/muisti">
+                  <LinkedInIcon className={ classes.iconLink } />
+                </a>
               </div>
             </Container>
             <Container className={ classes.contactsMenu } maxWidth="xl">
               <div>
-                {
-                  this.renderContacts()
-                }
+                { this.renderContacts() }
               </div>
               <div>
-                {
-                  this.renderMenu()
-                }
+                { this.renderMenu() }
+              </div>
+              <div className={ classes.museumNomineeContainer }>
+                <a href="https://www.muisti.org/mikkeli-ehdolla-vuoden-museokaupungiksi/">
+                  <img className={ classes.museumNomineeLogo } src={ museumNominationLogo }/>
+                </a>
               </div>
             </Container>
           </div>
