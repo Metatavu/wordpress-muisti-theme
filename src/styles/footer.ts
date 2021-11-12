@@ -164,5 +164,21 @@ export default createStyles({
     "& h3": {
       margin: 0,
     }
+  },
+
+  museumNomineeLogo: {
+    maxWidth: 260
+  },
+
+  museumNomineeContainer: {
+    display: "flex",
+    flex: 1,
+    justifyContent: "center",
+    marginBottom: theme.spacing(4),
+    [theme.breakpoints.up("md")]: {
+      justifyContent: "flex-end",
+      marginBottom: 0
+    }
   }
+
 });
