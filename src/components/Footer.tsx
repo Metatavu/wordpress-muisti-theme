@@ -14,7 +14,7 @@ import Fade from "@material-ui/core/Fade";
 import theme from "../styles/theme";
 import placeholderImg from "../resources/img/MUISTI2020.jpg";
 import strings from "../localization/strings";
-import museumNominationLogo from "../resources/img/museokaupunkiehdokas.png";
+import museokorttiLogo from "../resources/img/museokortti.png";
 
 /**
  * Interface representing component properties
@@ -180,9 +180,7 @@ class Footer extends React.Component<Props, State> {
                 { this.renderMenu() }
               </div>
               <div className={ classes.museumNomineeContainer }>
-                <a href="https://www.muisti.org/mikkeli-ehdolla-vuoden-museokaupungiksi/">
-                  <img className={ classes.museumNomineeLogo } src={ museumNominationLogo }/>
-                </a>
+                <img className={ classes.museumNomineeLogo } src={ museokorttiLogo }/>
               </div>
             </Container>
           </div>
