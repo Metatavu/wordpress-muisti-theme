@@ -44,6 +44,13 @@ export default createStyles({
         paddingBottom: theme.spacing(6),
         lineHeight: 1.2
       }
+    },
+    "&:last-child": {
+      backgroundColor: "#ffffff",
+      "& .MuiTypography-h3": {
+        paddingBottom: theme.spacing(6),
+        lineHeight: 1.2
+      }
     }
   },
   footerdata: {

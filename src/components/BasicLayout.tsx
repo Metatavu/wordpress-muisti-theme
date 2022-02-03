@@ -1,8 +1,7 @@
 import * as React from "react";
 import classNames from "classnames";
-import { AppBar, WithStyles, withStyles, Button, IconButton, Link, Hidden, Box } from "@material-ui/core";
+import { AppBar, WithStyles, withStyles, IconButton, Link, Hidden, Box } from "@material-ui/core";
 import logo from "../resources/svg/logo.svg";
-import ArrowIcon from "@material-ui/icons/ArrowForwardRounded";
 import SearchIcon from "@material-ui/icons/SearchRounded";
 import HamburgerIcon from "@material-ui/icons/MenuSharp";
 import { MenuLocationData, MenuItemData } from "../generated/client/src";
@@ -259,34 +258,19 @@ class BasicLayout extends React.Component<Props, State> {
       return null;
     }
 
-    const urlParts = (item.url || "").split("/");
-    let url = urlParts.pop() || urlParts.pop();
-    const langText = ReactHtmlParser(item.title ? item.title || "" : "", { transform: this.transformContent });
-    if (!url || !url.startsWith("?")) {
-      url = "?lang=fi";
-    }
+    const langText = ReactHtmlParser(item.title || "", { transform: this.transformContent });
+
     return (
       <Link
         variant="subtitle1"
         key={ item.db_id }
-        href={ url }
+        href={ item.url }
         className={ classes.navLink }
         >
           {
             langText
           }
       </Link>
-    );
-  }
-
-  /**
-   * Render search button method
-   */
-  private renderSearch = () => {
-    return (
-      <IconButton onClick={ this.showSiteSearch }>
-        <SearchIcon color="primary" />
-      </IconButton>
     );
   }
 
@@ -307,17 +291,6 @@ class BasicLayout extends React.Component<Props, State> {
     return (
       this.setState({
         siteMenuVisible: true
-      })
-    );
-  }
-
-  /**
-   * Site search visibility method
-   */
-  private showSiteSearch = () => {
-    return (
-      this.setState({
-        siteSearchVisible: true
       })
     );
   }
