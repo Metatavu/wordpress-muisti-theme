@@ -258,7 +258,7 @@ class BasicLayout extends React.Component<Props, State> {
       return null;
     }
 
-    const langText = ReactHtmlParser(item.title ? item.title || "" : "", { transform: this.transformContent });
+    const langText = ReactHtmlParser(item.title || "", { transform: this.transformContent });
 
     return (
       <Link
