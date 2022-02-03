@@ -16,8 +16,8 @@ import "../../styles/feed.css";
  * Interface representing component properties
  */
 interface Props extends WithStyles<typeof styles> {
-  slug?: string
-  lang: string
+  slug?: string;
+  lang: string;
 }
 
 type PageTemplate = "basic" | "fullscreen" | "dangerous" | "smallgutter";
@@ -26,14 +26,14 @@ type PageTemplate = "basic" | "fullscreen" | "dangerous" | "smallgutter";
  * Interface representing component state
  */
 interface State {
-  page?: Page
-  template: PageTemplate
-  post?: Post
-  loading: boolean
-  isArticle: boolean
-  heroBanner?: React.ReactElement
-  heroContent?: React.ReactElement
-  featuredImage?: string
+  page?: Page;
+  template: PageTemplate;
+  post?: Post;
+  loading: boolean;
+  isArticle: boolean;
+  heroBanner?: React.ReactElement;
+  heroContent?: React.ReactElement;
+  featuredImage?: string;
 }
 
 /**
@@ -270,7 +270,7 @@ class PostPage extends React.Component<Props, State> {
    * Set html source for page content
    */
   private getPageOrPostContent = () => {
-    const {page, post} = this.state;
+    const { page, post } = this.state;
 
     const noContentError = <h2 className="error-text">{ strings.pageNotFound }</h2>;
     const undefinedContentError = <h2 className="error-text">{ strings.somethingWentWrong }</h2>;
