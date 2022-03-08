@@ -173,16 +173,29 @@ export default createStyles({
     }
   },
 
-  museumNomineeLogo: {
-    maxWidth: 260
+  footerLogo: {
+    maxWidth: "100%",
+    marginBottom: theme.spacing(2),
+    [theme.breakpoints.up("md")]: {
+      marginBottom: 0,
+      maxWidth: 260,
+    }
   },
 
-  museumNomineeContainer: {
+  footerLogos: {
     flex: 1,
-    textAlign: "right",
     marginBottom: theme.spacing(4),
     [theme.breakpoints.up("md")]: {
-      marginBottom: 0
+      marginBottom: 0,
+      display: "flex",
+      alignItems: "flex-start",
+      justifyContent: "flex-end",
+      "& img": {
+        marginRight: theme.spacing(2),
+        "&:last-child": {
+          marginRight: 0
+        }
+      }
     }
   }
 

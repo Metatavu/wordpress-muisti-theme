@@ -15,6 +15,7 @@ import theme from "../styles/theme";
 import placeholderImg from "../resources/img/MUISTI2020.jpg";
 import strings from "../localization/strings";
 import museokorttiLogo from "../resources/img/museokortti.png";
+import vuodenMuseo from "../resources/img/Vuoden_museo_finalisti_2022.png";
 
 /**
  * Interface representing component properties
@@ -179,8 +180,9 @@ class Footer extends React.Component<Props, State> {
               <div>
                 { this.renderMenu() }
               </div>
-              <div className={ classes.museumNomineeContainer }>
-                <img className={ classes.museumNomineeLogo } src={ museokorttiLogo }/>
+              <div className={ classes.footerLogos }>
+                <img className={ classes.footerLogo } src={ museokorttiLogo }/>
+                <img className={ classes.footerLogo } src={ vuodenMuseo }/>
               </div>
             </Container>
           </div>
