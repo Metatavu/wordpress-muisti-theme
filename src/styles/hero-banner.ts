@@ -2,19 +2,23 @@ import { createStyles } from "@material-ui/core";
 import theme from "./theme";
 
 export default createStyles({
+
   root: {
     height: "90vh",
     overflow: "hidden"
   },
+
   heroItem: {
     position: "relative",
     height: "100%",
     backgroundPosition: "center",
     backgroundSize: "cover"
   },
+
   heroImage: {
     width: "100%"
   },
+
   heroContent: {
     position: "absolute",
     top: 0,
@@ -25,6 +29,7 @@ export default createStyles({
     alignItems: "center",
     backgroundColor: "rgba(0, 0, 0, 0.4)"
   },
+
   heroContentBlock: {
     maxWidth: "100vw",
     [theme.breakpoints.up("md")]: {
@@ -55,7 +60,9 @@ export default createStyles({
       }
     }
   },
+
   hero: {
+    position: "relative",
     paddingTop: 130,
     height: "90vh",
     display: "flex",
@@ -95,6 +102,7 @@ export default createStyles({
       },
     }
   },
+
   heroContentContainer: {
     marginLeft: "5%",
     marginRight: "5%",
@@ -122,6 +130,7 @@ export default createStyles({
       }
     }
   },
+
   heroTitle: {
     margin: 0,
     fontFamily: theme.typography.h1.fontFamily,
@@ -168,6 +177,7 @@ export default createStyles({
       marginLeft: "-9px"
     },
   },
+
   heroText: {
     [theme.breakpoints.down(414)]: {
       fontSize: 14
@@ -179,6 +189,7 @@ export default createStyles({
       fontSize: "1rem",
     }
   },
+
   button: {
     width: "100%",
     marginTop: theme.spacing(5),
@@ -187,5 +198,20 @@ export default createStyles({
       width: 300
     },
     [theme.breakpoints.up("xl")]: {}
+  },
+
+  vuodenMuseoLogo: {
+    zIndex: 1000,
+    maxWidth: 90,
+    position: "absolute",
+    bottom: 20,
+    right: 20,
+    [theme.breakpoints.up("sm")]: {
+      maxWidth: 180,
+    },
+    [theme.breakpoints.up("md")]: {
+      maxWidth: 260,
+    }
   }
+
 });

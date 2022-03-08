@@ -8,6 +8,7 @@ import styles from "../styles/hero-banner";
 import ReactHtmlParser, { convertNodeToElement } from "react-html-parser";
 import { DomElement } from "domhandler";
 import MetaTags from "react-meta-tags";
+import vuodenMuseo from "../resources/img/Vuoden_museo_finalisti_2022.png";
 
 /**
  * Interface representing component properties
@@ -230,6 +231,7 @@ class HeroBanner extends React.Component<Props, State> {
                 { ReactHtmlParser(post.content ? post.content.rendered || "" : "", { transform: this.transformContent }) }
             </div>
             { this.state.heroBanner }
+            <img className={ classes.vuodenMuseoLogo } src={ vuodenMuseo }/>
           </div>
         }
       </>
