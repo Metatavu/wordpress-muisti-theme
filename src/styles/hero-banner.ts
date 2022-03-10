@@ -195,9 +195,8 @@ export default createStyles({
     marginTop: theme.spacing(5),
     fontSize: "1rem",
     [theme.breakpoints.up(413)]: {
-      width: 300
-    },
-    [theme.breakpoints.up("xl")]: {}
+      width: "auto"
+    }
   },
 
   vuodenMuseoLogo: {
